@@ -22,6 +22,21 @@ model-driven control flow) → the neurosymbolic split and the 10-80-10 dial
 Ships with two visual reference pages: the 21 agent build patterns for GTM,
 and the 10-80-10 dial. Open `skills/pick-agent-pattern/reference/` in a browser.
 
+**Install:**
+
+```bash
+# personal (all projects)
+cp -r skills/pick-agent-pattern ~/.claude/skills/
+
+# or project-scoped
+cp -r skills/pick-agent-pattern /path/to/project/.claude/skills/
+```
+
+Invoke it with `/pick-agent-pattern`, or just describe the task:
+
+> "should this workflow be an agent?"
+> "what pattern should this agent use?"
+
 ### [`agent-anatomy`](skills/agent-anatomy/)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
