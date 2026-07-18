@@ -62,29 +62,21 @@ See [`examples/`](examples/) for the full walkthrough.
 
 ## Install
 
-Copy the skill folder you want into your Claude Code skills directory:
+Copy the skill folder into your Claude Code skills directory:
 
 ```bash
-# pick-agent-pattern — personal (all projects)
-cp -r skills/pick-agent-pattern ~/.claude/skills/
-
-# pick-agent-pattern — project-scoped
-cp -r skills/pick-agent-pattern /path/to/project/.claude/skills/
-
-# agent-anatomy — personal (all projects)
+# personal (all projects)
 cp -r skills/agent-anatomy ~/.claude/skills/
 
-# agent-anatomy — project-scoped
+# or project-scoped
 cp -r skills/agent-anatomy /path/to/project/.claude/skills/
 ```
 
 ## Use
 
-Invoke a skill by name (`/pick-agent-pattern`, `/agent-anatomy`), or just
-describe the task — the skill triggers itself:
+Invoke it with `/agent-anatomy`, or just describe the task — the skill triggers
+itself:
 
-> "should this workflow be an agent?"
-> "what pattern should this agent use?"
 > "organize this agent folder"
 > "scaffold a new agent that answers support tickets"
 
