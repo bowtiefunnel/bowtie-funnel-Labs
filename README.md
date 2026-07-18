@@ -4,6 +4,24 @@ Reusable skills for AI coding agents. One folder per skill under [`skills/`](ski
 
 ## Skills
 
+### [`pick-agent-pattern`](skills/pick-agent-pattern/)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Works with Claude Code](https://img.shields.io/badge/works%20with-Claude%20Code-6b46c1.svg)
+
+Pick the right build pattern for an AI agent BEFORE any code is written — and
+produce the explicit list of patterns NOT used, so over-engineering dies in
+planning instead of in review.
+
+Six gates, worked in order, stopping at the first that holds: buy vs build →
+does this need to be an agent at all → the flowchart test (deterministic vs
+model-driven control flow) → the neurosymbolic split and the 10-80-10 dial
+(neurosymbolic 10-80-10 · guarded judgment ~5-90-5 · deterministic pipeline
+0-100-0) → cross-cutting layers and graduated trust → the reliability floor.
+
+Ships with two visual reference pages: the 21 agent build patterns for GTM,
+and the 10-80-10 dial. Open `skills/pick-agent-pattern/reference/` in a browser.
+
 ### [`agent-anatomy`](skills/agent-anatomy/)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
