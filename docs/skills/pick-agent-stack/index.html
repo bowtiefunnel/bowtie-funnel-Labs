@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pick-agent-stack — Bowtie Funnel Resources</title>
+<meta name="description" content="A Claude Code skill that chooses the infrastructure that runs an AI agent — execution, LLM routing, evals, observability, state — per layer from the Headless GTM OS core stack, sized to the agent's tier.">
+<style>
+  :root {
+    --paper: #eef1f6; --surface: #ffffff; --ink: #161a22; --muted: #5b6472;
+    --line: #dbe1ea; --accent: #2f6fce; --accent-soft: #e4edfb; --good: #2f8f5b; --warn: #9a6b1a;
+    --radius: 10px;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --measure: 66ch;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper: #0e1116; --surface: #161b23; --ink: #e7ebf1; --muted: #98a2b1;
+      --line: #242c37; --accent: #5a9cf0; --accent-soft: #17263c; --good: #4bb37c; --warn: #c79a4e; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .sitenav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .sn-inner{max-width:940px;margin:0 auto;padding:11px clamp(20px,5vw,40px);display:flex;align-items:center;gap:6px;}
+  .sn-brand{font-family:var(--mono);font-weight:600;font-size:14px;color:var(--ink);text-decoration:none;letter-spacing:-.01em;margin-right:auto;white-space:nowrap;}
+  .sn-brand .slash{color:var(--accent);}
+  .sn-tab{font-family:var(--sans);font-size:13.5px;color:var(--ink);opacity:.55;text-decoration:none;padding:6px 10px;border-radius:7px;transition:opacity .12s,background .12s;}
+  .sn-tab:hover{opacity:1;background:color-mix(in srgb,var(--ink) 6%,transparent);}
+  .sn-tab.active{opacity:1;color:var(--accent);font-weight:600;}
+  @media(max-width:520px){.sn-brand{font-size:12px;}.sn-tab{padding:6px 7px;font-size:12.5px;}}
+
+  .wrap { max-width: 940px; margin: 0 auto; padding: clamp(28px, 6vw, 64px) clamp(20px, 5vw, 40px) 80px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+  .eyebrow a{color:var(--muted);text-decoration:none;} .eyebrow a:hover{color:var(--accent);}
+  .eyebrow .sep { color: var(--muted); margin: 0 8px; }
+  h1 { font-family: var(--mono); font-size: clamp(34px, 6.5vw, 58px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.02; margin: 0 0 20px; text-wrap: balance; }
+  h1 .slash { color: var(--accent); }
+  .lede { font-size: clamp(17px, 2.4vw, 20px); color: var(--muted); max-width: var(--measure); margin: 0 0 12px; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .chip { font-family: var(--mono); font-size: 12px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 100px; color: var(--muted); background: var(--surface); }
+  .chip.mit { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+
+  section { margin-top: clamp(48px, 8vw, 72px); }
+  h2 { font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0 0 22px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .prose { max-width: var(--measure); }
+  .prose p { margin: 0 0 16px; }
+  .prose code, .role code { font-family: var(--mono); color: var(--accent); font-size: 13.5px; }
+  .prose strong { color: var(--ink); }
+
+  ol.gates { counter-reset: g; list-style: none; margin: 0; padding: 0; max-width: var(--measure); }
+  ol.gates li { position: relative; padding: 4px 0 18px 44px; }
+  ol.gates li::before { counter-increment: g; content: counter(g); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+  ol.gates li b { color: var(--ink); }
+  ol.gates li span { color: var(--muted); }
+
+  table.layers { border-collapse: collapse; width: 100%; margin: 0; font-size: 14px; }
+  table.layers th { text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  table.layers td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.layers tr:last-child td { border-bottom: none; }
+  table.layers td.n { font-family: var(--mono); color: var(--accent); white-space: nowrap; }
+  table.layers td.comp { font-weight: 600; white-space: nowrap; }
+  .layerscroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 680px) { .cards { grid-template-columns: 1fr; } }
+  a.card { display:block; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; text-decoration:none; color:var(--ink); transition:border-color .15s,transform .15s; }
+  a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  a.card .tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: inline-block; padding: 4px 10px; background: var(--accent-soft); border-radius: 6px; margin-bottom: 14px; }
+  a.card h3 { font-size: 17px; margin: 0 0 8px; }
+  a.card p { margin: 0 0 14px; color: var(--muted); font-size: 14.5px; }
+  a.card .go { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+
+  ul.flags { max-width: var(--measure); margin: 0; padding: 0; list-style: none; }
+  ul.flags li { position: relative; padding: 0 0 14px 26px; color: var(--muted); }
+  ul.flags li::before { content: "▲"; position: absolute; left: 0; top: 1px; color: var(--warn); font-size: 12px; }
+  ul.flags li b { color: var(--ink); font-weight: 600; }
+
+  pre.code { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.7; margin: 0 0 16px; color: var(--ink); }
+  pre.code .c { color: var(--muted); }
+  pre.code .p { color: var(--accent); }
+  .use-note { color: var(--muted); margin: 16px 0 10px; }
+
+  footer { margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between; }
+  footer a { color: var(--accent); text-decoration: none; }
+  a:focus-visible, .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<nav class="sitenav"><div class="sn-inner">
+  <a class="sn-brand" href="/"><span class="slash">/</span>Bowtie&nbsp;Funnel&nbsp;Resources</a>
+  <a class="sn-tab active" href="/">Skills</a>
+  <a class="sn-tab" href="/tools/">Tools</a>
+</div></nav>
+
+<div class="wrap">
+  <p class="eyebrow"><a href="/">Skills</a> <span class="sep">/</span> pick-agent-stack</p>
+  <h1><span class="slash">/</span>pick-agent-stack</h1>
+  <p class="lede"><a href="/skills/pick-agent-pattern/" style="color:var(--accent)">pick-agent-pattern</a> decides an agent's shape. This skill decides <strong>what runs it</strong>.</p>
+  <p class="lede"><strong>pick-agent-stack selects the agent's infrastructure per layer</strong> — execution, LLM routing, evals, observability, state, secrets, ingress — from the Headless GTM OS core stack, sized to the agent's tier, with the layers <strong>NOT provisioned</strong> listed so simple agents stay simple.</p>
+
+  <div class="meta">
+    <span class="chip mit" tabindex="0">MIT</span>
+    <span class="chip" tabindex="0">Claude&nbsp;Code skill</span>
+    <span class="chip" tabindex="0">agent infrastructure</span>
+    <span class="chip" tabindex="0">tier-sized</span>
+  </div>
+
+  <section>
+    <h2>The layer map it walks</h2>
+    <div class="layerscroll"><table class="layers">
+      <thead><tr><th>#</th><th>Layer</th><th>Component</th></tr></thead>
+      <tbody>
+        <tr><td class="n">0</td><td>Secrets &amp; config</td><td class="comp">Infisical</td></tr>
+        <tr><td class="n">1</td><td>Code, review &amp; CI quality gate</td><td class="comp">GitHub + DeepEval</td></tr>
+        <tr><td class="n">2</td><td>Durable execution</td><td class="comp">Trigger.dev</td></tr>
+        <tr><td class="n">3</td><td>Webhook ingress &amp; ACK buffer</td><td class="comp">Svix</td></tr>
+        <tr><td class="n">4</td><td>Schema validation</td><td class="comp">Zod / Drizzle</td></tr>
+        <tr><td class="n">5</td><td>PII / secret redaction</td><td class="comp">CloakPipe</td></tr>
+        <tr><td class="n">6</td><td>LLM routing &amp; fallback</td><td class="comp">Vercel AI Gateway → OpenRouter</td></tr>
+        <tr><td class="n">7</td><td>LLM observability &amp; cost</td><td class="comp">Langfuse</td></tr>
+        <tr><td class="n">8</td><td>State, storage &amp; locks</td><td class="comp">Supabase</td></tr>
+        <tr><td class="n">9</td><td>Human-in-the-loop interface</td><td class="comp">Slack</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <ol class="gates">
+      <li><b>Start from the pattern verdict.</b> <span>If <code>pick-agent-pattern</code> hasn't run, run it first — the tier decides how much stack the agent earns. A report pipeline gets 3–4 layers; only client-facing decision loops get all ten.</span></li>
+      <li><b>Fetch the dataset live</b> <span>— <code>tools.json</code>, filtered to the Agent Infrastructure category. It evolves with the stack; memory is stale.</span></li>
+      <li><b>Walk the layer map top to bottom</b> <span>— pick the component for every layer the agent needs; record every layer it doesn't in the <b>layers NOT provisioned</b> list. That list is what stops platform creep.</span></li>
+      <li><b>Cross-check the hard constraints</b> <span>— long-running loops → Trigger.dev not serverless HTTP; Slack interactivity → sub-3-second ACK via Svix; payloads &gt; 3MB → pointer pattern via Supabase Storage; concurrent writes → Postgres advisory locks; client PII → CloakPipe + per-client isolation.</span></li>
+      <li><b>Output the verdict</b> <span>— per-layer stack table, layers NOT provisioned, and the $0-tier note (Infisical, Svix, and DeepEval are free at build scale).</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>The dataset it recalls</h2>
+    <div class="cards">
+      <a class="card" href="/tools/">
+        <span class="tag">browse</span>
+        <h3>The GTM tool stack, mapped</h3>
+        <p>The full table — the Agent Infrastructure category holds the core stack this skill selects from, badged separately from the 48-workflow teardown tools.</p>
+        <span class="go">Open the table →</span>
+      </a>
+      <a class="card" href="/tools/tools.json">
+        <span class="tag">endpoint</span>
+        <h3>tools.json</h3>
+        <p>The raw dataset — filter to <code>category === "Agent Infrastructure"</code> for the eleven core-stack components and their roles.</p>
+        <span class="go">Fetch the JSON →</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Red flags it kills</h2>
+    <ul class="flags">
+      <li><b>Ten layers for a tier-1 report agent</b> → the layer map is a menu, not a checklist.</li>
+      <li><b>No eval gate on prompt-heavy agents</b> → prompt regressions ship silently to production.</li>
+      <li><b>Slack interactivity without an ACK buffer</b> → every LLM call over 3 seconds shows <code>dispatch_failed</code>.</li>
+      <li><b>Raw scraped HTML through task triggers</b> → 3MB payload cap; store first, pass the pointer.</li>
+      <li><b>Visual canvas tools for multi-engineer agents</b> → canvases don't merge in git; code-first does.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Install &amp; use</h2>
+    <pre class="code"><span class="c"># copy the skill into your Claude Code skills directory</span>
+cp -r skills/pick-agent-stack ~/.claude/skills/</pre>
+    <p class="prose use-note">Then invoke it directly, or just describe the task:</p>
+    <pre class="code"><span class="p">/pick-agent-stack</span>
+
+<span class="c"># or, in plain language —</span>
+<span class="c"># "what should run this lead-scoring agent?"</span>
+<span class="c"># "set up the stack for a Slack-interactive agent"</span>
+<span class="c"># "does this agent need Langfuse and DeepEval?"</span></pre>
+  </section>
+
+  <footer>
+    <span>Bowtie Funnel Resources · MIT</span>
+    <span><a href="https://github.com/bowtiefunnel/bowtie-funnel-resources">github.com/bowtiefunnel</a></span>
+  </footer>
+</div>
+</body>
+</html>
