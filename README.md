@@ -129,6 +129,38 @@ Invoke it with `/pick-gtm-stack`, or just describe the task:
 > "what tools should I use for a cold outbound play?"
 > "build a stack for de-anonymizing site visitors"
 
+### [`pick-agent-stack`](skills/pick-agent-stack/)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Works with Claude Code](https://img.shields.io/badge/works%20with-Claude%20Code-6b46c1.svg)
+
+Choose the infrastructure that runs an AI agent — execution engine, LLM routing,
+evals, observability, state, secrets, ingress — selected per layer from the
+Bowtie Funnel core stack (the Headless GTM OS) instead of guessed from training data.
+
+The companion to `pick-agent-pattern`: the pattern skill decides the agent's
+*shape*, this one decides *what runs it*. It recalls the Agent Infrastructure
+entries from [labs.bowtiefunnel.com/tools/tools.json](https://labs.bowtiefunnel.com/tools/tools.json),
+walks a ten-layer topology (Infisical → GitHub/DeepEval → Trigger.dev → Svix →
+Zod/Drizzle → CloakPipe → Vercel AI Gateway/OpenRouter → Langfuse → Supabase →
+Slack), sizes the stack to the agent's tier, and outputs the layers **NOT
+provisioned** — so a simple report agent doesn't get a ten-layer platform.
+
+**Install:**
+
+```bash
+# personal (all projects)
+cp -r skills/pick-agent-stack ~/.claude/skills/
+
+# or project-scoped
+cp -r skills/pick-agent-stack /path/to/project/.claude/skills/
+```
+
+Invoke it with `/pick-agent-stack`, or just describe the task:
+
+> "what should run this lead-scoring agent?"
+> "set up the stack for a Slack-interactive agent"
+
 ## Tools
 
 Reusable runtime code (not skills) — copy the file, import it.
