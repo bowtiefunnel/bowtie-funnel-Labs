@@ -1,6 +1,10 @@
 # Bowtie Funnel Resources
 
-Reusable skills for AI coding agents. One folder per skill under [`skills/`](skills/).
+Reusable skills and tools for AI coding agents. One folder per skill under
+[`skills/`](skills/), one per tool under [`tools/`](tools/).
+
+> **Adding a skill or tool?** Follow [CONTRIBUTING.md](CONTRIBUTING.md) — the folder
+> layout, registration, verify, and ship steps.
 
 ## Skills
 
