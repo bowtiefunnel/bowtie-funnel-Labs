@@ -125,12 +125,22 @@
 @media(prefers-color-scheme:dark){.sn-brand .sn-logo-light{display:none;}.sn-brand .sn-logo-dark{display:block;}}
 :root[data-theme="light"] .sn-brand .sn-logo-light{display:block;} :root[data-theme="light"] .sn-brand .sn-logo-dark{display:none;}
 :root[data-theme="dark"] .sn-brand .sn-logo-light{display:none;} :root[data-theme="dark"] .sn-brand .sn-logo-dark{display:block;}
-.sn-cta{margin-left:auto;background:#6B29F7;color:#fff;font-family:'Roboto',system-ui,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:7px 16px;border-radius:6px;white-space:nowrap;transition:background .2s;}
+.sn-cta{background:#6B29F7;color:#fff;font-family:'Roboto',system-ui,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:7px 16px;border-radius:6px;white-space:nowrap;transition:background .2s;}
 .sn-cta:hover{background:#5a20e0;}
 .sn-tab{font-family:'Roboto',system-ui,sans-serif;font-size:14px;font-weight:500;color:var(--ink);opacity:.6;text-decoration:none;padding:6px 12px;border-radius:6px;transition:opacity .12s,background .12s;}
 .sn-tab:hover{opacity:1;background:color-mix(in srgb,var(--ink) 6%,transparent);}
 .sn-tab.active{opacity:1;color:#6B29F7;font-weight:700;}
 @media(max-width:520px){.sn-brand img{height:22px;}.sn-tab{padding:6px 7px;font-size:12.5px;}.sn-cta{padding:6px 10px;font-size:12px;}}
+.sn-inner{position:relative;}
+.sn-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.sn-burger{display:none;background:none;border:none;cursor:pointer;font-size:22px;line-height:1;color:var(--ink);padding:4px 8px;margin-left:auto;}
+@media(max-width:640px){
+  .sn-burger{display:block;}
+  .sn-right{position:absolute;top:100%;right:0;left:0;flex-direction:column;align-items:stretch;gap:4px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 10px 24px rgba(0,0,0,.10);padding:10px;display:none;margin-left:0;}
+  .sn-right.sn-open{display:flex;}
+  .sn-right .sn-tab,.sn-right .sn-labs{padding:11px 12px;font-size:15px;}
+  .sn-right .sn-cta{text-align:center;padding:11px;}
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -140,10 +150,13 @@
     <img class="sn-logo-light" src="https://bowtiefunnel.com/wp-content/uploads/2026/05/Bowtie_funnel_2025.webp" alt="Bowtie Funnel">
     <img class="sn-logo-dark" src="https://bowtiefunnel.com/wp-content/uploads/2026/05/mainLogo.png" alt="Bowtie Funnel">
   </a>
-  <a class="sn-labs" href="https://labs.bowtiefunnel.com/">Labs</a>
-  <a class="sn-tab" href="/">Skills</a>
-  <a class="sn-tab active" href="/tools/">Tools</a>
-  <a class="sn-cta" href="https://bowtiefunnel.com/consultation/">Book Strategy Call</a>
+  <div class="sn-right">
+    <a class="sn-labs" href="https://labs.bowtiefunnel.com/">Labs</a>
+    <a class="sn-tab" href="/">Skills</a>
+    <a class="sn-tab active" href="/tools/">Tools</a>
+    <a class="sn-cta" href="https://bowtiefunnel.com/consultation/">Book Strategy Call</a>
+  </div>
+  <button class="sn-burger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
 </div></nav>
 
 <div class="wrap">
@@ -304,5 +317,6 @@ document.getElementById('foot').innerHTML =
   "AI agents: the full dataset lives at <a href='tools.json'>labs.bowtiefunnel.com/tools/tools.json</a>.";
 apply();
 </script>
+<script>(function(){var b=document.querySelector('.sn-burger'),r=document.querySelector('.sn-right');if(!b||!r)return;function set(o){r.classList.toggle('sn-open',o);b.setAttribute('aria-expanded',o);b.innerHTML=o?'\u2715':'\u2630';}b.addEventListener('click',function(){set(!r.classList.contains('sn-open'));});r.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});})();</script>
 </body>
 </html>
