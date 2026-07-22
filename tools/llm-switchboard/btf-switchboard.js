@@ -5,7 +5,7 @@
  * Sits BEFORE OpenRouter: it only picks the model ID; you make the call.
  *
  * Heuristic port tuned for GTM/agent prompts — boundaries and keyword lists
- * are ours, not a byte-exact clone of any npm package. Correct moonshotai/ slugs.
+ * are ours, not a byte-exact clone of any npm package. Slugs verified on OpenRouter.
  *
  * Browser + Node (ESM). No dependencies.
  *
@@ -34,20 +34,21 @@ export const DIM = {
 export const BOUND = { simpleMedium:-0.03, mediumComplex:0.08, complexReasoning:0.20 };
 export const CONF  = { steep:45, thresh:0.55, defaultTier:"MEDIUM", forceComplexTokens:100000 };
 
-// tier → model. Free open-weight for workflow miles, frontier for thinking.
+// tier → model. Cheap Gemini for workflow miles, frontier Claude for thinking.
+// All slugs verified live on OpenRouter.
 export const DEFAULT_TABLES = {
   std: {
-    SIMPLE:    "google/gemma-3-27b-it:free",
-    MEDIUM:    "meta-llama/llama-3.3-70b-instruct:free",
-    COMPLEX:   "anthropic/claude-sonnet-4.6",
-    REASONING: "moonshotai/kimi-k3",
+    SIMPLE:    "google/gemini-2.5-flash-lite",  // ~$0.10/$0.40 — narrate / classify
+    MEDIUM:    "google/gemini-3-flash-preview", // ~$0.50/$3    — standard tasks
+    COMPLEX:   "anthropic/claude-sonnet-5",     // $2/$10, 1M ctx — analysis / drafting
+    REASONING: "anthropic/claude-opus-4.8",     // $5/$25, 1M ctx — deep reasoning
   },
-  // agentic / tool-loop work → proven callers, not free
+  // agentic / tool-loop work → premium callers
   ag: {
-    SIMPLE:    "moonshotai/kimi-k2.5",
-    MEDIUM:    "anthropic/claude-haiku-4.5",
-    COMPLEX:   "moonshotai/kimi-k3",
-    REASONING: "anthropic/claude-opus-4.6",
+    SIMPLE:    "google/gemini-3-flash-preview",
+    MEDIUM:    "anthropic/claude-sonnet-5",
+    COMPLEX:   "anthropic/claude-opus-4.8",
+    REASONING: "anthropic/claude-fable-5",      // $10/$50, 1M ctx — premium long-horizon
   },
 };
 

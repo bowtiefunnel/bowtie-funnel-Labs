@@ -95,6 +95,32 @@ itself:
 > "organize this agent folder"
 > "scaffold a new agent that answers support tickets"
 
+## Tools
+
+Reusable runtime code (not skills) — copy the file, import it.
+
+### [`llm-switchboard`](tools/llm-switchboard/)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Zero dependencies](https://img.shields.io/badge/dependencies-0-green.svg)
+
+A ~130-line local LLM prompt router that sits **before OpenRouter**. It classifies a
+prompt in <1ms, picks the model, and hands the ID to your OpenRouter call — cheap
+Gemini for the workflow miles, frontier Claude (Sonnet 5 / Opus 4.8 / Fable 5) for
+thinking. `prompt in → { model, tier } out`. No network, zero dependencies, browser + Node.
+
+**Install & use:**
+
+```bash
+cp tools/llm-switchboard/btf-switchboard.js /path/to/project/lib/
+```
+
+```js
+import { route } from "./btf-switchboard.js";
+const { model, tier } = route(prompt);       // local, <1ms
+const res = await openrouter(model, prompt);  // the paid call
+```
+
 ## Landing page
 
 A standalone page lives at [`docs/index.html`](docs/index.html), served via
