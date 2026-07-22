@@ -56,7 +56,7 @@
 
   .tablecard { background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
   .scroll { overflow-x:auto; }
-  table { border-collapse:collapse; width:100%; min-width:1000px; }
+  table { border-collapse:collapse; width:100%; min-width:1160px; }
   thead th { position:sticky; top:0; z-index:3; background:var(--surface-2); color:var(--ink-faint);
     text-align:left; font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700;
     padding:13px 16px; border-bottom:1px solid var(--line-strong); white-space:nowrap; }
@@ -64,10 +64,14 @@
   tbody tr:last-child td { border-bottom:none; }
   tbody tr:hover td { background:var(--surface-2); }
 
-  .c-tool { width:16%; min-width:160px; }
-  .c-desc { width:26%; min-width:220px; }
-  .c-does { width:30%; min-width:260px; }
-  .c-gtm  { width:28%; min-width:240px; }
+  .c-tool { width:15%; min-width:160px; }
+  .c-desc { width:24%; min-width:210px; }
+  .c-does { width:26%; min-width:230px; }
+  .c-gtm  { width:21%; min-width:200px; }
+  .c-life { width:14%; min-width:150px; }
+
+  .stage { display:inline-block; font-size:10.5px; font-weight:600; padding:2px 8px; margin:0 4px 4px 0;
+    border-radius:999px; white-space:nowrap; border:1px solid transparent; }
 
   .tool-name { font-weight:650; font-size:14.5px; margin:0 0 6px; letter-spacing:-.01em; }
   .cat { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600;
@@ -133,7 +137,7 @@
   <header>
     <div class="eyebrow">GTM tool stack</div>
     <h1>76 GTM tools, mapped by what they do</h1>
-    <p class="lede">Every tool in the Bowtie Funnel GTM stack — sorted into the job it does in a go-to-market motion. For each: what it is, what it does, and its GTM impact. Click a category to filter. The <b>× N</b> under each tool is how many of our 48 mapped workflows use it.</p>
+    <p class="lede">Every tool in the Bowtie Funnel GTM stack — sorted into the job it does in a go-to-market motion. For each: what it is, what it does, its GTM impact, and where it sits in the customer lifecycle — awareness, education, selection, mutual commit, onboarding, retention, expansion. Click a category to filter. The <b>× N</b> under each tool is how many of our 48 mapped workflows use it.</p>
   </header>
 
   <div class="legend" id="legend">
@@ -153,6 +157,7 @@
         <th class="c-desc">Description</th>
         <th class="c-does">What it does</th>
         <th class="c-gtm">GTM impact</th>
+        <th class="c-life">Lifecycle stage</th>
       </tr></thead>
       <tbody id="tbody"></tbody>
     </table>
@@ -205,9 +210,15 @@ const CATS = {
   "RevOps & Analytics":  "#6b7688"
 };
 
+// bowtie lifecycle stages, in funnel order, with chip colors
+const STAGES={
+  "Awareness":"#3b82c4","Education":"#8256c4","Selection":"#c99a1e","Mutual commit":"#c74b6b",
+  "Onboarding":"#0f9a86","Retention":"#1f9d6b","Expansion":"#d97a2b"
+};
+
 // single source of truth: tools.json — the same file AI agents fetch
 const DATA=(await fetch('tools.json').then(r=>r.json())).tools
-  .map(t=>({n:t.name,c:t.category,x:t.workflows_used,d:t.description,w:t.what_it_does,g:t.gtm_impact}));
+  .map(t=>({n:t.name,c:t.category,x:t.workflows_used,d:t.description,w:t.what_it_does,g:t.gtm_impact,l:t.lifecycle||[]}));
 
 const ORDER = Object.keys(CATS);
 DATA.sort((a,b)=> b.x-a.x || a.n.localeCompare(b.n));
@@ -230,6 +241,11 @@ DATA.forEach(t=>{
   tr.appendChild(el('td','c-desc',`<div class="desc">${t.d}</div>`));
   tr.appendChild(el('td','c-does',`<div class="does">${t.w}</div>`));
   tr.appendChild(el('td','c-gtm',`<div class="gtm">${t.g}</div>`));
+  const chips = t.l.length===Object.keys(STAGES).length
+    ? `<span class="stage" style="color:var(--ink-soft);border-color:var(--line-strong)">All stages</span>`
+    : t.l.map(s=>{const sc=STAGES[s]||"#6b7688";
+        return `<span class="stage" style="background:${sc}1f;color:${sc}">${s}</span>`;}).join('');
+  tr.appendChild(el('td','c-life',chips));
   tbody.appendChild(tr);
 });
 
