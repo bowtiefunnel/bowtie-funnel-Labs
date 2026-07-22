@@ -1,5 +1,6 @@
 {
   "name": "bowtie-funnel",
+  "description": "Bowtie Funnel's GTM agent skills for Claude Code — playbooks repurposed from the Growth (Verbiflow) MCP, mapped to the customer lifecycle, plus the MCP server itself.",
   "owner": { "name": "Bowtie Funnel", "url": "https://labs.bowtiefunnel.com" },
   "plugins": [
     {
