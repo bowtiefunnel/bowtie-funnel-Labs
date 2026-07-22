@@ -50,21 +50,24 @@ Runs in browser and Node (ESM, zero dependencies).
 
 ## 🚦 Tiers → models
 
-Every prompt lands in one of four tiers. The default table (edit freely) keeps the
-cheap workflow miles on Gemini and reserves frontier Claude for thinking.
+Every prompt lands in one of four tiers. Each tier is an **ordered list of options**,
+mirroring the BTF RevOps/Marketing agent pages' "model options (recommended in bold)":
+`options[0]` is the bold pick, and every tier includes a real **free** OpenRouter model.
 
-| Tier | Task shape | Standard model | Agentic model |
+| Tier | Page section (split) | Bold pick | Free option |
 | :--- | :--- | :--- | :--- |
-| 🟢 **SIMPLE** | narrate, classify, route | `google/gemini-2.5-flash-lite` | `google/gemini-3-flash-preview` |
-| 🟡 **MEDIUM** | summaries, standard drafting | `google/gemini-3-flash-preview` | `anthropic/claude-sonnet-5` |
-| 🔴 **COMPLEX** | analysis, code, long context | `anthropic/claude-sonnet-5` | `anthropic/claude-opus-4.8` |
-| 🧠 **REASONING** | proofs, multi-step logic | `anthropic/claude-opus-4.8` | `anthropic/claude-fable-5` |
+| 🟢 **SIMPLE** | pipeline (0-100-0) | `google/gemini-2.5-flash-lite` | `google/gemma-4-31b-it:free` |
+| 🟡 **MEDIUM** | guarded judgment (~5-90-5) | `google/gemini-2.5-flash` | `openai/gpt-oss-20b:free` |
+| 🔴 **COMPLEX** | drafting / analysis (~5-45-50) | `anthropic/claude-sonnet-5` | `nvidia/nemotron-3-ultra-550b-a55b:free` |
+| 🧠 **REASONING** | neurosymbolic (10-80-10) | `anthropic/claude-sonnet-5` | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free` |
 
-The **agentic** table kicks in automatically when the router detects a multi-step
-tool prompt (file ops, `deploy`, `step 1… step 2`, `until it passes`), or when you
-force it. Tool-loop reliability beats price there — so it climbs to premium Claude.
+Full option lists also carry the pages' other picks — GPT-5 / GPT-5 mini / GPT-5 nano,
+Gemini 3 Pro, Claude Haiku 4.5, Opus 4.8. The **agentic** table (auto-selected on
+multi-step tool prompts, or forced) leads with proven callers — *"tool-loop reliability
+→ Claude Sonnet 5,"* per the pages.
 
-All slugs verified live on OpenRouter.
+> ⚠️ Free models rotate on OpenRouter (slugs appear and vanish) and carry shared daily
+> rate limits. Verified live at time of writing — re-check before relying on any `:free` slug.
 
 ---
 
@@ -74,7 +77,7 @@ All slugs verified live on OpenRouter.
 import { route } from "./btf-switchboard.js";
 
 const { model, tier } = route("Prove that sqrt(2) is irrational, step by step.");
-// → { model: "anthropic/claude-opus-4.8", tier: "REASONING", confidence: 0.88, ... }
+// → { model: "anthropic/claude-sonnet-5", tier: "REASONING", confidence: 0.88, ... }
 
 const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
   method: "POST",
@@ -88,11 +91,23 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 ```js
 route(prompt, {
   agentic: true,          // force the agentic table for this prompt
+  preferFree: true,       // return the tier's free model instead of the bold pick
   tables: MY_OWN_TABLE,   // { std: {...}, ag: {...} } to override the model map
 });
 ```
 
-`route()` returns the classification too: `{ tier, rawTier, confidence, ambiguous, signals, agentic, tokens }`.
+`route()` returns the full picture:
+
+```js
+{
+  model,       // the chosen slug (bold pick, or free if preferFree)
+  options,     // the whole ordered list for that tier
+  free,        // the free slug in that tier, or null
+  tier, rawTier, confidence, ambiguous, signals, agentic, tokens
+}
+```
+
+Each tier value may be a single slug or an ordered list; `options[0]` is the bold pick.
 Use `classify(prompt)` if you only want the tier.
 
 ---

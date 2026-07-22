@@ -105,9 +105,10 @@ Reusable runtime code (not skills) — copy the file, import it.
 ![Zero dependencies](https://img.shields.io/badge/dependencies-0-green.svg)
 
 A ~130-line local LLM prompt router that sits **before OpenRouter**. It classifies a
-prompt in <1ms, picks the model, and hands the ID to your OpenRouter call — cheap
-Gemini for the workflow miles, frontier Claude (Sonnet 5 / Opus 4.8 / Fable 5) for
-thinking. `prompt in → { model, tier } out`. No network, zero dependencies, browser + Node.
+prompt in <1ms, picks the model, and hands the ID to your OpenRouter call — Gemini /
+free open-weight for the workflow miles, frontier Claude / GPT-5 / Gemini 3 Pro for
+thinking — matching the RevOps & Marketing agent pages, with a free model in every
+tier. `prompt in → { model, tier } out`. No network, zero dependencies, browser + Node.
 
 **Install & use:**
 
