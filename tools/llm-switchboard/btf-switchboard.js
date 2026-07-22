@@ -34,21 +34,23 @@ export const DIM = {
 export const BOUND = { simpleMedium:-0.03, mediumComplex:0.08, complexReasoning:0.20 };
 export const CONF  = { steep:45, thresh:0.55, defaultTier:"MEDIUM", forceComplexTokens:100000 };
 
-// tier → model. Cheap Gemini for workflow miles, frontier Claude for thinking.
-// All slugs verified live on OpenRouter.
+// tier → ordered model options, mirroring the RevOps/Marketing agent pages'
+// "model options (recommended in bold)". options[0] is the bold pick; each tier
+// includes a real free OpenRouter model as an alternative. All slugs verified live.
+// Map: pipeline→SIMPLE, guarded-judgment→MEDIUM, drafting/analysis→COMPLEX, neurosymbolic→REASONING.
 export const DEFAULT_TABLES = {
   std: {
-    SIMPLE:    "google/gemini-2.5-flash-lite",  // ~$0.10/$0.40 — narrate / classify
-    MEDIUM:    "google/gemini-3-flash-preview", // ~$0.50/$3    — standard tasks
-    COMPLEX:   "anthropic/claude-sonnet-5",     // $2/$10, 1M ctx — analysis / drafting
-    REASONING: "anthropic/claude-opus-4.8",     // $5/$25, 1M ctx — deep reasoning
+    SIMPLE:    ["google/gemini-2.5-flash-lite", "openai/gpt-5-nano", "google/gemma-4-31b-it:free"],
+    MEDIUM:    ["google/gemini-2.5-flash", "anthropic/claude-haiku-4.5", "openai/gpt-5-mini", "openai/gpt-oss-20b:free"],
+    COMPLEX:   ["anthropic/claude-sonnet-5", "openai/gpt-5", "google/gemini-3.1-pro-preview", "nvidia/nemotron-3-ultra-550b-a55b:free"],
+    REASONING: ["anthropic/claude-sonnet-5", "google/gemini-3.1-pro-preview", "openai/gpt-5", "anthropic/claude-opus-4.8", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"],
   },
-  // agentic / tool-loop work → premium callers
+  // agentic / tool-loop work → proven callers first (pages: "tool-loop reliability → Claude")
   ag: {
-    SIMPLE:    "google/gemini-3-flash-preview",
-    MEDIUM:    "anthropic/claude-sonnet-5",
-    COMPLEX:   "anthropic/claude-opus-4.8",
-    REASONING: "anthropic/claude-fable-5",      // $10/$50, 1M ctx — premium long-horizon
+    SIMPLE:    ["anthropic/claude-haiku-4.5", "openai/gpt-5-mini", "google/gemini-2.5-flash", "openai/gpt-oss-20b:free"],
+    MEDIUM:    ["anthropic/claude-haiku-4.5", "anthropic/claude-sonnet-5", "openai/gpt-5-mini"],
+    COMPLEX:   ["anthropic/claude-sonnet-5", "openai/gpt-5", "google/gemini-3.1-pro-preview"],
+    REASONING: ["anthropic/claude-sonnet-5", "openai/gpt-5", "google/gemini-3.1-pro-preview", "anthropic/claude-opus-4.8"],
   },
 };
 
@@ -91,16 +93,21 @@ export function classify(text){
 /**
  * Route a prompt to a model ID.
  * @param {string} prompt
- * @param {{agentic?:boolean, tables?:typeof DEFAULT_TABLES}} [opts]
- * @returns {{model:string, tier:string, useAgentic:boolean, ...classifyResult}}
+ * @param {{agentic?:boolean, preferFree?:boolean, tables?:typeof DEFAULT_TABLES}} [opts]
+ * @returns {{model:string, options:string[], free:string|null, tier:string, useAgentic:boolean, ...classifyResult}}
  */
 export function route(prompt, opts = {}){
-  const { agentic = false, tables = DEFAULT_TABLES } = opts;
+  const { agentic = false, preferFree = false, tables = DEFAULT_TABLES } = opts;
   const r = classify(prompt);
   let tier = r.ambiguous ? CONF.defaultTier : r.tier;
   if (r.tokens > CONF.forceComplexTokens) tier = "COMPLEX";
   const useAgentic = agentic || r.agentic;
-  const model = (useAgentic ? tables.ag : tables.std)[tier];
+
+  const entry = (useAgentic ? tables.ag : tables.std)[tier];
+  const options = Array.isArray(entry) ? entry : [entry];   // accept string or list
+  const free = options.find(isFree) || null;
+  const model = (preferFree && free) ? free : options[0];   // bold pick, unless preferFree
+
   // ...r first so the RESOLVED tier/model win over the raw classify fields
-  return { ...r, rawTier: r.tier, tier, model, useAgentic };
+  return { ...r, rawTier: r.tier, tier, model, options, free, useAgentic };
 }
