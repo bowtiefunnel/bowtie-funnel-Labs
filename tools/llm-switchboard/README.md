@@ -62,9 +62,11 @@ mirroring the BTF RevOps/Marketing agent pages' "model options (recommended in b
 | 🧠 **REASONING** | neurosymbolic (10-80-10) | `anthropic/claude-sonnet-5` | `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free` |
 
 Full option lists also carry the pages' other picks — GPT-5 / GPT-5 mini / GPT-5 nano,
-Gemini 3 Pro, Claude Haiku 4.5, Opus 4.8. The **agentic** table (auto-selected on
-multi-step tool prompts, or forced) leads with proven callers — *"tool-loop reliability
-→ Claude Sonnet 5,"* per the pages.
+Gemini 3 Pro, Claude Haiku 4.5, Opus 4.8 — plus **Kimi K3** in the agentic and reasoning
+tiers (paid, ~$3/$15, 1M ctx; a strong long-horizon tool-use model — not free on
+OpenRouter, so it never appears in the `free` slot). The **agentic** table (auto-selected
+on multi-step tool prompts, or forced) leads with proven callers — *"tool-loop
+reliability → Claude Sonnet 5,"* per the pages.
 
 > ⚠️ Free models rotate on OpenRouter (slugs appear and vanish) and carry shared daily
 > rate limits. Verified live at time of writing — re-check before relying on any `:free` slug.

@@ -43,14 +43,15 @@ export const DEFAULT_TABLES = {
     SIMPLE:    ["google/gemini-2.5-flash-lite", "openai/gpt-5-nano", "google/gemma-4-31b-it:free"],
     MEDIUM:    ["google/gemini-2.5-flash", "anthropic/claude-haiku-4.5", "openai/gpt-5-mini", "openai/gpt-oss-20b:free"],
     COMPLEX:   ["anthropic/claude-sonnet-5", "openai/gpt-5", "google/gemini-3.1-pro-preview", "nvidia/nemotron-3-ultra-550b-a55b:free"],
-    REASONING: ["anthropic/claude-sonnet-5", "google/gemini-3.1-pro-preview", "openai/gpt-5", "anthropic/claude-opus-4.8", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"],
+    REASONING: ["anthropic/claude-sonnet-5", "google/gemini-3.1-pro-preview", "openai/gpt-5", "anthropic/claude-opus-4.8", "moonshotai/kimi-k3", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"],
   },
-  // agentic / tool-loop work → proven callers first (pages: "tool-loop reliability → Claude")
+  // agentic / tool-loop work → proven callers first (pages: "tool-loop reliability → Claude").
+  // Kimi K3 sits here: strong long-horizon tool use, 1M ctx (paid, ~$3/$15).
   ag: {
     SIMPLE:    ["anthropic/claude-haiku-4.5", "openai/gpt-5-mini", "google/gemini-2.5-flash", "openai/gpt-oss-20b:free"],
     MEDIUM:    ["anthropic/claude-haiku-4.5", "anthropic/claude-sonnet-5", "openai/gpt-5-mini"],
-    COMPLEX:   ["anthropic/claude-sonnet-5", "openai/gpt-5", "google/gemini-3.1-pro-preview"],
-    REASONING: ["anthropic/claude-sonnet-5", "openai/gpt-5", "google/gemini-3.1-pro-preview", "anthropic/claude-opus-4.8"],
+    COMPLEX:   ["anthropic/claude-sonnet-5", "moonshotai/kimi-k3", "openai/gpt-5", "google/gemini-3.1-pro-preview"],
+    REASONING: ["anthropic/claude-sonnet-5", "moonshotai/kimi-k3", "openai/gpt-5", "google/gemini-3.1-pro-preview", "anthropic/claude-opus-4.8"],
   },
 };
 
