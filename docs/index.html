@@ -24,12 +24,18 @@
   /* ---- shared site nav ---- */
   .sitenav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
   .sn-inner{max-width:940px;margin:0 auto;padding:11px clamp(20px,5vw,40px);display:flex;align-items:center;gap:6px;}
-  .sn-brand{font-family:var(--mono);font-weight:600;font-size:14px;color:var(--ink);text-decoration:none;letter-spacing:-.01em;margin-right:auto;white-space:nowrap;}
-  .sn-brand .slash{color:var(--accent);}
+  .sn-brand{display:flex;align-items:center;text-decoration:none;}
+  .sn-brand img{height:26px;width:auto;display:block;}
+  .sn-logo-dark{display:none;}
+  @media(prefers-color-scheme:dark){.sn-logo-light{display:none;}.sn-logo-dark{display:block;}}
+  :root[data-theme="light"] .sn-logo-light{display:block;} :root[data-theme="light"] .sn-logo-dark{display:none;}
+  :root[data-theme="dark"] .sn-logo-light{display:none;} :root[data-theme="dark"] .sn-logo-dark{display:block;}
+  .sn-cta{margin-left:auto;background:var(--accent);color:#fff;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;text-decoration:none;padding:7px 14px;border-radius:8px;white-space:nowrap;transition:opacity .12s;}
+  .sn-cta:hover{opacity:.9;}
   .sn-tab{font-family:var(--sans);font-size:13.5px;color:var(--ink);opacity:.55;text-decoration:none;padding:6px 10px;border-radius:7px;transition:opacity .12s,background .12s;}
   .sn-tab:hover{opacity:1;background:color-mix(in srgb,var(--ink) 6%,transparent);}
   .sn-tab.active{opacity:1;color:var(--accent);font-weight:600;}
-  @media(max-width:520px){.sn-brand{font-size:12px;}.sn-tab{padding:6px 7px;font-size:12.5px;}}
+  @media(max-width:520px){.sn-brand img{height:22px;}.sn-tab{padding:6px 7px;font-size:12.5px;}.sn-cta{padding:6px 10px;font-size:12px;}}
 
   .wrap { max-width:940px; margin:0 auto; padding:clamp(28px,6vw,64px) clamp(20px,5vw,40px) 80px; }
   .eyebrow { font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 18px; }
@@ -68,9 +74,13 @@
 <body>
 
 <nav class="sitenav"><div class="sn-inner">
-  <a class="sn-brand" href="/"><span class="slash">/</span>Bowtie&nbsp;Funnel&nbsp;Resources</a>
+  <a class="sn-brand" href="https://bowtiefunnel.com/" aria-label="Bowtie Funnel">
+    <img class="sn-logo-light" src="https://bowtiefunnel.com/wp-content/uploads/2026/05/Bowtie_funnel_2025.webp" alt="Bowtie Funnel">
+    <img class="sn-logo-dark" src="https://bowtiefunnel.com/wp-content/uploads/2026/05/mainLogo.png" alt="Bowtie Funnel">
+  </a>
   <a class="sn-tab active" href="/">Skills</a>
   <a class="sn-tab" href="/tools/">Tools</a>
+  <a class="sn-cta" href="https://bowtiefunnel.com/consultation/">Book Strategy Call</a>
 </div></nav>
 
 <div class="wrap">
