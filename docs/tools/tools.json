@@ -1,6 +1,6 @@
 {
  "title": "Bowtie Funnel GTM tool stack",
- "description": "Every tool named across 48 mapped GTM workflows — what each is, what it does, and its go-to-market impact. Categories reflect each tool's primary job; descriptions are Bowtie Funnel's interpretation, not vendor copy.",
+ "description": "Every tool named across 48 mapped GTM workflows — what each is, what it does, and its go-to-market impact. Categories reflect each tool's primary job; descriptions are Bowtie Funnel's interpretation, not vendor copy. Each tool is tagged with the customer-lifecycle stages it serves: awareness, education, selection, mutual commit, onboarding, retention, expansion.",
  "source": "https://labs.bowtiefunnel.com/tools/",
  "workflows_mapped": 48,
  "tool_count": 76,
@@ -11,7 +11,11 @@
    "workflows_used": 32,
    "description": "GTM data-orchestration and enrichment platform built around a spreadsheet-style workbook, with 100+ integrated data providers and native AI agents for research and qualification.",
    "what_it_does": "Aggregates, enriches, AI-qualifies and routes account/contact data from 100+ sources in one spreadsheet-like workbook.",
-   "gtm_impact": "The central engine nearly every play runs through — where raw lists become CRM-ready pipeline."
+   "gtm_impact": "The central engine nearly every play runs through — where raw lists become CRM-ready pipeline.",
+   "lifecycle": [
+    "Awareness",
+    "Selection"
+   ]
   },
   {
    "name": "HubSpot",
@@ -19,7 +23,16 @@
    "workflows_used": 25,
    "description": "All-in-one CRM and marketing-automation platform spanning sales, marketing, service and ops hubs — the default revenue stack for mid-market B2B teams.",
    "what_it_does": "Stores accounts, contacts and deals and automates lead routing, scoring, and lifecycle workflows.",
-   "gtm_impact": "System of record for the entire revenue motion; where scores and stages live."
+   "gtm_impact": "System of record for the entire revenue motion; where scores and stages live.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Instantly",
@@ -27,7 +40,10 @@
    "workflows_used": 24,
    "description": "Cold-email sending platform built for volume — unlimited connected inboxes, automated warmup, and deliverability tooling under one roof.",
    "what_it_does": "Runs multi-inbox cold-email sequences with warmup and deliverability tooling.",
-   "gtm_impact": "Scales cold email volume without burning sender domains."
+   "gtm_impact": "Scales cold email volume without burning sender domains.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "HeyReach",
@@ -35,7 +51,10 @@
    "workflows_used": 20,
    "description": "LinkedIn outreach-automation platform built for agencies and teams — rotates sends across multiple LinkedIn seats from a single campaign and unified inbox.",
    "what_it_does": "Runs connection + message sequences across multiple LinkedIn accounts within safe limits.",
-   "gtm_impact": "Scales LinkedIn outbound without triggering bans."
+   "gtm_impact": "Scales LinkedIn outbound without triggering bans.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "ChatGPT",
@@ -43,7 +62,12 @@
    "workflows_used": 18,
    "description": "OpenAI's flagship AI assistant, used both as an app and via API — the general-purpose LLM behind many qualification, classification and copy steps.",
    "what_it_does": "Powers AI qualification, classification and copywriting inside Clay and workflow steps.",
-   "gtm_impact": "Scales human-judgment tasks (qualify, score, personalize) across the pipeline."
+   "gtm_impact": "Scales human-judgment tasks (qualify, score, personalize) across the pipeline.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection"
+   ]
   },
   {
    "name": "LinkedIn",
@@ -51,7 +75,11 @@
    "workflows_used": 17,
    "description": "The default B2B professional network, 1B+ members — the primary organic surface where B2B buyers research, post, and get prospected.",
    "what_it_does": "Primary surface for social selling, content distribution, and prospecting.",
-   "gtm_impact": "The core B2B demand and relationship channel everything orbits."
+   "gtm_impact": "The core B2B demand and relationship channel everything orbits.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "Claude",
@@ -59,7 +87,12 @@
    "workflows_used": 16,
    "description": "Anthropic's AI assistant, known for strong reasoning, long context windows, and reliable structured output over messy real-world data.",
    "what_it_does": "Handles research, account qualification, copywriting and summarization across workflows.",
-   "gtm_impact": "The reasoning layer that turns messy data into decisions and copy."
+   "gtm_impact": "The reasoning layer that turns messy data into decisions and copy.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection"
+   ]
   },
   {
    "name": "Jungler.ai",
@@ -67,7 +100,11 @@
    "workflows_used": 16,
    "description": "LinkedIn signal-tracking tool that watches posts, comments, and profile activity across your market to surface engagement-based buying intent.",
    "what_it_does": "Monitors posts, engagement and profile activity to surface intent signals.",
-   "gtm_impact": "Turns social activity into timed outbound triggers."
+   "gtm_impact": "Turns social activity into timed outbound triggers.",
+   "lifecycle": [
+    "Awareness",
+    "Selection"
+   ]
   },
   {
    "name": "Slack",
@@ -75,7 +112,16 @@
    "workflows_used": 14,
    "description": "Team messaging platform and the de facto GTM ops console — webhooks and app integrations make it the alerting surface for the whole stack.",
    "what_it_does": "Delivers real-time lead alerts, approvals and routing hand-offs to reps.",
-   "gtm_impact": "The human-in-the-loop layer — fast approvals and hot-lead alerts."
+   "gtm_impact": "The human-in-the-loop layer — fast approvals and hot-lead alerts.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Apollo",
@@ -83,7 +129,10 @@
    "workflows_used": 11,
    "description": "B2B contact and company database (275M+ contacts) with built-in filters, sequencing, and an API — the workhorse for fast list building.",
    "what_it_does": "Sources and filters target accounts and contacts by firmographic/technographic criteria.",
-   "gtm_impact": "Fills top-of-funnel with ICP-matched prospects fast."
+   "gtm_impact": "Fills top-of-funnel with ICP-matched prospects fast.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Findymail",
@@ -91,7 +140,10 @@
    "workflows_used": 11,
    "description": "Email-finding and verification service focused on accuracy — returns only deliverable, verified work emails instead of pattern guesses.",
    "what_it_does": "Finds and validates work emails to keep bounce rates low.",
-   "gtm_impact": "Protects deliverability and sender reputation on every send."
+   "gtm_impact": "Protects deliverability and sender reputation on every send.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Beehiiv",
@@ -99,7 +151,11 @@
    "workflows_used": 8,
    "description": "Newsletter publishing platform built by the ex-Morning Brew team, with growth, referral, ad-network and monetization features baked in.",
    "what_it_does": "Publishes and grows email newsletters with built-in monetization.",
-   "gtm_impact": "Owns the nurture channel and a first-party audience."
+   "gtm_impact": "Owns the nurture channel and a first-party audience.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "BetterContact",
@@ -107,7 +163,10 @@
    "workflows_used": 8,
    "description": "Waterfall enrichment aggregator that chains 20+ email and phone data providers in sequence and only charges for verified hits.",
    "what_it_does": "Chains 20+ data providers to maximize contact-data hit rate.",
-   "gtm_impact": "Higher contact coverage means more reachable prospects per list."
+   "gtm_impact": "Higher contact coverage means more reachable prospects per list.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "AI Ark",
@@ -115,7 +174,10 @@
    "workflows_used": 8,
    "description": "AI research-agent platform for enrichment — dispatches autonomous agents to research companies and people across the open web.",
    "what_it_does": "Runs AI research to enrich and qualify accounts at scale.",
-   "gtm_impact": "Automates the manual account research reps used to do by hand."
+   "gtm_impact": "Automates the manual account research reps used to do by hand.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "RB2B",
@@ -123,7 +185,11 @@
    "workflows_used": 7,
    "description": "Person-level website visitor de-anonymization for US traffic — identifies the individual, not just the company, with a free Slack-push tier.",
    "what_it_does": "Identifies individual anonymous US site visitors and pushes them to Slack/CRM.",
-   "gtm_impact": "Turns silent website traffic into named, actionable leads."
+   "gtm_impact": "Turns silent website traffic into named, actionable leads.",
+   "lifecycle": [
+    "Education",
+    "Selection"
+   ]
   },
   {
    "name": "Warmly",
@@ -131,7 +197,11 @@
    "workflows_used": 7,
    "description": "Signal-based revenue-orchestration platform combining visitor de-anonymization with automated chat, email, and LinkedIn engagement plays.",
    "what_it_does": "Reveals visiting accounts/people and triggers real-time engagement plays.",
-   "gtm_impact": "Lets you act on warm intent while the visitor is still hot."
+   "gtm_impact": "Lets you act on warm intent while the visitor is still hot.",
+   "lifecycle": [
+    "Education",
+    "Selection"
+   ]
   },
   {
    "name": "Notion",
@@ -139,7 +209,10 @@
    "workflows_used": 6,
    "description": "All-in-one docs and database workspace — flexible enough to serve as content calendar, wiki, and approval pipeline in a single tool.",
    "what_it_does": "Acts as the content system-of-record and approval hub before publishing.",
-   "gtm_impact": "Keeps content ops organized and reviewable."
+   "gtm_impact": "Keeps content ops organized and reviewable.",
+   "lifecycle": [
+    "Education"
+   ]
   },
   {
    "name": "Ocean.io",
@@ -147,7 +220,10 @@
    "workflows_used": 6,
    "description": "Lookalike-account and TAM-mapping database that models your best customers and finds the companies that most resemble them.",
    "what_it_does": "Finds companies similar to your best customers to expand the TAM.",
-   "gtm_impact": "Widens pipeline with high-fit lookalike accounts."
+   "gtm_impact": "Widens pipeline with high-fit lookalike accounts.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Sybill",
@@ -155,7 +231,11 @@
    "workflows_used": 6,
    "description": "AI sales-call assistant that records meetings, drafts follow-up emails, and auto-fills CRM fields from what was actually said.",
    "what_it_does": "Records, summarizes and extracts insights and action items from sales calls.",
-   "gtm_impact": "Better call intel and tighter follow-through after meetings."
+   "gtm_impact": "Better call intel and tighter follow-through after meetings.",
+   "lifecycle": [
+    "Selection",
+    "Mutual commit"
+   ]
   },
   {
    "name": "Amplitude",
@@ -163,7 +243,12 @@
    "workflows_used": 5,
    "description": "Enterprise product-analytics platform for tracking user behavior, funnels, and retention inside the product itself.",
    "what_it_does": "Tracks product usage to score PLG accounts and awareness stages.",
-   "gtm_impact": "Turns product usage into buying signals for scoring."
+   "gtm_impact": "Turns product usage into buying signals for scoring.",
+   "lifecycle": [
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Apify",
@@ -171,7 +256,10 @@
    "workflows_used": 5,
    "description": "Web-scraping and automation marketplace — thousands of prebuilt \"actors\" plus infrastructure for running custom scrapers at scale.",
    "what_it_does": "Runs actors to scrape LinkedIn, sites and social engagement at scale.",
-   "gtm_impact": "Feeds engagement and signal data into the enrichment pipeline."
+   "gtm_impact": "Feeds engagement and signal data into the enrichment pipeline.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Customer.io",
@@ -179,7 +267,12 @@
    "workflows_used": 5,
    "description": "Lifecycle-messaging platform for behavior-triggered email, push, SMS, and in-app messages across the whole customer journey.",
    "what_it_does": "Automates behavior-triggered email and lifecycle nurture.",
-   "gtm_impact": "Drives activation, nurture and retention on autopilot."
+   "gtm_impact": "Drives activation, nurture and retention on autopilot.",
+   "lifecycle": [
+    "Education",
+    "Onboarding",
+    "Retention"
+   ]
   },
   {
    "name": "Fibbler",
@@ -187,7 +280,10 @@
    "workflows_used": 5,
    "description": "LinkedIn-ads attribution tool that matches ad-audience engagement back to accounts, showing which ads actually touched pipeline.",
    "what_it_does": "Matches ad audiences and attributes LinkedIn-ad influence on pipeline.",
-   "gtm_impact": "Proves ad contribution so spend can be optimized."
+   "gtm_impact": "Proves ad contribution so spend can be optimized.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Teamfluence",
@@ -195,7 +291,10 @@
    "workflows_used": 5,
    "description": "LinkedIn engagement-analytics tool that measures your team's collective reach — post engagement, connections, and profile visitors.",
    "what_it_does": "Tracks team engagement, connections and profile visitors on LinkedIn.",
-   "gtm_impact": "Mines employee networks for warm, in-market leads."
+   "gtm_impact": "Mines employee networks for warm, in-market leads.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Webflow",
@@ -203,7 +302,11 @@
    "workflows_used": 5,
    "description": "Visual website builder and CMS with a full API — design, host, and programmatically publish content without engineers in the loop.",
    "what_it_does": "Hosts and auto-publishes site + blog content via CMS and API.",
-   "gtm_impact": "The publishing endpoint that turns drafts into live pages."
+   "gtm_impact": "The publishing endpoint that turns drafts into live pages.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "Claude Code",
@@ -211,7 +314,16 @@
    "workflows_used": 4,
    "description": "Anthropic's agentic coding tool — runs in the terminal, reads files, executes commands, and carries out multi-step work through reusable skills.",
    "what_it_does": "Runs multi-step GTM automations and data work through agentic skills.",
-   "gtm_impact": "Automates end-to-end GTM ops that used to need an engineer."
+   "gtm_impact": "Automates end-to-end GTM ops that used to need an engineer.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Crossbeam",
@@ -219,7 +331,11 @@
    "workflows_used": 4,
    "description": "Partner-ecosystem data-sharing platform (merged with Reveal) that securely maps overlapping accounts between you and your partners.",
    "what_it_does": "Maps account overlaps with partners to find warm intro paths.",
-   "gtm_impact": "Unlocks partner-sourced pipeline and warmer entries."
+   "gtm_impact": "Unlocks partner-sourced pipeline and warmer entries.",
+   "lifecycle": [
+    "Awareness",
+    "Expansion"
+   ]
   },
   {
    "name": "Discolike",
@@ -227,7 +343,10 @@
    "workflows_used": 4,
    "description": "AI lookalike-company finder that expands a seed list of good-fit accounts into much broader lists of similar companies.",
    "what_it_does": "Generates broad lookalike company lists from seed accounts.",
-   "gtm_impact": "Rapid TAM expansion built off proven winners."
+   "gtm_impact": "Rapid TAM expansion built off proven winners.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Ergo",
@@ -235,7 +354,11 @@
    "workflows_used": 4,
    "description": "Content-intelligence and ideation tool that mines what already performs in your niche and turns it into data-backed drafting input.",
    "what_it_does": "Mines high-performing content and surfaces ideas for drafting.",
-   "gtm_impact": "Feeds data-backed content ideas instead of guesswork."
+   "gtm_impact": "Feeds data-backed content ideas instead of guesswork.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "n8n",
@@ -243,7 +366,16 @@
    "workflows_used": 4,
    "description": "Source-available workflow-automation platform — a self-hostable Zapier alternative with 400+ integrations and native AI/agent nodes.",
    "what_it_does": "Wires tools together and runs custom automations and RAG agents.",
-   "gtm_impact": "The glue that connects the stack without hard-coding."
+   "gtm_impact": "The glue that connects the stack without hard-coding.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Nooks",
@@ -251,7 +383,11 @@
    "workflows_used": 4,
    "description": "AI parallel dialer that lets one rep dial multiple numbers simultaneously, with AI call scoring and pre-call account research built in.",
    "what_it_does": "Runs parallel dials plus AI account-prep for calling sessions.",
-   "gtm_impact": "Multiplies rep call throughput on warm lists."
+   "gtm_impact": "Multiplies rep call throughput on warm lists.",
+   "lifecycle": [
+    "Awareness",
+    "Selection"
+   ]
   },
   {
    "name": "Outreach",
@@ -259,7 +395,11 @@
    "workflows_used": 4,
    "description": "Enterprise sales-engagement platform covering cadences, forecasting, and conversation intelligence — built for larger sales orgs.",
    "what_it_does": "Sequences email/call/task cadences for reps at scale.",
-   "gtm_impact": "Structures and enforces consistent rep follow-up."
+   "gtm_impact": "Structures and enforces consistent rep follow-up.",
+   "lifecycle": [
+    "Awareness",
+    "Selection"
+   ]
   },
   {
    "name": "Tally",
@@ -267,7 +407,11 @@
    "workflows_used": 4,
    "description": "Free-first form builder with conditional logic, hidden fields, and webhooks — the fastest way to stand up lead-capture forms.",
    "what_it_does": "Captures inbound leads and demo requests via forms and webhooks.",
-   "gtm_impact": "The inbound-capture entry point feeding the pipeline."
+   "gtm_impact": "The inbound-capture entry point feeding the pipeline.",
+   "lifecycle": [
+    "Education",
+    "Selection"
+   ]
   },
   {
    "name": "Chilipiper",
@@ -275,7 +419,10 @@
    "workflows_used": 4,
    "description": "Inbound lead routing and scheduling platform — qualifies form fills in real time and books them straight onto the right rep's calendar.",
    "what_it_does": "Instantly qualifies, routes and books inbound leads to the right rep.",
-   "gtm_impact": "Zero-leakage inbound hand-off at peak intent."
+   "gtm_impact": "Zero-leakage inbound hand-off at peak intent.",
+   "lifecycle": [
+    "Selection"
+   ]
   },
   {
    "name": "Cursor",
@@ -283,7 +430,16 @@
    "workflows_used": 3,
    "description": "AI-native code editor (a VS Code fork) with agentic editing that can plan and apply changes across an entire codebase.",
    "what_it_does": "Writes and edits scraping/automation code with AI assistance.",
-   "gtm_impact": "Builds custom GTM scripts faster."
+   "gtm_impact": "Builds custom GTM scripts faster.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Figma",
@@ -291,7 +447,11 @@
    "workflows_used": 3,
    "description": "Collaborative interface-design tool and the industry standard for product, marketing, and brand design work in the browser.",
    "what_it_does": "Designs content graphics, lead magnets and design systems.",
-   "gtm_impact": "Produces on-brand creative for content and capture."
+   "gtm_impact": "Produces on-brand creative for content and capture.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "Freckle",
@@ -299,7 +459,11 @@
    "workflows_used": 3,
    "description": "Website de-anonymization tool positioned as a lightweight visitor-identity layer — captures and identifies anonymous traffic for follow-up.",
    "what_it_does": "Captures and identifies anonymous site visitors for follow-up.",
-   "gtm_impact": "Expands the top-of-funnel capture net."
+   "gtm_impact": "Expands the top-of-funnel capture net.",
+   "lifecycle": [
+    "Education",
+    "Selection"
+   ]
   },
   {
    "name": "Salesforce",
@@ -307,7 +471,16 @@
    "workflows_used": 3,
    "description": "The dominant enterprise CRM — deeply customizable objects, workflows, and an ecosystem of thousands of integrations and admins.",
    "what_it_does": "Manages the full account/opportunity lifecycle for larger orgs.",
-   "gtm_impact": "Enterprise-grade revenue system of record."
+   "gtm_impact": "Enterprise-grade revenue system of record.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Adobe",
@@ -315,7 +488,11 @@
    "workflows_used": 2,
    "description": "The Creative Cloud suite — Photoshop, Illustrator, Premiere and more — professional-grade tooling for graphics and video production.",
    "what_it_does": "Produces graphics, video and high-end creative assets.",
-   "gtm_impact": "Premium creative production for brand and content."
+   "gtm_impact": "Premium creative production for brand and content.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "BuiltWith",
@@ -323,7 +500,10 @@
    "workflows_used": 2,
    "description": "Website technology profiler that detects the analytics, CMS, ecommerce, and ad stack any site runs — queryable at list scale.",
    "what_it_does": "Detects the tech a site runs to qualify technographic fit.",
-   "gtm_impact": "Filters the TAM by tech-stack compatibility."
+   "gtm_impact": "Filters the TAM by tech-stack compatibility.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Cal.com",
@@ -331,7 +511,10 @@
    "workflows_used": 2,
    "description": "Open-source scheduling infrastructure — a self-hostable Calendly alternative with routing forms, round-robin, and a full API.",
    "what_it_does": "Books meetings and routes leads to the right rep.",
-   "gtm_impact": "Removes friction between intent and a booked call."
+   "gtm_impact": "Removes friction between intent and a booked call.",
+   "lifecycle": [
+    "Selection"
+   ]
   },
   {
    "name": "Favikon",
@@ -339,7 +522,10 @@
    "workflows_used": 2,
    "description": "Creator and influencer analytics platform that scores creators by niche authority across LinkedIn and other social networks.",
    "what_it_does": "Scores and finds LinkedIn creators and influencers.",
-   "gtm_impact": "Identifies whose audience is worth tapping."
+   "gtm_impact": "Identifies whose audience is worth tapping.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "G2",
@@ -347,7 +533,10 @@
    "workflows_used": 2,
    "description": "The largest B2B software review marketplace — also sells buyer-intent data showing which companies are actively researching your category.",
    "what_it_does": "Provides reviews and category-shopping intent signals.",
-   "gtm_impact": "Surfaces in-market buyers actively comparing tools."
+   "gtm_impact": "Surfaces in-market buyers actively comparing tools.",
+   "lifecycle": [
+    "Selection"
+   ]
   },
   {
    "name": "Kondo",
@@ -355,7 +544,10 @@
    "workflows_used": 2,
    "description": "LinkedIn inbox manager that layers CRM-style pipelines, reminders, snippets, and labels on top of your LinkedIn DMs.",
    "what_it_does": "Organizes and follows up on LinkedIn conversations like a CRM.",
-   "gtm_impact": "Stops warm LinkedIn chats from leaking away."
+   "gtm_impact": "Stops warm LinkedIn chats from leaking away.",
+   "lifecycle": [
+    "Selection"
+   ]
   },
   {
    "name": "Magicpost.in",
@@ -363,7 +555,10 @@
    "workflows_used": 2,
    "description": "LinkedIn content tool for drafting, formatting, and scheduling posts with AI assistance and feed-accurate previews.",
    "what_it_does": "Drafts, formats and schedules LinkedIn posts.",
-   "gtm_impact": "Sustains a consistent content cadence."
+   "gtm_impact": "Sustains a consistent content cadence.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "OutboundSync",
@@ -371,7 +566,10 @@
    "workflows_used": 2,
    "description": "Attribution connector that syncs cold-outbound activity from Instantly and HeyReach into HubSpot as native, reportable activities.",
    "what_it_does": "Syncs Instantly/HeyReach activity into HubSpot and attributes it.",
-   "gtm_impact": "Makes outbound's true revenue impact measurable."
+   "gtm_impact": "Makes outbound's true revenue impact measurable.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Salesloft",
@@ -379,7 +577,11 @@
    "workflows_used": 2,
    "description": "Enterprise sales-engagement platform for multi-touch cadences, rep coaching, and deal management across the revenue team.",
    "what_it_does": "Manages multi-touch cadences and rep activity.",
-   "gtm_impact": "Keeps outbound cadences consistent across the team."
+   "gtm_impact": "Keeps outbound cadences consistent across the team.",
+   "lifecycle": [
+    "Awareness",
+    "Selection"
+   ]
   },
   {
    "name": "Serper",
@@ -387,7 +589,10 @@
    "workflows_used": 2,
    "description": "Fast, low-cost Google Search API that returns structured SERP results for programmatic enrichment and verification steps.",
    "what_it_does": "Pulls live search results to enrich or verify company data.",
-   "gtm_impact": "Cheap real-time web signal for enrichment steps."
+   "gtm_impact": "Cheap real-time web signal for enrichment steps.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "TheirStack",
@@ -395,7 +600,10 @@
    "workflows_used": 2,
    "description": "Signal database that indexes job postings and detected technologies — find companies by the stack they run or the roles they're hiring.",
    "what_it_does": "Finds companies by the tools they use or the roles they're hiring.",
-   "gtm_impact": "Signal-based targeting on stack and hiring intent."
+   "gtm_impact": "Signal-based targeting on stack and hiring intent.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "VS Code",
@@ -403,7 +611,16 @@
    "workflows_used": 2,
    "description": "Microsoft's free, extensible code editor — the default local environment for writing and running scripts and automation.",
    "what_it_does": "Local environment for running scrapers and automation scripts.",
-   "gtm_impact": "Home base for custom GTM tooling."
+   "gtm_impact": "Home base for custom GTM tooling.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Ahrefs",
@@ -411,7 +628,11 @@
    "workflows_used": 1,
    "description": "Industry-standard SEO toolset for keyword research, backlink analysis, rank tracking, and technical site audits.",
    "what_it_does": "Analyzes keywords, backlinks and organic search signals.",
-   "gtm_impact": "Informs content and SEO targeting decisions."
+   "gtm_impact": "Informs content and SEO targeting decisions.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "Albacross",
@@ -419,7 +640,11 @@
    "workflows_used": 1,
    "description": "Account-level visitor-identification platform with strong European data coverage — reveals which companies are on your site.",
    "what_it_does": "Identifies the companies visiting your website.",
-   "gtm_impact": "Reveals in-market accounts browsing anonymously."
+   "gtm_impact": "Reveals in-market accounts browsing anonymously.",
+   "lifecycle": [
+    "Education",
+    "Selection"
+   ]
   },
   {
    "name": "Attio",
@@ -427,7 +652,16 @@
    "workflows_used": 1,
    "description": "Modern, data-native CRM with flexible objects, real-time collaboration, and automations — built API-first for startups.",
    "what_it_does": "Builds custom data models and workflows on a real-time CRM.",
-   "gtm_impact": "Startup-friendly, data-native system of record."
+   "gtm_impact": "Startup-friendly, data-native system of record.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Browserbase",
@@ -435,7 +669,10 @@
    "workflows_used": 1,
    "description": "Headless-browser infrastructure-as-a-service for running Playwright/Puppeteer automation and AI browsing agents at scale.",
    "what_it_does": "Runs scalable browser automation for scraping and agents.",
-   "gtm_impact": "Powers custom data collection at scale."
+   "gtm_impact": "Powers custom data collection at scale.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Buffer",
@@ -443,7 +680,10 @@
    "workflows_used": 1,
    "description": "Social-media scheduling tool for planning, queuing, and publishing content across multiple channels from one calendar.",
    "what_it_does": "Schedules and distributes content across social channels.",
-   "gtm_impact": "Keeps multi-channel distribution consistent."
+   "gtm_impact": "Keeps multi-channel distribution consistent.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Calendly",
@@ -451,7 +691,10 @@
    "workflows_used": 1,
    "description": "The best-known meeting-scheduling tool — booking links, round-robin routing, and calendar sync with minimal setup.",
    "what_it_does": "Automates meeting booking and routing.",
-   "gtm_impact": "Captures meetings at the moment of peak intent."
+   "gtm_impact": "Captures meetings at the moment of peak intent.",
+   "lifecycle": [
+    "Selection"
+   ]
   },
   {
    "name": "Capterra",
@@ -459,7 +702,10 @@
    "workflows_used": 1,
    "description": "Gartner-owned software review and comparison site — its traffic and reviews signal active category shopping.",
    "what_it_does": "Provides reviews and category-shopping intent data.",
-   "gtm_impact": "Another source of in-market buyer signals."
+   "gtm_impact": "Another source of in-market buyer signals.",
+   "lifecycle": [
+    "Selection"
+   ]
   },
   {
    "name": "Cargo",
@@ -467,7 +713,16 @@
    "workflows_used": 1,
    "description": "Revenue-data orchestration platform that centralizes, normalizes, and routes GTM data between warehouse, tools, and CRM.",
    "what_it_does": "Centralizes, normalizes and routes GTM data between tools and CRM.",
-   "gtm_impact": "Keeps the data layer clean and synced at scale."
+   "gtm_impact": "Keeps the data layer clean and synced at scale.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Crunchbase",
@@ -475,7 +730,10 @@
    "workflows_used": 1,
    "description": "Company and funding database tracking rounds, acquisitions, leadership, and growth signals across millions of private companies.",
    "what_it_does": "Provides firmographics, funding and growth signals on accounts.",
-   "gtm_impact": "Prioritizes accounts by funding and growth timing."
+   "gtm_impact": "Prioritizes accounts by funding and growth timing.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Default.com",
@@ -483,7 +741,10 @@
    "workflows_used": 1,
    "description": "Inbound conversion platform combining forms, qualification, enrichment, routing, and scheduling in a single flow.",
    "what_it_does": "Qualifies, routes and books inbound demos in one flow.",
-   "gtm_impact": "Converts inbound faster with less leakage."
+   "gtm_impact": "Converts inbound faster with less leakage.",
+   "lifecycle": [
+    "Selection"
+   ]
   },
   {
    "name": "Factors.ai",
@@ -491,7 +752,11 @@
    "workflows_used": 1,
    "description": "B2B attribution and analytics platform that ties multi-touch marketing activity to pipeline, with account de-anonymization built in.",
    "what_it_does": "Ties multi-touch activity to pipeline and de-anonymizes intent.",
-   "gtm_impact": "Shows what actually drives pipeline, not vanity clicks."
+   "gtm_impact": "Shows what actually drives pipeline, not vanity clicks.",
+   "lifecycle": [
+    "Awareness",
+    "Selection"
+   ]
   },
   {
    "name": "Gamma",
@@ -499,7 +764,11 @@
    "workflows_used": 1,
    "description": "AI presentation builder that generates polished decks, docs, and one-pagers from a prompt, with web-native sharing.",
    "what_it_does": "Generates decks and one-pagers from prompts.",
-   "gtm_impact": "Speeds up sales collateral production."
+   "gtm_impact": "Speeds up sales collateral production.",
+   "lifecycle": [
+    "Selection",
+    "Mutual commit"
+   ]
   },
   {
    "name": "Intercom",
@@ -507,7 +776,12 @@
    "workflows_used": 1,
    "description": "Customer messaging and support platform — website chat, help desk, and the Fin AI agent for automated support.",
    "what_it_does": "Runs website chat and lifecycle messaging.",
-   "gtm_impact": "On-site engagement plus support-driven signals."
+   "gtm_impact": "On-site engagement plus support-driven signals.",
+   "lifecycle": [
+    "Selection",
+    "Onboarding",
+    "Retention"
+   ]
   },
   {
    "name": "Lovable",
@@ -515,7 +789,16 @@
    "workflows_used": 1,
    "description": "AI app builder that turns plain-language prompts into working full-stack web apps — no code required.",
    "what_it_does": "Generates internal GTM web apps from prompts, no code.",
-   "gtm_impact": "Ships internal GTM tools in hours, not sprints."
+   "gtm_impact": "Ships internal GTM tools in hours, not sprints.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Miro",
@@ -523,7 +806,16 @@
    "workflows_used": 1,
    "description": "Collaborative online whiteboard for mapping strategy, workflows, and systems visually with the whole team.",
    "what_it_does": "Maps GTM strategy and workflows visually.",
-   "gtm_impact": "Aligns the team on the plan before building."
+   "gtm_impact": "Aligns the team on the plan before building.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Octoparse",
@@ -531,7 +823,10 @@
    "workflows_used": 1,
    "description": "No-code web scraper with a point-and-click interface for extracting structured data from almost any website.",
    "what_it_does": "Extracts structured data from websites without code.",
-   "gtm_impact": "Builds custom prospect lists from any site."
+   "gtm_impact": "Builds custom prospect lists from any site.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Ordinal",
@@ -539,7 +834,11 @@
    "workflows_used": 1,
    "description": "Content-production platform that operationalizes the pipeline from ideation through drafting, review, and publishing.",
    "what_it_does": "Operationalizes the content pipeline end-to-end.",
-   "gtm_impact": "Sustains content output at scale."
+   "gtm_impact": "Sustains content output at scale.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "Perplexity",
@@ -547,7 +846,11 @@
    "workflows_used": 1,
    "description": "AI answer engine that runs live web research and returns cited, sourced answers instead of unsourced generations.",
    "what_it_does": "Runs sourced web research for content and account intel.",
-   "gtm_impact": "Fast, grounded research with citations."
+   "gtm_impact": "Fast, grounded research with citations.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "Posthog",
@@ -555,7 +858,12 @@
    "workflows_used": 1,
    "description": "Open-source product-analytics suite — events, session replay, feature flags, and A/B testing in one self-hostable platform.",
    "what_it_does": "Captures product events for usage-based scoring.",
-   "gtm_impact": "Product signals feed PLG qualification."
+   "gtm_impact": "Product signals feed PLG qualification.",
+   "lifecycle": [
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ]
   },
   {
    "name": "Qwilr",
@@ -563,7 +871,10 @@
    "workflows_used": 1,
    "description": "Interactive proposal and quote tool that turns sales documents into trackable web pages with embedded pricing and e-sign.",
    "what_it_does": "Creates trackable, web-based proposals and quotes.",
-   "gtm_impact": "Speeds deal close with slick, trackable proposals."
+   "gtm_impact": "Speeds deal close with slick, trackable proposals.",
+   "lifecycle": [
+    "Mutual commit"
+   ]
   },
   {
    "name": "Sales Navigator",
@@ -571,7 +882,10 @@
    "workflows_used": 1,
    "description": "LinkedIn's premium prospecting product — advanced lead and account filters, saved lists, alerts, and buyer-intent signals.",
    "what_it_does": "Builds and saves targeted lead/account lists with advanced filters.",
-   "gtm_impact": "Precision LinkedIn targeting for outreach."
+   "gtm_impact": "Precision LinkedIn targeting for outreach.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Storeleads",
@@ -579,7 +893,10 @@
    "workflows_used": 1,
    "description": "Ecommerce store database indexing millions of online stores with platform, installed-app, and traffic data.",
    "what_it_does": "Lists online stores with platform, traffic and app data.",
-   "gtm_impact": "Targets ecommerce ICPs at scale."
+   "gtm_impact": "Targets ecommerce ICPs at scale.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "Sumble",
@@ -587,7 +904,10 @@
    "workflows_used": 1,
    "description": "Technographic and hiring-signal database that mines job posts to reveal what tech companies actually run internally.",
    "what_it_does": "Reveals tech stack and hiring signals to time outreach.",
-   "gtm_impact": "Times plays to real buying triggers."
+   "gtm_impact": "Times plays to real buying triggers.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "TheSwarm",
@@ -595,7 +915,10 @@
    "workflows_used": 1,
    "description": "Relationship-intelligence platform that maps your whole team's combined networks to find warm paths into target accounts.",
    "what_it_does": "Surfaces warm paths into accounts via your team's connections.",
-   "gtm_impact": "Turns dormant networks into warm intros."
+   "gtm_impact": "Turns dormant networks into warm intros.",
+   "lifecycle": [
+    "Awareness"
+   ]
   },
   {
    "name": "ZenABM",
@@ -603,7 +926,11 @@
    "workflows_used": 1,
    "description": "ABM advertising platform that ties LinkedIn ad targeting and spend to account-level intent signals and pipeline.",
    "what_it_does": "Runs account-based ad targeting tied to intent signals.",
-   "gtm_impact": "Warms target accounts ahead of outreach."
+   "gtm_impact": "Warms target accounts ahead of outreach.",
+   "lifecycle": [
+    "Awareness",
+    "Education"
+   ]
   },
   {
    "name": "Zenrows",
@@ -611,7 +938,19 @@
    "workflows_used": 1,
    "description": "Web-scraping API with rotating proxies and anti-bot bypass for extracting data from protected or heavily defended sites.",
    "what_it_does": "Extracts data from protected sites without getting blocked.",
-   "gtm_impact": "Unlocks hard-to-scrape data sources."
+   "gtm_impact": "Unlocks hard-to-scrape data sources.",
+   "lifecycle": [
+    "Awareness"
+   ]
   }
+ ],
+ "lifecycle_stages": [
+  "Awareness",
+  "Education",
+  "Selection",
+  "Mutual commit",
+  "Onboarding",
+  "Retention",
+  "Expansion"
  ]
 }
