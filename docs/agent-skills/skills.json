@@ -1,0 +1,70 @@
+{
+  "note": "Source of truth for labs.bowtiefunnel.com/agent-skills/. Agent skills repurposed from the Growth (Verbiflow) MCP and rebranded for Bowtie Funnel. To add a skill, append one object below: name, lifecycle (array of stages), description. Stages: Awareness, Education, Selection, Mutual commit, Onboarding, Retention, Expansion.",
+  "skills": [
+    {
+      "name": "Account & Market Research",
+      "lifecycle": ["Awareness", "Expansion"],
+      "description": "Researches target companies and their investors, surfacing firmographics and recent activity so we prioritize the accounts worth pursuing."
+    },
+    {
+      "name": "Prospect List Builder",
+      "lifecycle": ["Awareness", "Expansion"],
+      "description": "Builds targeted contact lists from known companies, personas, and LinkedIn — the raw audience behind every play."
+    },
+    {
+      "name": "Hiring & Growth Signals",
+      "lifecycle": ["Awareness"],
+      "description": "Finds companies actively hiring or scaling, surfacing the timing signals that mean they're ready to buy now."
+    },
+    {
+      "name": "Buying-Intent Miner",
+      "lifecycle": ["Awareness", "Expansion"],
+      "description": "Mines LinkedIn posts, comments, and reactions to find people already engaging with the topic — warm before we ever reach out."
+    },
+    {
+      "name": "Website Visitor De-anonymizer",
+      "lifecycle": ["Awareness", "Retention"],
+      "description": "Turns anonymous website traffic into named contacts and companies we can route straight to sales — or, aimed at current clients, into an account-activity signal."
+    },
+    {
+      "name": "Contact Enrichment",
+      "lifecycle": ["Selection"],
+      "description": "Fills in verified emails, phones, and profile attributes so every record is complete and reachable."
+    },
+    {
+      "name": "Lead Qualification & Scoring",
+      "lifecycle": ["Selection"],
+      "description": "Scores lists against the ICP with AI so effort only goes to right-fit accounts, not the whole list."
+    },
+    {
+      "name": "Sequence Builder",
+      "lifecycle": ["Education"],
+      "description": "Drafts and publishes multi-step, multichannel outreach sequences ready to run."
+    },
+    {
+      "name": "AI Personalization",
+      "lifecycle": ["Education"],
+      "description": "Writes a per-prospect opener from real research instead of generic mail-merge."
+    },
+    {
+      "name": "Multichannel Sender",
+      "lifecycle": ["Education", "Onboarding"],
+      "description": "Sends and tracks email and LinkedIn touches, with deliverability checks before anything goes out."
+    },
+    {
+      "name": "Engagement Tracker",
+      "lifecycle": ["Education", "Mutual commit"],
+      "description": "Monitors replies, statuses, and conversation history to see who's engaging and when to act."
+    },
+    {
+      "name": "CRM Sync",
+      "lifecycle": ["Awareness", "Education", "Selection", "Mutual commit", "Onboarding", "Retention", "Expansion"],
+      "description": "Reads and reconciles CRM objects and associations so every play runs off live account data."
+    },
+    {
+      "name": "Data Ops & Artifacts",
+      "lifecycle": ["Awareness", "Education", "Selection", "Mutual commit", "Onboarding", "Retention", "Expansion"],
+      "description": "Manages the lists, joins, and exports that move data between every other skill."
+    }
+  ]
+}
