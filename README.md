@@ -198,6 +198,18 @@ To wire it up: **Settings → Pages → Source: Deploy from a branch → `main` 
 points at `labs.bowtiefunnel.com`). Add a `CNAME` DNS record for `labs` →
 `<user>.github.io` at your DNS host, then enable **Enforce HTTPS**.
 
+## Agent skills page
+
+A standalone page at [`docs/agent-skills/index.html`](docs/agent-skills/index.html),
+served at **[labs.bowtiefunnel.com/agent-skills/](https://labs.bowtiefunnel.com/agent-skills/)**.
+It lists Bowtie Funnel's GTM agent skills — capabilities repurposed from the Growth
+(Verbiflow) MCP — mapped to the customer lifecycle (awareness, education, selection,
+mutual commit, onboarding, retention, expansion), with a stage filter.
+
+Single source of truth is [`docs/agent-skills/skills.json`](docs/agent-skills/skills.json)
+(the page and AI agents both read it). **To add a skill, append one object** —
+`name`, `lifecycle` (array of stages), `description`.
+
 ## License
 
 [MIT](LICENSE)
