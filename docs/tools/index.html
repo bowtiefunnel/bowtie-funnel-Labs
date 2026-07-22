@@ -154,10 +154,10 @@
     <table>
       <thead><tr>
         <th class="c-tool">Tool</th>
+        <th class="c-life">Lifecycle stage</th>
         <th class="c-desc">Description</th>
         <th class="c-does">What it does</th>
         <th class="c-gtm">GTM impact</th>
-        <th class="c-life">Lifecycle stage</th>
       </tr></thead>
       <tbody id="tbody"></tbody>
     </table>
@@ -238,14 +238,14 @@ DATA.forEach(t=>{
   tdTool.appendChild(el('span','uses',`in ${t.x} of 48 workflows`));
   tr.appendChild(tdTool);
 
-  tr.appendChild(el('td','c-desc',`<div class="desc">${t.d}</div>`));
-  tr.appendChild(el('td','c-does',`<div class="does">${t.w}</div>`));
-  tr.appendChild(el('td','c-gtm',`<div class="gtm">${t.g}</div>`));
   const chips = t.l.length===Object.keys(STAGES).length
     ? `<span class="stage" style="color:var(--ink-soft);border-color:var(--line-strong)">All stages</span>`
     : t.l.map(s=>{const sc=STAGES[s]||"#6b7688";
         return `<span class="stage" style="background:${sc}1f;color:${sc}">${s}</span>`;}).join('');
   tr.appendChild(el('td','c-life',chips));
+  tr.appendChild(el('td','c-desc',`<div class="desc">${t.d}</div>`));
+  tr.appendChild(el('td','c-does',`<div class="does">${t.w}</div>`));
+  tr.appendChild(el('td','c-gtm',`<div class="gtm">${t.g}</div>`));
   tbody.appendChild(tr);
 });
 
