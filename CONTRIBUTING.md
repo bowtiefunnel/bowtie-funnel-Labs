@@ -32,8 +32,11 @@ If it does work at runtime, it's a tool. If it changes how the agent thinks or a
    Put any heavy reference or scripts in `skills/<name>/reference/`.
 2. **Register** it in [`README.md`](README.md) under `## Skills` — copy an existing entry's
    shape (heading link, badges, 2–3 line description, install block).
-3. **Verify** the description's trigger is specific and third-person ("Use when…").
-4. Commit + push (see **Ship** below).
+3. **Add a landing-page card** to the **Skill directory** `<section aria-label="Skills">`
+   in [`docs/index.html`](docs/index.html) — reuse the `.skill-card` markup. A skill/tool
+   that isn't on the landing page is invisible from the front door of labs.bowtiefunnel.com.
+4. **Verify** the description's trigger is specific and third-person ("Use when…").
+5. Commit + push (see **Ship** below).
 
 ## Add a TOOL
 
@@ -44,10 +47,14 @@ If it does work at runtime, it's a tool. If it changes how the agent thinks or a
      [`tools/llm-switchboard/README.md`](tools/llm-switchboard/README.md):
      **what it is → install (copy the file) → tier/usage table → usage snippet → how it works → license.**
 2. **Register** it in [`README.md`](README.md) under `## Tools` (2–3 line blurb + install/use snippet).
-3. **Web card (optional, if it deserves visibility):** add a block to the
-   **"Our own tools"** `<section class="own">` in [`docs/tools/index.html`](docs/tools/index.html) —
-   reuse the `.toolcard` markup and theme tokens already there. Link to the GitHub folder
-   (tools aren't under `docs/`, so they aren't web-served).
+3. **Add two web cards** so it's discoverable on both surfaces of labs.bowtiefunnel.com:
+   - **Landing page** — a `.skill-card` in the **Tool directory** `<section aria-label="Tools">`
+     of [`docs/index.html`](docs/index.html).
+   - **Tools page** — a `.toolcard` block in the **"Our own tools"** `<section class="own">`
+     of [`docs/tools/index.html`](docs/tools/index.html).
+
+   Both link to the GitHub folder (tools aren't under `docs/`, so they aren't web-served).
+   Reuse existing markup + theme tokens; don't invent new styles.
 4. **Verify — required for tools.** Run the self-check before committing:
    ```bash
    node --input-type=module -e 'import { <fn> } from "./tools/<name>/btf-<name>.js"; /* assert expected outputs */'
