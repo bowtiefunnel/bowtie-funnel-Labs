@@ -75,25 +75,6 @@
   .hidden { display:none; }
   @media (max-width:760px){ .wrap{ padding:24px 12px 60px; } }
 
-  /* repurpose spotlight */
-  .spot { margin-top:44px; }
-  .spot-h { font-size:clamp(20px,3vw,28px); margin:6px 0 8px; letter-spacing:-.02em; }
-  .repurpose { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin-top:16px; }
-  .rp-name { font-size:18px; margin:0 0 4px; letter-spacing:-.01em; }
-  .rp-sub { font-size:13px; color:var(--ink-faint); margin:0 0 18px; }
-  .rp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  @media (max-width:640px){ .rp-grid{ grid-template-columns:1fr; } }
-  .rp-col { background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:16px 18px; }
-  .rp-tag { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 10px; }
-  .rp-col.after .rp-tag { color:var(--accent-ink); }
-  .rp-col ul { margin:0; padding-left:18px; }
-  .rp-col li { font-size:13px; color:var(--ink-soft); margin:0 0 7px; }
-  .rp-col li b { color:var(--ink); font-weight:600; }
-  .rp-flow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:16px;
-    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; color:var(--ink-soft);
-    background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:10px 14px; }
-  .rp-flow .arw { color:var(--accent); font-weight:700; }
-  .rp-flow b { color:var(--ink); }
 </style>
 
 <style id="sitenav-css">
@@ -168,39 +149,6 @@
       <tbody id="tbody"></tbody>
     </table>
   </div></div>
-
-  <!-- Repurpose spotlight -->
-  <section class="spot">
-    <div class="eyebrow" style="margin-top:0">Anatomy of a repurpose</div>
-    <h2 class="spot-h">One MCP tool → one Bowtie Funnel skill</h2>
-    <p class="lede">Every skill above is a raw MCP capability wrapped four ways: rebranded, turned into a repeatable play, its output published to a shareable labs page, and reused across stages. Here's the pattern on <b>Website Visitor De-anonymizer</b>.</p>
-
-    <article class="repurpose">
-      <h3 class="rp-name">Website Visitor De-anonymizer</h3>
-      <p class="rp-sub">Raw capability: <code>deanonymize_contacts</code> → Bowtie Funnel skill · Awareness · Retention</p>
-      <div class="rp-grid">
-        <div class="rp-col before">
-          <p class="rp-tag">Before — raw MCP</p>
-          <ul>
-            <li>Two bare tools: <b>deanonymize_contacts → get_results</b></li>
-            <li>Output is a private <b>artifact_id</b> inside Verbiflow</li>
-            <li>No positioning, no deliverable, no reuse</li>
-            <li>Invisible to the client</li>
-          </ul>
-        </div>
-        <div class="rp-col after">
-          <p class="rp-tag">After — Bowtie Funnel skill</p>
-          <ul>
-            <li><b>Rebranded + placed</b> at Awareness &amp; Retention on the bowtie</li>
-            <li><b>Wrapped in a play:</b> de-anon → enrich → qualify → route</li>
-            <li><b>Output published</b> to a branded labs URL, not a CSV</li>
-            <li><b>Reused by aim:</b> new traffic = leads; client domains = account-activity signal</li>
-          </ul>
-        </div>
-      </div>
-      <div class="rp-flow"><span>anonymous traffic</span><span class="arw">→</span><span><b>de-anon</b></span><span class="arw">→</span><span>enrich</span><span class="arw">→</span><span>qualify</span><span class="arw">→</span><span><b>labs.bowtiefunnel.com/&lt;client&gt;/</b></span></div>
-    </article>
-  </section>
 
   <footer id="foot"></footer>
 </div>
