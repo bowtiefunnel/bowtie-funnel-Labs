@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The LLM Switchboard — 46 GTM agents routed to the right model — Bowtie Funnel</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0d1430; --navy-deep:#0a1330; --cream:#ece9e3;
+    --purple:#6B29F7; --purple-light:#b78aff; --sky:#a8e8f7;
+    --mint:#86efac; --lavender:#d4b3ff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:#33312c;font-family:'DM Sans',sans-serif;
+    display:flex;align-items:flex-start;justify-content:center;
+    min-height:100vh;padding:24px;
+  }
+  .stage{
+    width:2260px;flex:none;
+    background:radial-gradient(1800px 1000px at 50% -10%, #142052 0%, var(--navy) 55%, var(--navy-deep) 100%);
+    position:relative;overflow:hidden;padding:52px 56px 44px;
+  }
+  .stage::before{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(236,233,227,0.04) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(236,233,227,0.04) 1px,transparent 1px);
+    background-size:48px 48px;pointer-events:none;
+  }
+  .head{text-align:center;position:relative;z-index:1;margin-bottom:10px;}
+  .eyebrow{
+    font-family:'DM Mono',monospace;font-size:15px;letter-spacing:0.28em;
+    text-transform:uppercase;color:var(--lavender);font-weight:500;margin-bottom:12px;
+  }
+  .head h1{font-size:36px;font-weight:700;letter-spacing:-0.02em;color:var(--cream);line-height:1.2;}
+  .head h1 span{color:var(--purple-light);}
+  .subnote{
+    text-align:center;position:relative;z-index:1;margin-bottom:22px;
+    font-family:'DM Mono',monospace;font-size:13px;color:rgba(236,233,227,0.6);letter-spacing:0.02em;
+    max-width:1500px;margin-left:auto;margin-right:auto;
+  }
+  .subnote b{color:var(--sky);font-weight:500;}
+  .subnote i{color:var(--purple-light);font-style:normal;}
+
+  /* switchboard routing panel */
+  .switch{
+    position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-bottom:14px;
+  }
+  .sw{border-radius:12px;padding:16px 18px;background:rgba(13,20,48,0.85);border:1.5px solid rgba(236,233,227,0.12);}
+  .sw .tier{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;margin-bottom:6px;}
+  .sw .when{font-size:12.5px;line-height:1.4;color:rgba(236,233,227,0.72);margin-bottom:10px;}
+  .sw .routes{font-family:'DM Mono',monospace;font-size:11px;line-height:1.5;color:rgba(236,233,227,0.66);}
+  .sw .routes b{color:#fff;font-weight:500;}
+  .sw-simple{border-color:var(--sky);}      .sw-simple .tier{color:var(--sky);}
+  .sw-medium{border-color:var(--mint);}      .sw-medium .tier{color:var(--mint);}
+  .sw-complex{border-color:var(--purple-light);} .sw-complex .tier{color:var(--purple-light);}
+  .sw-reason{border-color:var(--lavender);box-shadow:inset 0 0 40px rgba(107,41,247,0.1);} .sw-reason .tier{color:var(--lavender);}
+
+  /* section dividers inside the stage */
+  .subhead{position:relative;z-index:1;margin:36px 0 14px;padding-top:26px;border-top:1px solid rgba(236,233,227,0.1);}
+  .subhead .kicker{font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.24em;text-transform:uppercase;color:var(--lavender);font-weight:500;margin-bottom:6px;}
+  .subhead h2{font-size:26px;font-weight:700;letter-spacing:-0.01em;color:var(--cream);}
+  .subhead h2 span{color:var(--purple-light);}
+
+  /* flip legend */
+  .flip{
+    position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:22px;
+  }
+  .fl{border-radius:12px;padding:14px 18px;background:rgba(13,20,48,0.85);}
+  .fl .tag{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;margin-bottom:6px;}
+  .fl p{font-size:13px;line-height:1.4;color:rgba(236,233,227,0.72);}
+  .fl-n{border:1.5px solid var(--purple-light);box-shadow:inset 0 0 40px rgba(107,41,247,0.08);}
+  .fl-n .tag{color:var(--purple-light);}
+  .fl-d{border:1.5px solid var(--sky);box-shadow:inset 0 0 40px rgba(168,232,247,0.06);}
+  .fl-d .tag{color:var(--sky);}
+  .fl-t{border:1.5px solid var(--mint);box-shadow:inset 0 0 40px rgba(134,239,172,0.06);}
+  .fl-t .tag{color:var(--mint);}
+
+  table.tbl{position:relative;z-index:1;width:100%;border-collapse:separate;border-spacing:0 6px;table-layout:fixed;}
+  .tbl th{
+    font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+    color:rgba(236,233,227,0.55);font-weight:500;text-align:left;padding:6px 10px 8px;
+  }
+  .tbl th.h-neural{color:var(--purple-light);}
+  .tbl th.h-det{color:var(--sky);}
+  .tbl td{
+    background:rgba(13,20,48,0.85);padding:9px 10px;vertical-align:top;
+    font-size:12px;line-height:1.38;color:rgba(236,233,227,0.82);
+    border-top:1px solid rgba(236,233,227,0.07);border-bottom:1px solid rgba(236,233,227,0.07);
+  }
+  .tbl td:first-child{border-radius:10px 0 0 10px;border-left:3px solid transparent;}
+  .tbl td:last-child{border-radius:0 10px 10px 0;border-right:1px solid rgba(236,233,227,0.07);}
+  .tbl tr.r-neuro td:first-child{border-left-color:var(--purple-light);}
+  .tbl tr.r-guard td:first-child{border-left-color:var(--mint);}
+  .tbl tr.r-pipe  td:first-child{border-left-color:var(--sky);}
+
+  .agent{font-weight:700;color:#fff;font-size:13px;}
+  .intent{display:block;margin-top:3px;font-size:11px;line-height:1.3;color:rgba(236,233,227,0.55);}
+
+  /* mile cells */
+  td.m-neural{background:rgba(107,41,247,0.13);}
+  td.m-det{background:rgba(168,232,247,0.08);}
+  .none{color:rgba(236,233,227,0.4);font-style:italic;}
+  .big{color:var(--purple-light);font-weight:700;}
+
+  /* trigger chips */
+  .trig{font-weight:500;color:rgba(236,233,227,0.9);}
+  .ttype{
+    font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;
+    font-weight:500;padding:2px 7px;border-radius:999px;display:inline-block;margin-top:5px;
+  }
+  .tt-sched{color:#0d1430;background:var(--sky);}
+  .tt-event{color:#0d1430;background:var(--mint);}
+  .tt-thresh{color:#0d1430;background:var(--lavender);}
+  .tt-chat{color:#0d1430;background:var(--lavender);}
+
+  /* tools */
+  .tools{color:rgba(236,233,227,0.6);font-size:11.5px;}
+
+  /* section header rows */
+  .tbl tr.secrow td{
+    background:transparent;border:none;padding:18px 4px 2px;
+  }
+  .sectitle{
+    font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:0.2em;
+    text-transform:uppercase;font-weight:500;
+  }
+  .sectitle .split{
+    margin-left:12px;padding:2px 10px;border-radius:999px;
+    font-size:11px;letter-spacing:0.08em;
+  }
+  .sec-neuro .sectitle{color:var(--purple-light);}
+  .sec-neuro .split{color:#e9dcff;background:rgba(107,41,247,0.35);border:1px solid var(--purple-light);}
+  .sec-guard .sectitle{color:var(--mint);}
+  .sec-guard .split{color:#0d1430;background:var(--mint);}
+  .sec-pipe .sectitle{color:var(--sky);}
+  .sec-pipe .split{color:#0d1430;background:var(--sky);}
+
+  /* model-options list */
+  .models{font-family:'DM Mono',monospace;font-size:11px;line-height:1.5;}
+  .models .mr{color:#fff;font-weight:500;}
+  .models .mb{color:rgba(236,233,227,0.66);}
+  .models .sep{color:rgba(236,233,227,0.28);padding:0 2px;}
+  .models .co{color:rgba(236,233,227,0.5);}
+
+  .fnote{
+    position:relative;z-index:1;margin-top:16px;
+    font-family:'DM Mono',monospace;font-size:12px;color:rgba(236,233,227,0.55);line-height:1.5;
+  }
+  .fnote b{color:var(--sky);font-weight:500;}
+  .fnote i{color:var(--purple-light);font-style:normal;}
+
+  .foot{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;margin-top:18px;}
+  .claim{font-size:17px;font-weight:500;color:var(--cream);letter-spacing:-0.01em;}
+  .claim strong{color:var(--lavender);font-weight:700;}
+  .brand img{height:36px;width:auto;display:block;}
+
+  /* ===== site-v2 light / brand theme (white background) — overrides the dark theme above ===== */
+  :root{--bnavy:#04246b;--bpurple:#6B29F7;--bcyan:#17b5e7;--bgreen:#0f9d6b;--bgray:#6b6760;--bpaper:#faf9f7;--bline:#ece9e3;}
+  body{background:var(--bpaper);}
+  .stage{background:#fff;border:1px solid var(--bline);border-radius:22px;box-shadow:0 20px 60px rgba(4,36,107,0.07);}
+  .stage::before{display:none;}
+  .eyebrow{color:var(--bpurple);}
+  .head h1{color:var(--bnavy);}
+  .head h1 span{color:var(--bpurple);}
+  .subnote{color:var(--bgray);}
+  .subnote b{color:var(--bnavy);}
+  .subnote i{color:var(--bpurple);}
+  .sw{background:var(--bpaper);border-color:var(--bline);box-shadow:none;}
+  .sw .when{color:var(--bgray);}
+  .sw .routes{color:var(--bgray);}
+  .sw .routes b{color:var(--bnavy);}
+  .sw-simple{border-color:var(--bcyan);}  .sw-simple .tier{color:#0f83a8;}
+  .sw-medium{border-color:var(--bgreen);} .sw-medium .tier{color:var(--bgreen);}
+  .sw-complex{border-color:var(--bpurple);} .sw-complex .tier{color:var(--bpurple);}
+  .sw-reason{border-color:var(--bpurple);box-shadow:inset 0 0 40px rgba(107,41,247,0.06);} .sw-reason .tier{color:#4a1fb0;}
+  .subhead{border-top-color:var(--bline);}
+  .subhead .kicker{color:var(--bpurple);}
+  .subhead h2{color:var(--bnavy);}
+  .subhead h2 span{color:var(--bpurple);}
+  .lg,.fl{background:var(--bpaper);border:1px solid var(--bline);box-shadow:none;}
+  .lg p,.fl p{color:var(--bgray);}
+  .lg-neuro,.fl-n{border-color:var(--bpurple);}
+  .lg-neuro .tag,.fl-n .tag{color:var(--bpurple);}
+  .lg-guard,.fl-t{border-color:var(--bgreen);}
+  .lg-guard .tag,.fl-t .tag{color:var(--bgreen);}
+  .lg-pipe,.fl-d{border-color:var(--bcyan);}
+  .lg-pipe .tag,.fl-d .tag{color:#0f83a8;}
+  .tbl th{color:#fff;background:var(--bnavy);border-bottom:none;}
+  .tbl td{background:#fff;color:#3a382f;border-top:1px solid #f0ede7;border-bottom:1px solid #f0ede7;}
+  .tbl tbody tr:hover td{background:var(--bpaper);}
+  .tbl tr.r-neuro td:first-child{border-left-color:var(--bpurple);}
+  .tbl tr.r-guard td:first-child{border-left-color:var(--bgreen);}
+  .tbl tr.r-pipe td:first-child{border-left-color:var(--bcyan);}
+  td.m-neural{background:rgba(107,41,247,0.07);}
+  td.m-det{background:rgba(23,181,231,0.08);}
+  .agent{color:var(--bnavy);}
+  .intent{color:var(--bgray);}
+  .muted,.tools{color:#8a857c;}
+  .trig{color:#3a382f;}
+  .none{color:#a7a299;}
+  .big{color:var(--bpurple);}
+  .tt-sched{color:var(--bnavy);background:#d3eefb;}
+  .tt-event{color:#0f6b46;background:#d6f2e7;}
+  .tt-thresh,.tt-chat{color:#4a1fb0;background:#ece1ff;}
+  .sec-neuro .sectitle{color:var(--bpurple);}
+  .sec-neuro .split{color:#fff;background:var(--bpurple);border-color:var(--bpurple);}
+  .sec-guard .sectitle{color:var(--bgreen);}
+  .sec-guard .split{color:#fff;background:var(--bgreen);}
+  .sec-pipe .sectitle{color:#0f83a8;}
+  .sec-pipe .split{color:var(--bnavy);background:#cbeefb;}
+  .models .mr{color:var(--bnavy);}
+  .models .mb{color:var(--bgray);}
+  .models .sep{color:#cfcabf;}
+  .models .co{color:#9a958b;}
+  .fnote{color:var(--bgray);}
+  .fnote b{color:var(--bnavy);}
+  .fnote i{color:var(--bpurple);}
+  .claim{color:var(--bnavy);}
+  .claim strong{color:var(--bpurple);}
+  .brand{background:var(--bnavy);padding:9px 16px;border-radius:12px;}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="head">
+    <div class="eyebrow">AI agents · GTM · the LLM switchboard</div>
+    <h1>One switchboard, 46 GTM agents — <span>routed to the right model, mile by mile</span></h1>
+  </div>
+  <div class="subnote">
+    Every agent's neural miles run through an <i>LLM switchboard</i>: a classifier scores the job shape — how structured the trigger is, whether the answer is reasoning or language — and routes that mile to the <b>tier-right model</b>. A structured trigger shrinks the first mile toward zero and drops the tier; schedule-fired framing or a causal loop lifts it. The <b>bold pick</b> in every row below is the switchboard's call. Two desks — <b>29 RevOps</b> agents and <b>17 marketing</b> agents — routed by the same rule.
+  </div>
+
+  <!-- switchboard routing legend -->
+  <div class="switch">
+    <div class="sw sw-simple">
+      <div class="tier">Simple / Medium</div>
+      <div class="when">Pure sync, classification, scoring, or narration glue. The trigger arrives structured — there is little to frame.</div>
+      <div class="routes"><b>Gemini Flash-Lite</b> · Haiku 4.5 · GPT-5 nano · Gemma 3</div>
+    </div>
+    <div class="sw sw-medium">
+      <div class="tier">Guarded judgment</div>
+      <div class="when">Structured triggers with a small judgment residue — routing edge cases, fit scoring, hygiene, sourced answers.</div>
+      <div class="routes"><b>Gemini 2.5 Flash</b> · Claude Haiku 4.5 · GPT-5 mini · Qwen 3</div>
+    </div>
+    <div class="sw sw-complex">
+      <div class="tier">Complex · language is the deliverable</div>
+      <div class="when">The last mile carries the value — long-form drafts, posts, scripts, board commentary within guardrails.</div>
+      <div class="routes"><b>Claude Sonnet 5</b> · GPT-5 · Gemini 3 Pro · Claude Opus 4.8</div>
+    </div>
+    <div class="sw sw-reason">
+      <div class="tier">Reasoning · the loop carries the framing</div>
+      <div class="when">Schedule-fired framing and causal work — forecast risk, win/loss attribution, ROAS reallocation.</div>
+      <div class="routes"><b>Claude Sonnet 5</b> · Gemini 3 Pro · DeepSeek R1 · Claude Opus 4.8</div>
+    </div>
+  </div>
+  <div class="fnote" style="margin-bottom:6px">
+    <b>How the switchboard decides:</b> tool-loop reliability &amp; structured judgment → Claude Sonnet 5; massive multi-source context → Gemini 3 Pro; strict-schema drafting → Claude Haiku 4.5; price at classification volume → Gemini Flash / Flash-Lite; deep causal reasoning → DeepSeek R1 / Opus 4.8. Open-weight picks (Gemma 3, Llama 3.3, Qwen 3, Mistral Small 3) fit when data must stay in-house.
+  </div>
+
+  <!-- ============================= REVOPS ============================= -->
+  <div class="subhead">
+    <div class="kicker">Desk 1 · RevOps</div>
+    <h2>29 RevOps agents — <span>what fires them, and how the work really splits</span></h2>
+  </div>
+  <div class="subnote" style="text-align:left;margin-left:0;">
+    Not every agent is 10-80-10 — the split is a <i>dial</i>. Each section carries its tier's real split: <b>10-80-10</b> for reasoning, <b>~5-90-5</b> for guarded judgment, <b>≈5-60-35</b> when the deliverable is language, <b>0-100-0</b> for pipelines. A <i>deterministic trigger is free framing</i> — the more structured the event that wakes an agent, the smaller its neural first mile, the cheaper the model the switchboard picks.
+  </div>
+
+  <div class="flip">
+    <div class="fl fl-n">
+      <div class="tag">First mile · Neural</div>
+      <p>The model reads trigger + intent and frames a structured problem — scope, baseline, drivers. No computing. It only translates the ask into a spec the middle can run.</p>
+    </div>
+    <div class="fl fl-d">
+      <div class="tag">Middle mile · Deterministic</div>
+      <p>Where the trustworthy answer is built — rules, arithmetic, queries, API waterfalls, causal attribution against real records. Auditable. Little or no LLM.</p>
+    </div>
+    <div class="fl fl-t">
+      <div class="tag">Last mile · Neural</div>
+      <p>The model narrates the computed result in plain business language. It never invented the numbers. Absent when the job is a pure sync — nothing to say.</p>
+    </div>
+  </div>
+
+  <table class="tbl">
+    <colgroup>
+      <col style="width:9.5%"><col style="width:11%"><col style="width:15.5%">
+      <col style="width:18.5%"><col style="width:13.5%"><col style="width:14%"><col style="width:18%">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Agent</th>
+        <th>Trigger</th>
+        <th class="h-neural">First mile · frame the problem</th>
+        <th class="h-det">Middle mile · the real work (deterministic)</th>
+        <th class="h-neural">Last mile · narrate</th>
+        <th>Potential tools</th>
+        <th>Model options (switchboard pick in bold)</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- NEUROSYMBOLIC -->
+      <tr class="secrow sec-neuro"><td colspan="7"><span class="sectitle">Neurosymbolic — full pattern, both neural miles earn their keep<span class="split">10 - 80 - 10</span></span></td></tr>
+      <tr class="r-neuro">
+        <td><span class="agent">Forecast</span><span class="intent">Explain forecast risk before quarter close</span></td>
+        <td><span class="trig">3 days pre-close</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame which quarter, segment, baseline, and which drivers to test</td>
+        <td class="m-det">Pull forecast snapshots + actuals → variance per driver → attribute the gap → check vs. close history</td>
+        <td class="m-neural">Ranked drivers + $ impact + recommended deal review</td>
+        <td class="tools">CRM API, forecast snapshots, historical actuals</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Claude Opus 4.8</span><span class="sep">·</span><span class="mb">Grok 4</span><span class="sep">·</span><span class="mb">DeepSeek R1</span></td>
+      </tr>
+      <tr class="r-neuro">
+        <td><span class="agent">Win/loss</span><span class="intent">Attribute why deals are won and lost</span></td>
+        <td><span class="trig">Deal marked closed won/lost</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Frame the deal set + dimensions to attribute (price, competitor, timing, champion)</td>
+        <td class="m-det">Mine calls + CRM + loss surveys → attribute causes → aggregate patterns → promote recurring causes to rules</td>
+        <td class="m-neural">Why-won / why-lost narrative + pattern callouts</td>
+        <td class="tools">Call recordings, CRM close data, loss surveys</td>
+        <td class="models"><span class="mr">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Claude Opus 4.8</span><span class="sep">·</span><span class="mb">Grok 4</span></td>
+      </tr>
+      <tr class="r-neuro">
+        <td><span class="agent">Churn signal</span><span class="intent">Flag accounts likely to churn, with the cause</span></td>
+        <td><span class="trig">Weekly usage refresh / usage drop</span><span class="ttype tt-thresh">Threshold</span></td>
+        <td class="m-neural">Frame which accounts, which signals, and the risk window</td>
+        <td class="m-det">Join usage + tickets + CRM history → risk score with cause → check against past churns</td>
+        <td class="m-neural">Flagged accounts + cause + suggested save play</td>
+        <td class="tools">Product usage, support tickets, CRM history</td>
+        <td class="models"><span class="mr">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">DeepSeek R1</span></td>
+      </tr>
+      <tr class="r-neuro">
+        <td><span class="agent">Commit confidence</span><span class="intent">Score how trustworthy each commit is</span></td>
+        <td><span class="trig">Rep submits commit / pre-forecast call</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Frame which commits, scored against what history</td>
+        <td class="m-det">Compare commit vs. stage history vs. close actuals → trust score → check vs. outcomes</td>
+        <td class="m-neural">Per-commit confidence + why</td>
+        <td class="tools">CRM stage history, rep commit log, close actuals</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Grok 4</span><span class="sep">·</span><span class="mb">DeepSeek R1</span></td>
+      </tr>
+
+      <!-- GUARDED JUDGMENT -->
+      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded judgment — structured triggers shrink the edges<span class="split">~5 - 90 - 5</span></span></td></tr>
+      <tr class="r-guard">
+        <td><span class="agent">Deal risk</span><span class="intent">Surface slipping deals and why</span></td>
+        <td><span class="trig">Deal untouched 14d / stage age</span><span class="ttype tt-thresh">Threshold</span></td>
+        <td class="m-neural">Minimal — the trigger already names the deal</td>
+        <td class="m-det">Rules detect slippage deterministically; model narrates why from activity/email/meeting signals; validators gate</td>
+        <td class="m-neural">Short "why it's slipping" note</td>
+        <td class="tools">CRM activity, email &amp; meeting signals</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">Mistral Small 3</span><span class="sep">·</span><span class="mb">Llama 3.3 70B</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Expansion signal</span><span class="intent">Flag upsell and expansion opportunities</span></td>
+        <td><span class="trig">Usage / seat count crosses criteria</span><span class="ttype tt-thresh">Threshold</span></td>
+        <td class="m-neural">Frame the account + expansion criteria</td>
+        <td class="m-det">Rules flag against defined usage/billing/seat criteria; model narrates the fit</td>
+        <td class="m-neural">Upsell opportunity note</td>
+        <td class="tools">Product usage, billing data, seat counts</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Quote/CPQ</span><span class="intent">Generate quotes inside pricing guardrails</span></td>
+        <td><span class="trig">Opportunity reaches quote stage</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Frame requested config + customer</td>
+        <td class="m-det">Price book + CPQ rules compute the valid price (code); model drafts language within guardrails</td>
+        <td class="m-neural">Quote document</td>
+        <td class="tools">Price book, CPQ rules engine, CRM</td>
+        <td class="models"><span class="mr">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Mistral Small 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Lead scoring</span><span class="intent">Rank inbound leads by fit</span></td>
+        <td><span class="trig">New / updated lead</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Near-zero — payload is structured; map to ICP rubric</td>
+        <td class="m-det">Enrichment + rubric classification; validators check the score</td>
+        <td class="m-neural">Score + one-line reason</td>
+        <td class="tools">Enrichment data, ICP rubric, CRM</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">Qwen 3</span><span class="sep">·</span><span class="mb">Llama 3.3 70B</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">CRM hygiene</span><span class="intent">Write clean fields back to the CRM</span></td>
+        <td><span class="trig">Record created/edited / nightly sweep</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Frame which fields + which records</td>
+        <td class="m-det">Field validation rules; model drafts clean values; validators gate every CRM write</td>
+        <td class="m-neural">Change summary (optional)</td>
+        <td class="tools">CRM API, field validation rules</td>
+        <td class="models"><span class="mr">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">Mistral Small 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Renewal</span><span class="intent">Surface renewal risk early</span></td>
+        <td><span class="trig">Contract date − 90 days</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame the account + contract window</td>
+        <td class="m-det">Rules on dates/usage/tickets trigger; model narrates the risk</td>
+        <td class="m-neural">Renewal risk note</td>
+        <td class="tools">Contract dates, usage, support tickets</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Lead routing</span><span class="intent">Route inbound leads instantly</span></td>
+        <td><span class="trig">New-lead webhook</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Near-zero — the payload <em>is</em> the spec</td>
+        <td class="m-det">Routing rules assign 95% deterministically (territory/owner); model handles only the residue</td>
+        <td class="m-neural">Route reason on edge cases only</td>
+        <td class="tools">Routing rules, territory &amp; owner data, Clay, Slack</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">GPT-5 nano</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">GTM Assistant</span><span class="intent">Triage the inbox, run the calendar, deliver the daily brief</span></td>
+        <td><span class="trig">Incoming email / daily brief cron</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Minimal — triage against a learned rubric (VIP senders, ignore rules) decides what matters</td>
+        <td class="m-det">Calendar availability + scheduling APIs, reminders from email deadlines, brief assembly from calendar + inbox + attendee research; outward replies &amp; accepts gated</td>
+        <td class="m-neural">Daily brief + "what matters" notifications</td>
+        <td class="tools">Gmail, Google Calendar, web research API</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Gemma 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Account sourcing / TAM</span><span class="intent">Build &amp; qualify lookalike account lists</span></td>
+        <td><span class="trig">New segment / ICP refresh</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame the ICP filters + lookalike seed</td>
+        <td class="m-det">Pull from databases + scraping → dedup into Clay → AI-qualify fit against the ICP rubric</td>
+        <td class="m-neural">Qualified account list + fit reasons</td>
+        <td class="tools">Clay, Ocean.io, Apollo, Discolike, AI Ark</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Buying committee</span><span class="intent">Map decision-makers, champions &amp; influencers per account</span></td>
+        <td><span class="trig">Account reaches Tier 1/2</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Frame the personas to map per account</td>
+        <td class="m-det">Source contacts (Sales Nav / Apollo / AI Ark) → classify role → dedup into Clay</td>
+        <td class="m-neural">Stakeholder map + persona fit</td>
+        <td class="tools">Sales Navigator, Apollo, AI Ark, Clay, CRM</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Account tiering</span><span class="intent">Score accounts into T1/2/3 on an ICP rubric</span></td>
+        <td><span class="trig">Account enriched / list refresh</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Near-zero — map the account to the ICP rubric</td>
+        <td class="m-det">Clay formulas + enrichment score fit → assign Tier 1/2/3; rules gate the CRM write</td>
+        <td class="m-neural">Tier + one-line reason</td>
+        <td class="tools">Clay, HubSpot, enrichment APIs</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Gemma 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Signal / intent</span><span class="intent">Capture buying signals, normalize &amp; score intent</span></td>
+        <td><span class="trig">Signal webhook (1st/2nd/3rd party)</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Frame the signal type + account</td>
+        <td class="m-det">Ingest → normalize (domain / LinkedIn URL) → dedup in Clay → score intent against criteria</td>
+        <td class="m-neural">Scored signal + suggested play</td>
+        <td class="tools">Clay, RB2B, Warmly, Amplitude, Crossbeam</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+
+      <!-- GUARDED DRAFTING -->
+      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded drafting — the deliverable is language, gated per item<span class="split">≈5 - 60 - 35 · gated</span></span></td></tr>
+      <tr class="r-guard">
+        <td><span class="agent">Outbound</span><span class="intent">Research accounts, draft personalized outbound emails</span></td>
+        <td><span class="trig">Inbound lead signal from the CRM</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Near-zero — ICP, personas &amp; voice are standing config from onboarding; the signal is the spec</td>
+        <td class="m-det">Screen the signal → enrich → research across web / LinkedIn / CRM / warehouse → dedup vs. past outreach → Gmail-draft rail, per-item gate (outward email never graduates)</td>
+        <td class="m-neural">Personalized email drafts, sources &amp; thought-process surfaced under each (gated)</td>
+        <td class="tools">CRM (Salesforce), Instantly, HeyReach, Gmail drafts, Slack, warehouse (BigQuery), enrichment APIs</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span></td>
+      </tr>
+
+      <!-- DETERMINISTIC PIPELINE -->
+      <tr class="secrow sec-pipe"><td colspan="7"><span class="sectitle">Deterministic pipeline — code computes; a model narrates at most<span class="split">0 - 100 - 0&ensp;·&ensp;0 - 100 - 5</span></span></td></tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Call debrief</span><span class="intent">Turn calls into summaries and CRM fields</span></td>
+        <td><span class="trig">Transcript ready</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">None — transcript arrives in</span></td>
+        <td class="m-det">Extraction with schema validation → structured CRM fields (deterministic write)</td>
+        <td class="m-neural">Call summary narration</td>
+        <td class="tools">Transcription API, CRM write API</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 nano</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">Mistral Small 3</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Meeting prep</span><span class="intent">Build a brief before every meeting</span></td>
+        <td><span class="trig">Meeting T − 1h</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame attendees + account</td>
+        <td class="m-det">Retrieval from calendar + CRM + web → assemble the brief</td>
+        <td class="m-neural">One-page brief</td>
+        <td class="tools">Calendar, CRM, web search</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Board reporting</span><span class="intent">Compile board reports on schedule</span></td>
+        <td><span class="trig">Monthly / quarterly</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame the period + metric set</td>
+        <td class="m-det">Pull metrics warehouse → compute → assemble deck deterministically</td>
+        <td class="m-neural">Exec-facing written commentary</td>
+        <td class="tools">Metrics warehouse, slides/docs API</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Claude Opus 4.8</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Competitive intel</span><span class="intent">Aggregate competitor mentions</span></td>
+        <td><span class="trig">New transcript/news / weekly</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Frame the competitor set</td>
+        <td class="m-det">Classify mentions at volume across transcripts, news feeds, review sites</td>
+        <td class="m-neural">Digest narration</td>
+        <td class="tools">Call transcripts, news feeds, review sites</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">GPT-5 nano</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Enrichment</span><span class="intent">Fill missing account and contact data</span></td>
+        <td><span class="trig">Record with missing fields</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">None — record arrives in</span></td>
+        <td class="m-det">API waterfall (Clay / Findymail / BetterContact) fills + validates the data</td>
+        <td class="m-neural"><span class="none">Mostly none</span></td>
+        <td class="tools">Clay, Findymail, BetterContact, Ocean.io, AI Ark, CRM</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 nano</span><span class="sep">·</span><span class="mb">Gemma 3</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Website de-anon</span><span class="intent">Identify anonymous visitors &amp; route them</span></td>
+        <td><span class="trig">Anonymous visitor identified</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">None — visitor record arrives in</span></td>
+        <td class="m-det">De-anon vendor (Warmly / RB2B / Albacross) + enrichment → score → route to owner / outbound</td>
+        <td class="m-neural">Slack alert on Tier 1</td>
+        <td class="tools">Warmly, RB2B, Albacross, Clay, Slack</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 nano</span><span class="sep">·</span><span class="mb">Gemma 3</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Attribution</span><span class="intent">Tie outbound touches back to pipeline &amp; revenue</span></td>
+        <td><span class="trig">Outbound touch / signup</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">None — the touch arrives structured</span></td>
+        <td class="m-det">OutboundSync logs every touch → HubSpot property writes + deal-stage rollups (deterministic)</td>
+        <td class="m-neural">Small model explains the report</td>
+        <td class="tools">OutboundSync, HubSpot</td>
+        <td class="models"><span class="co">code only</span><span class="sep">·</span><span class="mb">Haiku 4.5 / Gemma 3 to narrate</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Multi-thread</span><span class="intent">Flag single-threaded deals</span></td>
+        <td><span class="trig">Deal review / weekly</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural"><span class="none">None</span></td>
+        <td class="m-det">SQL contact count per deal → flag single-threaded</td>
+        <td class="m-neural">Small model narrates the flag</td>
+        <td class="tools">CRM contacts query (SQL)</td>
+        <td class="models"><span class="co">code only</span><span class="sep">·</span><span class="mb">Gemma 3 / Haiku 4.5 / Flash-Lite to narrate</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Pipeline coverage</span><span class="intent">Flag coverage gaps against quota</span></td>
+        <td><span class="trig">Weekly</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural"><span class="none">None</span></td>
+        <td class="m-det">Arithmetic — pipeline $ vs. quota</td>
+        <td class="m-neural">Narrate the gap</td>
+        <td class="tools">CRM pipeline data, quota table</td>
+        <td class="models"><span class="co">code only</span><span class="sep">·</span><span class="mb">Gemma 3 / GPT-5 nano to narrate</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Coverage &amp; capacity</span><span class="intent">Track capacity and coverage vs. target</span></td>
+        <td><span class="trig">Weekly</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural"><span class="none">None</span></td>
+        <td class="m-det">Arithmetic — rep roster / quota vs. target</td>
+        <td class="m-neural">Narrate</td>
+        <td class="tools">Rep roster, quota table</td>
+        <td class="models"><span class="co">code only</span><span class="sep">·</span><span class="mb">Flash-Lite / Haiku 4.5 to narrate</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Comp &amp; quota</span><span class="intent">Model quotas and attainment</span></td>
+        <td><span class="trig">Comp period / deal closed-won</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">None</span></td>
+        <td class="m-det">Deterministic money math — comp plan rules + closed-won data</td>
+        <td class="m-neural">Small model explains the statement</td>
+        <td class="tools">Comp plan rules, closed-won data</td>
+        <td class="models"><span class="co">code only</span><span class="sep">·</span><span class="mb">Haiku 4.5 / Gemma 3 to explain</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Activity capture</span><span class="intent">Auto-sync email and meetings to the CRM</span></td>
+        <td><span class="trig">Email sent / meeting occurs</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">None</span></td>
+        <td class="m-det">Pure integration sync — email / calendar → CRM</td>
+        <td class="m-neural"><span class="none">None — no model</span></td>
+        <td class="tools">Email / calendar APIs, CRM API</td>
+        <td class="models"><span class="co">code only — no model</span></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="fnote">
+    <b>Reading a row:</b> the <i>trigger</i> wakes the agent → the <i>first mile</i> turns trigger + intent into a structured problem → the <i>middle mile</i> computes the trustworthy answer in code/rules → the <i>last mile</i> narrates it. The section badge shows each tier's real split — the neural miles shrink as jobs get more structured, and the switchboard drops the model tier with them. Where a neural mile reads <i>"none"</i>, the trigger arrived already structured or the job is a pure sync with nothing to say — that's the discipline, not a gap.
+  </div>
+
+  <!-- ============================= MARKETING ============================= -->
+  <div class="subhead">
+    <div class="kicker">Desk 2 · Marketing</div>
+    <h2>17 marketing agents — <span>what fires them, and how the work really splits</span></h2>
+  </div>
+  <div class="subnote" style="text-align:left;margin-left:0;">
+    The split is a <i>dial</i>, and marketing turns it differently: when the deliverable <i>is language</i>, the <b>last mile grows</b> — the draft is the product, and the switchboard routes it up a tier. Only <b>paid ads</b> closes its own loop and earns the neurosymbolic tier; for every other agent <b>a human closes the loop</b>, and every external action — post, publish, PR, send, spend — <b>stops at a human gate</b>.
+  </div>
+
+  <div class="flip">
+    <div class="fl fl-n">
+      <div class="tag">First mile · Neural</div>
+      <p>The model reads trigger + intent and frames the work — topic, angle, audience, query set. Standing briefs and structured triggers shrink this toward zero.</p>
+    </div>
+    <div class="fl fl-d">
+      <div class="tag">Middle mile · Deterministic</div>
+      <p>Context retrieval, keyword &amp; thread discovery, relevance filters, scoring, generation APIs, publish rails, budgets — and the HITL gate that clears every external action.</p>
+    </div>
+    <div class="fl fl-t">
+      <div class="tag">Last mile · Neural</div>
+      <p>In marketing this mile is often the deliverable itself — the post, article, script, or reply. Bigger than in RevOps, but still bounded by guardrails and the gate.</p>
+    </div>
+  </div>
+
+  <table class="tbl">
+    <colgroup>
+      <col style="width:9.5%"><col style="width:11%"><col style="width:15.5%">
+      <col style="width:18.5%"><col style="width:13.5%"><col style="width:14%"><col style="width:18%">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Agent</th>
+        <th>Trigger</th>
+        <th class="h-neural">First mile · frame the work</th>
+        <th class="h-det">Middle mile · deterministic spine</th>
+        <th class="h-neural">Last mile · the deliverable</th>
+        <th>Potential tools</th>
+        <th>Model options (switchboard pick in bold)</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- NEUROSYMBOLIC -->
+      <tr class="secrow sec-neuro"><td colspan="7"><span class="sectitle">Neurosymbolic — the one loop marketing closes itself<span class="split">10 - 80 - 10</span></span></td></tr>
+      <tr class="r-neuro">
+        <td><span class="agent">Paid ads</span><span class="intent">Reallocate spend across campaigns against ROAS</span></td>
+        <td><span class="trig">Daily pacing / ROAS check</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame which campaigns, budgets, and the ROAS target window</td>
+        <td class="m-det">Pull spend + conversions + pipeline → compute ROAS per campaign → reallocate against rules → check vs. outcomes</td>
+        <td class="m-neural">Reallocation decisions + rationale — budget rails gate the spend</td>
+        <td class="tools">Ad platform APIs (LinkedIn/Meta/Google), attribution, CRM pipeline</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">DeepSeek R1</span></td>
+      </tr>
+
+      <!-- GUARDED ANALYSIS -->
+      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded analysis — audits &amp; scores are code, recs are judgment<span class="split">≈5 - 90 - 10 · gated</span></span></td></tr>
+      <tr class="r-guard">
+        <td><span class="agent">SEO</span><span class="intent">Find, prioritize, and recommend ranking fixes</span></td>
+        <td><span class="trig">Daily / weekly audit run</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Near-zero — page set, keywords, and baseline (last crawl) are standing config; the schedule is the spec</td>
+        <td class="m-det">Crawl audit + Core Web Vitals + keyword gap + backlinks → prioritize fixes by impact rules → gate before any fix ships</td>
+        <td class="m-neural">Severity-tagged fix recommendations with rationale</td>
+        <td class="tools">Site crawler, Lighthouse/CWV, SERP &amp; keyword APIs, backlinks API, CMS / GitHub</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">DeepSeek R1</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">GEO</span><span class="intent">Track &amp; grow brand visibility in AI answers</span></td>
+        <td><span class="trig">Daily visibility run</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Near-zero — the buyer-question query set is standing config, refreshed only when positioning shifts</td>
+        <td class="m-det">Fan-out probes across engines → citation / mention scoring → deltas vs. last run</td>
+        <td class="m-neural">Ranked recommendations to win citations</td>
+        <td class="tools">Multi-model probes, AI-Overview checks, citation scoring</td>
+        <td class="models"><span class="mr">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Competitor intel</span><span class="intent">Maintain the battlecard, answer competitor questions in Slack</span></td>
+        <td><span class="trig">Slack @mention / weekly refresh</span><span class="ttype tt-chat">On-demand</span></td>
+        <td class="m-neural">Near-zero — the competitor roster is standing config; the question or the schedule is the spec</td>
+        <td class="m-det">Weekly: web research per competitor → refresh wiki + Notion battlecard. On ask (any company): retrieve battlecard + fresh search → cite sources</td>
+        <td class="m-neural">Sourced answers in-thread + concise research reports</td>
+        <td class="tools">Tavily search, Slack, Notion battlecard</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+
+      <!-- GUARDED DRAFTING -->
+      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded drafting — the deliverable is language, the last mile grows<span class="split">≈5 - 45 - 50 · gated</span></span></td></tr>
+      <tr class="r-guard">
+        <td><span class="agent">Writer</span><span class="intent">Draft long-form articles inside brand &amp; SEO guardrails</span></td>
+        <td><span class="trig">Weekly cron / keyword handoff from SEO</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Pick topic + outline from keyword data</td>
+        <td class="m-det">Context retrieval (product, SERP), SEO lint &amp; schema checks, OG-image gen, CMS publish rails, review gate</td>
+        <td class="m-neural"><span class="big">Big:</span> the 800–2,000-word draft — the deliverable is the language</td>
+        <td class="tools">Keyword input, OG-image model, CMS publish API</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">Claude Opus 4.8</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">LinkedIn</span><span class="intent">Draft founder-voice posts daily</span></td>
+        <td><span class="trig">Daily cron</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Near-zero — a standing brief + brand voice carries the framing</td>
+        <td class="m-det">Voice context assembly, dedup vs. past posts, scheduling, OAuth publish rail, review gate</td>
+        <td class="m-neural"><span class="big">Big:</span> the post itself</td>
+        <td class="tools">Brand-voice context, LinkedIn OAuth</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">X (Twitter)</span><span class="intent">Scout the timeline, draft posts &amp; threads in your voice</span></td>
+        <td><span class="trig">Daily cron</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Near-zero — standing brief</td>
+        <td class="m-det">Scout scan (timeline, mentions, web) → voice-profile retrieval, dedup, scheduling, OAuth publish rail, review gate</td>
+        <td class="m-neural"><span class="big">Big:</span> 5 draft posts &amp; threads, humanizer pass</td>
+        <td class="tools">Voice-profile KB, timeline/web scout, X OAuth</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Gemma 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Hacker News</span><span class="intent">Pitch launches in builder voice (3 variations)</span></td>
+        <td><span class="trig">You ask, at a launch moment</span><span class="ttype tt-chat">On-demand</span></td>
+        <td class="m-neural">Frame the launch angle from your ask</td>
+        <td class="m-det">Product context retrieval, 3-variation structure, no auto-post by design</td>
+        <td class="m-neural"><span class="big">Big:</span> three pitch variations</td>
+        <td class="tools">Product context; manual posting only</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Reddit</span><span class="intent">Find relevant threads, draft non-promo replies</span></td>
+        <td><span class="trig">Daily scan</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural"><span class="none">None — keyword config is the spec</span></td>
+        <td class="m-det">API discovery → relevance filter drops weak fits → thread metadata (subreddit, age, upvotes)</td>
+        <td class="m-neural">Why-relevant note + drafted reply (gated, posted manually)</td>
+        <td class="tools">Reddit API / search, keyword config</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Social listening</span><span class="intent">Monitor brand &amp; keyword mentions, draft outreach</span></td>
+        <td><span class="trig">Brand / keyword mention detected</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">Near-zero — keyword config is the spec</span></td>
+        <td class="m-det">Monitor mentions (Jungler / Teamfluence) → enrich + score engaged accounts in Clay → dedup</td>
+        <td class="m-neural">Why-relevant note + drafted outreach (gated)</td>
+        <td class="tools">Jungler, Teamfluence, Clay, Slack</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Gemma 3</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Coding</span><span class="intent">Turn technical SEO fixes into GitHub PRs</span></td>
+        <td><span class="trig">Handoff from the SEO agent</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">None — the finding arrives structured</span></td>
+        <td class="m-det">Read repo → generate fix → branch; opening the PR is the gate</td>
+        <td class="m-neural">PR description + diff rationale</td>
+        <td class="tools">GitHub API, repo access</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Link building</span><span class="intent">Find prospects, draft outreach</span></td>
+        <td><span class="trig">Weekly prospect run</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame target pages + anchor priorities</td>
+        <td class="m-det">Prospect data pull → fit scoring by rules → dedup vs. past outreach</td>
+        <td class="m-neural">Personalized outreach drafts (gated)</td>
+        <td class="tools">Prospect / backlink data, email outreach</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Influencer</span><span class="intent">Run creator campaigns brief → payout</span></td>
+        <td><span class="trig">You brief a campaign</span><span class="ttype tt-chat">On-demand</span></td>
+        <td class="m-neural">Turn your brief into a structured campaign spec</td>
+        <td class="m-det">Creator DB matching, rate benchmarks, deliverable tracking, payouts — all code</td>
+        <td class="m-neural">Outreach + negotiation drafts (gated)</td>
+        <td class="tools">Creator database, outreach channel, payment rail</td>
+        <td class="models"><span class="mr">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">GPT-5 mini</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">YouTube</span><span class="intent">Script, produce &amp; publish channel videos</span></td>
+        <td><span class="trig">Weekly cron</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame the topic from performance data</td>
+        <td class="m-det">Production pipeline — video gen / edit APIs, thumbnail, upload via Data API, review gate</td>
+        <td class="m-neural"><span class="big">Big:</span> script + title + description</td>
+        <td class="tools">Video gen / edit APIs, YouTube Data API</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span></td>
+      </tr>
+
+      <!-- DETERMINISTIC PIPELINE -->
+      <tr class="secrow sec-pipe"><td colspan="7"><span class="sectitle">Deterministic pipeline — code or a generation API does the work<span class="split">0 - 100 - 0&ensp;·&ensp;0 - 100 - 5</span></span></td></tr>
+      <tr class="r-pipe">
+        <td><span class="agent">UGC video</span><span class="intent">Turn briefs into short video ads</span></td>
+        <td><span class="trig">You request a video</span><span class="ttype tt-chat">On-demand</span></td>
+        <td class="m-neural">Brief → render prompt (pure translation)</td>
+        <td class="m-det">Text-to-video API (~10 min render), storage, credit accounting</td>
+        <td class="m-neural"><span class="none">None — the MP4 is the deliverable</span></td>
+        <td class="tools">Text-to-video API (Veo / Kling / Runway), storage</td>
+        <td class="models"><span class="mr">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="co">+ the video model does the real work</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Repurposing</span><span class="intent">Atomize one asset into many formats &amp; channels</span></td>
+        <td><span class="trig">New asset published</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">None — the source asset is the spec</span></td>
+        <td class="m-det">Templated atomization into per-format variants, scheduling rails, review gate</td>
+        <td class="m-neural">Per-format rewrites (glue)</td>
+        <td class="tools">Content archive, format templates, channel APIs</td>
+        <td class="models"><span class="mr">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">GPT-5 mini</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Newsletter</span><span class="intent">Assemble &amp; send the newsletter on schedule</span></td>
+        <td><span class="trig">Weekly send date</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural"><span class="none">None — send date + content archive is the spec</span></td>
+        <td class="m-det">Assemble from published content, list management, ESP send rails, review gate</td>
+        <td class="m-neural">Subject line + intro glue only</td>
+        <td class="tools">ESP API, content archive, subscriber list</td>
+        <td class="models"><span class="mr">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">GPT-5 nano</span></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="fnote">
+    <b>Reading a row:</b> the <i>trigger</i> wakes the agent → the <i>first mile</i> frames the work (standing briefs and structured triggers shrink it to nothing) → the <i>middle mile</i> retrieves, filters, scores, and holds the publish rails → the <i>last mile</i> is the draft. Rows marked <i>"Big"</i> are agents whose deliverable is the language itself — there the last mile carries the value and the switchboard routes up to a stronger writing model. <b>The one neurosymbolic exception</b> is paid ads — it owns a measurable ROAS loop end-to-end, though its budget rails still gate the spend. The constant across both desks: <b>every external action (post, publish, PR, send, spend) stops at a human gate.</b>
+  </div>
+
+  <div class="foot">
+    <div class="claim">One switchboard, both desks — <strong>the job shape picks the model,</strong> and nothing ships ungated.</div>
+    <div class="brand"><img src="mainLogo.png" alt="Bowtie Funnel"></div>
+  </div>
+</div>
+</body>
+</html>
