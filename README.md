@@ -224,15 +224,6 @@ const { model, tier } = route(prompt);       // local, <1ms
 const res = await openrouter(model, prompt);  // the paid call
 ```
 
-## Landing page
-
-A standalone page lives at [`docs/index.html`](docs/index.html), served via
-GitHub Pages at **[labs.bowtiefunnel.com](https://labs.bowtiefunnel.com)**.
-
-To wire it up: **Settings → Pages → Source: Deploy from a branch → `main` /
-`/docs`**, then add the custom domain (the [`docs/CNAME`](docs/CNAME) file already
-points at `labs.bowtiefunnel.com`). Add a `CNAME` DNS record for `labs` →
-`<user>.github.io` at your DNS host, then enable **Enforce HTTPS**.
 
 ## Agent skills page
 
