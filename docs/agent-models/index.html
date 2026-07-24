@@ -14,15 +14,15 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   body{
     background:#33312c;font-family:'DM Sans',sans-serif;
-    height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;
+    min-height:100dvh;overflow-x:hidden;
   }
   .sitenav{flex:none;}
-  /* both-axis scroll pane; header row + Agent column freeze inside it */
-  .frame{flex:1;min-height:0;overflow:auto;padding:0;}
+  /* normal vertical page scroll; content lives in a centered card aligned to the nav */
+  .frame{padding:0;}
   .stage{
-    width:2260px;flex:none;margin:24px;
+    width:auto;max-width:1340px;margin:24px auto;
     background:radial-gradient(1800px 1000px at 50% -10%, #142052 0%, var(--navy) 55%, var(--navy-deep) 100%);
-    position:relative;padding:52px 56px 44px;
+    position:relative;padding:40px 32px 36px;
   }
   .stage::before{
     content:"";position:absolute;inset:0;
@@ -224,9 +224,9 @@
   .claim strong{color:var(--bpurple);}
   .brand{background:var(--bnavy);padding:9px 16px;border-radius:12px;}
 
-  .tbl-wrap{display:contents;} /* desktop: no box, tables live directly in the pane */
-  /* freeze the header row + the Agent column while scrolling the pane */
-  .tbl thead th{position:sticky;top:0;z-index:3;}
+  .tbl-wrap{display:block;} /* desktop: table fits the card, no horizontal scroll */
+  /* freeze the header row below the sticky nav on vertical scroll */
+  .tbl thead th{position:sticky;top:84px;z-index:3;}
   .tbl tbody td:first-child:not([colspan]),
   .tbl thead th:first-child{position:sticky;left:0;z-index:2;box-shadow:1px 0 0 var(--bline);}
   .tbl thead th:first-child{z-index:4;}
@@ -234,7 +234,7 @@
   /* ---- shared labs site nav (dark, consistent with every other page) ---- */
   :root{--surface:#161b23;--ink:#e7ebf1;--line:#242c37;}
   .sitenav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
-  .sn-inner{max-width:940px;margin:0 auto;padding:11px clamp(20px,5vw,40px);display:flex;align-items:center;gap:6px;position:relative;}
+  .sn-inner{max-width:1340px;margin:0 auto;padding:11px clamp(20px,5vw,40px);display:flex;align-items:center;gap:6px;position:relative;}
   .sn-brand{display:flex;align-items:center;text-decoration:none;}
   .sn-brand img{height:60px;width:auto;}
   .sn-brand .sn-logo-dark{display:none;}
