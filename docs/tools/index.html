@@ -56,7 +56,7 @@
 
   .tablecard { background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
   .scroll { overflow-x:auto; }
-  table { border-collapse:collapse; width:100%; min-width:1160px; }
+  table { border-collapse:collapse; width:100%; min-width:1280px; }
   thead th { position:sticky; top:0; z-index:3; background:var(--surface-2); color:var(--ink-faint);
     text-align:left; font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700;
     padding:13px 16px; border-bottom:1px solid var(--line-strong); white-space:nowrap; }
@@ -65,10 +65,15 @@
   tbody tr:hover td { background:var(--surface-2); }
 
   .c-tool { width:15%; min-width:160px; }
-  .c-desc { width:24%; min-width:210px; }
-  .c-does { width:26%; min-width:230px; }
-  .c-gtm  { width:21%; min-width:200px; }
-  .c-life { width:14%; min-width:150px; }
+  .c-desc { width:22%; min-width:200px; }
+  .c-does { width:24%; min-width:220px; }
+  .c-gtm  { width:19%; min-width:190px; }
+  .c-life { width:12%; min-width:140px; }
+  .c-web  { width:8%;  min-width:120px; }
+  .wlink { font-size:12.5px; font-weight:600; color:var(--accent-ink); text-decoration:none; white-space:nowrap; }
+  .wlink:hover { text-decoration:underline; }
+  .wlink .arw { opacity:.6; font-weight:400; }
+  .c-web .na { color:var(--ink-faint); }
 
   .stage { display:inline-block; font-size:10.5px; font-weight:600; padding:2px 8px; margin:0 4px 4px 0;
     border-radius:999px; white-space:nowrap; border:1px solid transparent; }
@@ -194,6 +199,7 @@
         <th class="c-desc">Description</th>
         <th class="c-does">What it does</th>
         <th class="c-gtm">GTM impact</th>
+        <th class="c-web">Website</th>
       </tr></thead>
       <tbody id="tbody"></tbody>
     </table>
@@ -255,7 +261,9 @@ const STAGES={
 
 // single source of truth: tools.json — the same file AI agents fetch
 const DATA=(await fetch('tools.json').then(r=>r.json())).tools
-  .map(t=>({n:t.name,c:t.category,x:t.workflows_used,cs:!!t.core_stack,d:t.description,w:t.what_it_does,g:t.gtm_impact,l:t.lifecycle||[]}));
+  .map(t=>({n:t.name,c:t.category,x:t.workflows_used,cs:!!t.core_stack,d:t.description,w:t.what_it_does,g:t.gtm_impact,l:t.lifecycle||[],u:t.website||''}));
+
+const host=u=>{try{return new URL(u).hostname.replace(/^www\./,'');}catch(e){return u;}};
 
 const ORDER = Object.keys(CATS);
 DATA.sort((a,b)=> b.x-a.x || a.n.localeCompare(b.n));
@@ -285,6 +293,9 @@ DATA.forEach(t=>{
   tr.appendChild(el('td','c-desc',`<div class="desc">${t.d}</div>`));
   tr.appendChild(el('td','c-does',`<div class="does">${t.w}</div>`));
   tr.appendChild(el('td','c-gtm',`<div class="gtm">${t.g}</div>`));
+  tr.appendChild(el('td','c-web', t.u
+    ? `<a class="wlink" href="${t.u}" target="_blank" rel="noopener">${host(t.u)} <span class="arw">↗</span></a>`
+    : `<span class="na">—</span>`));
   tbody.appendChild(tr);
 });
 
