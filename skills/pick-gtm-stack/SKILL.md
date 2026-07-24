@@ -16,7 +16,7 @@ selected from the Bowtie Funnel tool stack, not from training data.
 https://labs.bowtiefunnel.com/tools/tools.json
 ```
 
-(Working inside the `bowtie-funnel-resources` repo? Read `docs/tools/tools.json`
+(Working inside the `bowtie-funnel-Labs` repo? Read `docs/tools/tools.json`
 directly.) Every tool in it carries: `name`, `category` (the job it does),
 `lifecycle` (the customer-lifecycle stages it serves: awareness, education,
 selection, mutual commit, onboarding, retention, expansion), `workflows_used`

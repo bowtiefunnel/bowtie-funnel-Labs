@@ -20,7 +20,7 @@ https://labs.bowtiefunnel.com/tools/tools.json
 ```
 
 Filter to `category === "Agent Infrastructure"` (`core_stack: true`) — the
-Headless GTM OS components. (Inside the `bowtie-funnel-resources` repo, read
+Headless GTM OS components. (Inside the `bowtie-funnel-Labs` repo, read
 `docs/tools/tools.json` directly.)
 
 ## The layer map
