@@ -7,8 +7,10 @@ written — and, just as important, produce the explicit list of patterns NOT us
 so over-engineering dies in planning instead of in review.
 
 Grounded in the Bowtie Funnel Agent Build Patterns framework (the 21-pattern field
-guide, `reference/agent-build-patterns.html` alongside this doc) and the 10-80-10
-dial (`reference/the-dial.html` — the three build tiers and the ambiguity test),
+guide, `reference/agent-build-patterns.html` alongside this doc), the dial
+(`reference/the-dial.html` — the build tiers and the ambiguity test), and the
+46-agent Model Switchboard fleet (`reference/gtm-fleet-switchboard.md` — every
+shipped GTM agent's trigger and tier, the calibration set for this skill),
 hardened by the SEO/GEO/X agent builds in the Bowtie Funnel fleet. The full menu,
 so this doc stands alone:
 
@@ -31,7 +33,7 @@ for pattern inflation.
 ## The Prompt
 
 Paste the block below into the planning session — or invoke the
-`pick-agent-pattern` skill, fill in the bracketed intake, and work the gates.
+`pick-gtm-agent-pattern` skill, fill in the bracketed intake, and work the gates.
 
 ```
 You are an AI agent architect. I'm in the planning phase for a new agent and you
@@ -51,10 +53,6 @@ pattern that works is the right one. Do not flatter my idea — challenge scope.
 - Competitor/parity evidence, if rebuilding an existing product's feature: [LINK or n/a]
 
 ## Work through these gates IN ORDER. Stop escalating at the first gate that holds.
-
-GATE 0 — Buy vs build.
-Does an existing tool, API, or script in the codebase already do this ≥80% as
-well? If yes, name it and stop. Building is the fallback, not the default.
 
 GATE 1 — Does this need to be an agent at all?
 If the job is a fixed transformation with no judgment step, it's a script or a
@@ -93,8 +91,12 @@ ambiguity exists:
 - Neither → it's a deterministic pipeline; adding an LLM anyway just adds
   cost and new failure modes.
 The answers place the agent on the dial — name the tier in the verdict:
-neurosymbolic (10-80-10) · guarded judgment (~5-90-5) · deterministic
-pipeline (0-100-0, or 0-100-5 when a tiny narration helps — never computation).
+neurosymbolic (10-80-10) · guarded judgment (~5-90-5) · language-as-deliverable
+(≈5-60-35 — the draft IS the product, so the last mile legitimately grows; always
+gated) · deterministic pipeline (0-100-0, or 0-100-5 when a tiny narration helps —
+never computation). Anchor the choice against the fleet: find the closest agent in
+`reference/gtm-fleet-switchboard.md` and start from its tier, then adjust for how
+this one differs (trigger structure, deliverable, cost of a wrong output).
 Then list every step and label each: JUDGMENT (only an LLM can do it — open-ended
 generation, tone, relevance) or MECHANICAL (parsing, matching, math, dedup,
 storage, API calls). Every MECHANICAL step becomes deterministic, testable
@@ -163,11 +165,15 @@ Gate 2, ask me at most 3 questions before proceeding.
 
 - Every gate is a stopping point — the discipline is refusing to escalate.
 - Fleet-level sanity check: a healthy fleet is a pyramid — most agents are
-  deterministic pipelines, some are guarded judgment, only a top handful are
-  neurosymbolic (the 21-agent RevOps reference fleet is 10/7/4). If most
-  verdicts come out neurosymbolic, the gates are being escalated too easily.
-- Gate 0 exists because of real history: the GEO agent's "LLM Mentions" data was
-  nearly bought at $100/mo before probing + free SERP data covered it.
+  deterministic pipelines or guarded judgment, language-as-deliverable agents are
+  their own column, and only a top handful reason. In the 46-agent Model
+  Switchboard fleet the shape is roughly 6 deterministic · 22 guarded judgment ·
+  9 language-as-deliverable · 9 neurosymbolic (`reference/gtm-fleet-switchboard.md`).
+  If most verdicts come out neurosymbolic, the gates are being escalated too easily.
+- Marketing exception: in that fleet Paid Ads is the ONLY agent that ships ungated —
+  it closes the ROAS loop autonomously; every other marketing agent keeps a human
+  gate. Neurosymbolic ≠ ungated: the tier picks the reasoning split, Gate 4 still
+  decides autonomy.
 - Gate 3's metric rule is GEO scar tissue: the original GEO stub let the LLM
   self-report brand mentions and was deleted for it.
 - Gate 4's per-item HITL rule comes from the GEO learning loop: a batch-level
@@ -181,8 +187,8 @@ Gate 2, ask me at most 3 questions before proceeding.
 
 - Reference calibration: the framework routed every agent in the fleet correctly —
   SEO → event-driven pipeline + batch HITL; GEO → same + per-fix ledger memory;
-  HN → on-demand single-shot (no cron, no memory); UGC → stopped at Gate 0
-  pending a video-vendor decision.
+  HN → on-demand single-shot (no cron, no memory); UGC → parked before the gates
+  pending a video-vendor (buy-vs-build) decision.
 - X agent (2026-07-15): gates run AFTER a competitor-parity pass, on the
   parity-adjusted scope. Verdict: cron → deterministic pipeline → 1 neural step /
   7 symbolic / 1 human → per-item gate (never-graduate: outward-publishing) →
