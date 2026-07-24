@@ -94,10 +94,10 @@
   .sn-dd{position:relative;display:inline-flex;}
   .sn-dd-toggle{background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:'Roboto',system-ui,sans-serif;}
   .sn-dd-caret{font-size:10px;opacity:.7;transition:transform .12s;}
-  .sn-dd:hover .sn-dd-caret,.sn-dd:focus-within .sn-dd-caret{transform:rotate(180deg);}
+  .sn-dd.sn-dd-open .sn-dd-caret{transform:rotate(180deg);}
   .sn-dd-menu{position:absolute;top:calc(100% + 4px);left:0;min-width:170px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 24px rgba(0,0,0,.10);padding:6px;display:none;flex-direction:column;gap:2px;z-index:60;}
-  .sn-dd:hover>.sn-dd-menu,.sn-dd:focus-within>.sn-dd-menu{display:flex;}
-  @media(max-width:640px){.sn-right .sn-dd{display:block;width:100%;}.sn-right .sn-dd-toggle{display:flex;width:100%;justify-content:flex-start;padding:11px 12px;font-size:15px;}.sn-right .sn-dd-menu{position:static;display:flex;box-shadow:none;border:none;background:none;padding:0 0 0 12px;min-width:0;}}
+  .sn-dd.sn-dd-open>.sn-dd-menu{display:flex;}
+  @media(max-width:640px){.sn-right .sn-dd{display:block;width:100%;}.sn-right .sn-dd-toggle{display:flex;width:100%;justify-content:flex-start;padding:11px 12px;font-size:15px;}.sn-right .sn-dd-menu{position:static;box-shadow:none;border:none;background:none;padding:0 0 0 12px;min-width:0;}}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -113,7 +113,7 @@
     <a class="sn-tab active" href="/#skills">Skills</a>
     <a class="sn-tab" href="/tools/">Tools</a>
     <div class="sn-dd">
-      <button class="sn-tab sn-dd-toggle" aria-haspopup="true">Agents <span class="sn-dd-caret">&#9662;</span></button>
+      <button class="sn-tab sn-dd-toggle" aria-haspopup="true" aria-expanded="false">Agents <span class="sn-dd-caret">&#9662;</span></button>
       <div class="sn-dd-menu">
         <a class="sn-tab" href="/agent-skills/">Agent Skills</a>
         <a class="sn-tab" href="/agent-models/">Agent Models</a>
@@ -203,5 +203,6 @@ cp -r skills/pick-gtm-agent-pattern ~/.claude/skills/</pre>
   </footer>
 </div>
 <script>(function(){var b=document.querySelector('.sn-burger'),r=document.querySelector('.sn-right');if(!b||!r)return;function set(o){r.classList.toggle('sn-open',o);b.setAttribute('aria-expanded',o);b.innerHTML=o?'\u2715':'\u2630';}b.addEventListener('click',function(){set(!r.classList.contains('sn-open'));});r.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});})();</script>
+<script>(function(){var d=document.querySelector('.sn-dd');if(!d)return;var t=d.querySelector('.sn-dd-toggle');t.addEventListener('click',function(e){e.stopPropagation();var o=d.classList.toggle('sn-dd-open');t.setAttribute('aria-expanded',o);});document.addEventListener('click',function(e){if(!d.contains(e.target)){d.classList.remove('sn-dd-open');t.setAttribute('aria-expanded','false');}});d.querySelectorAll('.sn-dd-menu a').forEach(function(a){a.addEventListener('click',function(){d.classList.remove('sn-dd-open');});});document.addEventListener('keydown',function(e){if(e.key==='Escape'){d.classList.remove('sn-dd-open');t.setAttribute('aria-expanded','false');}});})();</script>
 </body>
 </html>
