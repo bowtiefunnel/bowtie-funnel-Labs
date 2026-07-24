@@ -75,6 +75,12 @@
   .wlink .arw { opacity:.6; font-weight:400; }
   .c-web .na { color:var(--ink-faint); }
 
+  .searchbar { margin:14px 2px 0; }
+  #search { width:100%; max-width:440px; font-size:14px; padding:10px 14px;
+    border:1px solid var(--line-strong); border-radius:9px; background:var(--surface); color:var(--ink); }
+  #search:focus { outline:none; border-color:var(--accent); }
+  #search::placeholder { color:var(--ink-faint); }
+
   .stage { display:inline-block; font-size:10.5px; font-weight:600; padding:2px 8px; margin:0 4px 4px 0;
     border-radius:999px; white-space:nowrap; border:1px solid transparent; }
 
@@ -186,6 +192,10 @@
     <button class="chip all" data-cat="ALL" aria-pressed="true">All 88</button>
   </div>
 
+  <div class="searchbar">
+    <input id="search" type="search" placeholder="Search by name, category, or what it does…" aria-label="Search tools" autocomplete="off">
+  </div>
+
   <div class="meta">
     <span>Showing <b id="count">…</b> of <span id="total">…</span></span>
     <span>Derived from workflows.io teardown · usage counts from the 48 mapped workflows</span>
@@ -276,6 +286,7 @@ function el(t,c,h){const e=document.createElement(t);if(c)e.className=c;if(h!=nu
 DATA.forEach(t=>{
   const color=CATS[t.c]||"#6b7688";
   const tr=el('tr'); tr.dataset.cat=t.c;
+  tr.dataset.q=`${t.n} ${t.c} ${t.d} ${t.w} ${t.g} ${t.l.join(' ')} ${host(t.u)}`.toLowerCase();
 
   const tdTool=el('td','c-tool');
   tdTool.appendChild(el('div','tool-name',t.n));
@@ -310,10 +321,12 @@ ORDER.forEach(c=>{
 });
 
 let active=new Set();
+const search=document.getElementById('search');
 function apply(){
   let shown=0;
+  const q=search.value.trim().toLowerCase();
   document.querySelectorAll('#tbody tr').forEach(tr=>{
-    const vis = active.size===0 || active.has(tr.dataset.cat);
+    const vis = (active.size===0 || active.has(tr.dataset.cat)) && (!q || tr.dataset.q.includes(q));
     tr.classList.toggle('hidden',!vis); if(vis)shown++;
   });
   document.getElementById('count').textContent=shown;
@@ -330,6 +343,7 @@ legend.addEventListener('click',e=>{
   else { if(active.has(s))active.delete(s); else active.add(s); }
   apply();
 });
+search.addEventListener('input',apply);
 
 document.getElementById('foot').innerHTML =
   "Categories reflect each tool's primary job in a go-to-market motion; many tools span more than one. "+
