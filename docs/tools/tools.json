@@ -3,7 +3,7 @@
  "description": "Every tool named across 48 mapped GTM workflows — what each is, what it does, and its go-to-market impact. Categories reflect each tool's primary job; descriptions are Bowtie Funnel's interpretation, not vendor copy. The Agent Infrastructure category is Bowtie Funnel's own code-first execution layer (the Headless GTM OS) rather than teardown-derived; those entries carry core_stack: true and no workflow usage count. Each tool is tagged with the customer-lifecycle stages it serves: awareness, education, selection, mutual commit, onboarding, retention, expansion.",
  "source": "https://labs.bowtiefunnel.com/tools/",
  "workflows_mapped": 48,
- "tool_count": 87,
+ "tool_count": 88,
  "tools": [
   {
    "name": "Clay",
@@ -12,6 +12,18 @@
    "description": "GTM data-orchestration and enrichment platform built around a spreadsheet-style workbook, with 100+ integrated data providers and native AI agents for research and qualification.",
    "what_it_does": "Aggregates, enriches, AI-qualifies and routes account/contact data from 100+ sources in one spreadsheet-like workbook.",
    "gtm_impact": "The central engine nearly every play runs through — where raw lists become CRM-ready pipeline.",
+   "lifecycle": [
+    "Awareness",
+    "Selection"
+   ]
+  },
+  {
+   "name": "Bitscale",
+   "category": "Data & Enrichment",
+   "workflows_used": 0,
+   "description": "AI-native GTM data layer that sits on top of your CRM — AI agents, 100+ data sources, waterfall enrichment, and live buying signals in one workbook. Positioned as a Clay / ZoomInfo alternative.",
+   "what_it_does": "Runs email and phone data waterfalls across 100+ providers, deploys AI research agents, and surfaces live intent signals to build enriched, CRM-ready lists at scale.",
+   "gtm_impact": "A Clay-style enrichment engine for teams chasing higher contact coverage and intent-triggered outbound without stitching point tools together.",
    "lifecycle": [
     "Awareness",
     "Selection"
