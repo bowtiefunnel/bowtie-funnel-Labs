@@ -24,7 +24,9 @@
   .sitenav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
   .sn-inner{max-width:940px;margin:0 auto;padding:11px clamp(20px,5vw,40px);display:flex;align-items:center;gap:6px;position:relative;}
   .sn-brand{display:flex;align-items:center;text-decoration:none;}
-  .sn-labs{font-family:'Roboto',system-ui,sans-serif;font-weight:700;font-size:15px;color:#6B29F7;text-decoration:none;letter-spacing:-.01em;margin-left:2px;}
+  .sn-labs{font-family:'Roboto',system-ui,sans-serif;font-size:14px;font-weight:500;color:var(--ink);opacity:.6;text-decoration:none;padding:6px 12px;border-radius:6px;transition:opacity .12s,background .12s;}
+  .sn-labs:hover{opacity:1;background:color-mix(in srgb,var(--ink) 6%,transparent);}
+  .sn-labs.active{opacity:1;color:#6B29F7;font-weight:700;}
   .sn-brand img{height:60px;width:auto;}
   .sn-brand .sn-logo-dark{display:none;}
   @media(prefers-color-scheme:dark){.sn-brand .sn-logo-light{display:none;}.sn-brand .sn-logo-dark{display:block;}}
