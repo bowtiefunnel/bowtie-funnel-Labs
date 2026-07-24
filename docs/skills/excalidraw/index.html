@@ -37,6 +37,18 @@
   .sn-tab.active{opacity:1;color:#6B29F7;font-weight:700;}
   @media(max-width:520px){.sn-brand img{height:26px;}.sn-tab{padding:6px 7px;font-size:12.5px;}.sn-cta{padding:6px 10px;font-size:12px;}}
   .sn-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+  .sn-dd{position:relative;}
+  .sn-dd-btn{font-family:'Roboto',system-ui,sans-serif;font-size:14px;font-weight:500;color:var(--ink);opacity:.6;background:none;border:none;cursor:pointer;padding:6px 12px;border-radius:6px;display:inline-flex;align-items:center;gap:5px;transition:opacity .12s,background .12s;}
+  .sn-dd-btn:hover,.sn-dd.sn-dd-open .sn-dd-btn{opacity:1;background:color-mix(in srgb,var(--ink) 6%,transparent);}
+  .sn-dd-btn .caret{font-size:10px;transition:transform .15s;}
+  .sn-dd.sn-dd-open .sn-dd-btn .caret{transform:rotate(180deg);}
+  .sn-dd-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:210px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.14);padding:6px;display:none;flex-direction:column;gap:2px;z-index:60;}
+  .sn-dd.sn-dd-open .sn-dd-menu{display:flex;}
+  .sn-dd-menu a{font-family:var(--mono);font-size:13px;color:var(--ink);opacity:.75;text-decoration:none;padding:8px 12px;border-radius:6px;display:flex;align-items:center;gap:8px;transition:opacity .12s,background .12s;}
+  .sn-dd-menu a:hover{opacity:1;background:color-mix(in srgb,var(--ink) 6%,transparent);}
+  .sn-dd-menu a .slash{color:var(--accent);}
+  .sn-dd-menu a.active{opacity:1;color:#6B29F7;font-weight:600;background:var(--accent-soft);}
+  @media(max-width:640px){.sn-dd{width:100%;}.sn-dd-btn{width:100%;justify-content:space-between;padding:11px 12px;font-size:15px;}.sn-dd-menu{position:static;box-shadow:none;border:none;padding:0 0 0 10px;min-width:0;margin-top:2px;}}
   .sn-burger{display:none;background:none;border:none;cursor:pointer;font-size:22px;line-height:1;color:var(--ink);padding:4px 8px;margin-left:auto;}
   @media(max-width:640px){.sn-burger{display:block;margin-left:6px;}.sn-right{position:absolute;top:100%;right:0;left:0;flex-direction:column;align-items:stretch;gap:4px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 10px 24px rgba(0,0,0,.10);padding:10px;display:none;margin-left:0;}.sn-right.sn-open{display:flex;}.sn-right .sn-tab,.sn-right .sn-labs{padding:11px 12px;font-size:15px;}.sn-cta{margin-left:auto;}}
 
@@ -104,6 +116,16 @@
     <a class="sn-labs" href="https://labs.bowtiefunnel.com/">Labs</a>
     <a class="sn-tab" href="/tools/">Tools</a>
     <a class="sn-tab" href="/agent-skills/">Agent Skills</a>
+    <div class="sn-dd">
+      <button class="sn-dd-btn" aria-haspopup="true" aria-expanded="false">Skills <span class="caret" aria-hidden="true">▾</span></button>
+      <div class="sn-dd-menu" role="menu">
+        <a role="menuitem" class="active" href="/skills/excalidraw/"><span class="slash">/</span>excalidraw</a>
+        <a role="menuitem" href="/skills/agent-anatomy/"><span class="slash">/</span>agent-anatomy</a>
+        <a role="menuitem" href="/skills/pick-agent-pattern/"><span class="slash">/</span>pick-agent-pattern</a>
+        <a role="menuitem" href="/skills/pick-gtm-stack/"><span class="slash">/</span>pick-gtm-stack</a>
+        <a role="menuitem" href="/skills/pick-agent-stack/"><span class="slash">/</span>pick-agent-stack</a>
+      </div>
+    </div>
   </div>
   <a class="sn-cta" href="https://bowtiefunnel.com/consultation/">Book Strategy Call</a>
   <button class="sn-burger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
@@ -186,6 +208,7 @@ PORT=3000 npm run canvas</pre>
     <span><a href="https://github.com/bowtiefunnel/bowtie-funnel-resources">github.com/bowtiefunnel</a></span>
   </footer>
 </div>
-<script>(function(){var b=document.querySelector('.sn-burger'),r=document.querySelector('.sn-right');if(!b||!r)return;function set(o){r.classList.toggle('sn-open',o);b.setAttribute('aria-expanded',o);b.innerHTML=o?'✕':'☰';}b.addEventListener('click',function(){set(!r.classList.contains('sn-open'));});r.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});})();</script>
+<script>(function(){var b=document.querySelector('.sn-burger'),r=document.querySelector('.sn-right');if(b&&r){function set(o){r.classList.toggle('sn-open',o);b.setAttribute('aria-expanded',o);b.innerHTML=o?'✕':'☰';}b.addEventListener('click',function(){set(!r.classList.contains('sn-open'));});r.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});}
+var dd=document.querySelector('.sn-dd'),db=dd&&dd.querySelector('.sn-dd-btn');if(dd&&db){function ddset(o){dd.classList.toggle('sn-dd-open',o);db.setAttribute('aria-expanded',o);}db.addEventListener('click',function(e){e.stopPropagation();ddset(!dd.classList.contains('sn-dd-open'));});document.addEventListener('click',function(e){if(!dd.contains(e.target))ddset(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')ddset(false);});}})();</script>
 </body>
 </html>
