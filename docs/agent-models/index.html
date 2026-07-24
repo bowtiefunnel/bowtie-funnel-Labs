@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Model Switchboard — 49 GTM agents routed to the right model — Bowtie Funnel</title>
+<title>The Model Switchboard — 50 GTM agents routed to the right model — Bowtie Funnel</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -331,7 +331,7 @@
     <h1>The Model Switchboard — <span>every GTM agent routed to the right model, mile by mile</span></h1>
   </div>
   <div class="subnote">
-    Every agent's neural miles run through a <i>model switchboard</i>: a classifier scores the job shape — how structured the trigger is, whether the answer is reasoning or language — and routes that mile to the <b>tier-right model</b>. A structured trigger shrinks the first mile toward zero and drops the tier; schedule-fired framing or a causal loop lifts it. The <b>bold pick</b> in every row below is the switchboard's call. Two desks — <b>31 RevOps</b> agents and <b>18 marketing</b> agents — routed by the same rule.
+    Every agent's neural miles run through a <i>model switchboard</i>: a classifier scores the job shape — how structured the trigger is, whether the answer is reasoning or language — and routes that mile to the <b>tier-right model</b>. A structured trigger shrinks the first mile toward zero and drops the tier; schedule-fired framing or a causal loop lifts it. The <b>bold pick</b> in every row below is the switchboard's call. Two desks — <b>32 RevOps</b> agents and <b>18 marketing</b> agents — routed by the same rule.
   </div>
 
   <!-- switchboard routing legend -->
@@ -364,7 +364,7 @@
   <!-- ============================= REVOPS ============================= -->
   <div class="subhead">
     <div class="kicker">Desk 1 · RevOps</div>
-    <h2>31 RevOps agents — <span>what fires them, and how the work really splits</span></h2>
+    <h2>32 RevOps agents — <span>what fires them, and how the work really splits</span></h2>
   </div>
   <div class="subnote" style="text-align:left;margin-left:0;">
     Not every agent is 10-80-10 — the split is a <i>dial</i>. Each section carries its tier's real split: <b>10-80-10</b> for reasoning, <b>~5-90-5</b> for guarded judgment, <b>≈5-60-35</b> when the deliverable is language, <b>0-100-0</b> for pipelines. A <i>deterministic trigger is free framing</i> — the more structured the event that wakes an agent, the smaller its neural first mile, the cheaper the model the switchboard picks.
@@ -572,6 +572,15 @@
         <td class="m-det">Enrich firmographics → research streams (news, funding, hiring, tech stack, reviews) → map the buying committee → assemble sections → Notion / CRM; review gate</td>
         <td class="m-neural"><span class="big">Big:</span> the account battlecard — overview, fit, stakeholders, pains, discovery questions &amp; talk track</td>
         <td class="tools">Bitscale / Clay (enrichment), Perplexity / web research, Salesforce, HubSpot, Notion, Slack</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span></td>
+      </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Expansion battlecard</span><span class="intent">Retention, cross-sell &amp; upsell dossier for existing customers</span></td>
+        <td><span class="trig">Renewal window (T − 90d) · health-score drop · @bot account mention in Slack</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural">Frame the account + the expansion motion — renew, upsell seats/tier, or cross-sell a module</td>
+        <td class="m-det">Pull usage + billing + support + CS health + call notes → score renewal risk &amp; whitespace → 5 parallel Claude generators → merge → Notion / CRM; review gate</td>
+        <td class="m-neural"><span class="big">Big:</span> the expansion battlecard — health, whitespace/upsell, cross-sell fit, save plays, QBR talk track</td>
+        <td class="tools">Product analytics (Amplitude/Pendo), billing, Zendesk, Gainsight/Vitally, Gong, CRM, Notion, Slack</td>
         <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">Gemini 2.5 Flash</span></td>
       </tr>
 
