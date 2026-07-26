@@ -3,7 +3,7 @@
  "description": "Every tool named across 48 mapped GTM workflows — what each is, what it does, and its go-to-market impact. Categories reflect each tool's primary job; descriptions are Bowtie Funnel's interpretation, not vendor copy. The Agent Infrastructure category is Bowtie Funnel's own code-first execution layer (the Headless GTM OS) rather than teardown-derived; those entries carry core_stack: true and no workflow usage count. Each tool is tagged with the customer-lifecycle stages it serves: awareness, education, selection, mutual commit, onboarding, retention, expansion.",
  "source": "https://labs.bowtiefunnel.com/tools/",
  "workflows_mapped": 48,
- "tool_count": 88,
+ "tool_count": 89,
  "tools": [
   {
    "name": "Clay",
@@ -1240,6 +1240,19 @@
     "Expansion"
    ],
    "website": "https://github.com/rohansx/cloakpipe"
+  },
+  {
+   "name": "nRev AI",
+   "category": "Signals & De-anon",
+   "workflows_used": 0,
+   "description": "AI GTM automation platform that runs prebuilt playbooks — signal-based outbound, website visitor de-anonymization, LinkedIn growth, competitor deal tracking, and CRM-driven pipeline generation — as deterministic workflows instead of open-ended agent loops.",
+   "what_it_does": "Detects buying signals (funding, hiring, tech-stack, competitor engagement, site visitors), enriches and scores accounts, and fires personalized email/LinkedIn outreach — via a visual workflow builder or a CLI for Claude Code.",
+   "gtm_impact": "Positioned to replace a Clay + Apollo + RB2B + HeyReach + Instantly + n8n-style stack with one usage-based platform.",
+   "lifecycle": [
+    "Awareness",
+    "Selection"
+   ],
+   "website": "https://www.nrev.ai"
   }
  ],
  "lifecycle_stages": [
