@@ -1,4 +1,4 @@
-# Bowtie Funnel Hub
+# Bowtie Funnel Labs
 
 Reusable skills and tools for AI coding agents. One folder per skill under
 [`skills/`](skills/), one per tool under [`tools/`](tools/).
