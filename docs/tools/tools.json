@@ -1243,7 +1243,7 @@
   },
   {
    "name": "nRev AI",
-   "category": "Signals & De-anon",
+   "category": "Data & Enrichment",
    "workflows_used": 0,
    "description": "AI GTM automation platform that runs prebuilt playbooks — signal-based outbound, website visitor de-anonymization, LinkedIn growth, competitor deal tracking, and CRM-driven pipeline generation — as deterministic workflows instead of open-ended agent loops.",
    "what_it_does": "Detects buying signals (funding, hiring, tech-stack, competitor engagement, site visitors), enriches and scores accounts, and fires personalized email/LinkedIn outreach — via a visual workflow builder or a CLI for Claude Code.",
