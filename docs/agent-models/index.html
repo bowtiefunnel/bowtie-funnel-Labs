@@ -225,7 +225,6 @@
   .brand{background:var(--bnavy);padding:9px 16px;border-radius:12px;}
 
   .tbl-wrap{display:block;} /* desktop: table fits the card, no horizontal scroll */
-  .scroll-hint{display:none;}
   /* freeze the header row below the sticky nav on vertical scroll */
   .tbl thead th{position:sticky;top:84px;z-index:3;}
   .tbl tbody td:first-child:not([colspan]),
@@ -277,16 +276,33 @@
     .subhead{margin:24px 0 12px;padding-top:20px;}
     .subhead h2{font-size:18px;}
     .subhead .kicker{font-size:11px;}
-    /* each table becomes its own horizontal scroller */
-    .scroll-hint{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.04em;color:var(--bgray);margin:0 0 6px;}
-    .scroll-hint .arrow{display:inline-block;animation:hintnudge 1.4s ease-in-out infinite;}
-    @keyframes hintnudge{0%,100%{transform:translateX(0);}50%{transform:translateX(4px);}}
-    .tbl-wrap{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--bline);border-radius:12px;position:relative;}
-    .tbl-wrap::after{content:"";position:absolute;top:0;right:0;bottom:0;width:26px;background:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.95));pointer-events:none;border-radius:0 12px 12px 0;}
-    table.tbl{min-width:880px;}
-    /* drop the vertical header freeze on mobile; keep the Agent column frozen */
-    .tbl thead th{position:static;}
-    .tbl thead th:first-child{position:sticky;left:0;z-index:4;}
+    /* each row becomes its own card — no more horizontal scroll to lose words to */
+    .tbl-wrap{display:block;overflow-x:visible;border:none;}
+    table.tbl{display:block;width:100%;min-width:0;border-spacing:0;}
+    table.tbl thead{display:none;}
+    table.tbl tbody{display:block;}
+    table.tbl tr{display:block;}
+    table.tbl tr:not(.secrow){
+      background:#fff;border:1px solid var(--bline);border-left:4px solid transparent;
+      border-radius:12px;padding:4px 0;margin-bottom:10px;
+    }
+    table.tbl tr.r-neuro{border-left-color:var(--bpurple);}
+    table.tbl tr.r-guard{border-left-color:var(--bgreen);}
+    table.tbl tr.r-pipe{border-left-color:var(--bcyan);}
+    table.tbl tr.secrow{padding:16px 4px 4px;margin-bottom:0;}
+    table.tbl td{
+      display:block;width:auto;padding:8px 14px;border:none;border-radius:0;
+    }
+    table.tbl td::before{
+      content:attr(data-label);display:block;margin-bottom:3px;
+      font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--bgray);
+    }
+    table.tbl td:first-child{
+      padding-bottom:10px;margin-bottom:2px;border-bottom:1px solid #f0ede7;
+    }
+    table.tbl td:first-child::before,
+    table.tbl tr.secrow td::before{content:none;}
     .foot{margin-top:20px;}
     .claim{font-size:14px;}
   }
@@ -382,7 +398,6 @@
     </div>
   </div>
 
-  <p class="scroll-hint">Swipe to see the full table <span class="arrow">&rarr;</span></p>
   <div class="tbl-wrap">
   <table class="tbl">
     <colgroup>
@@ -734,7 +749,6 @@
     </div>
   </div>
 
-  <p class="scroll-hint">Swipe to see the full table <span class="arrow">&rarr;</span></p>
   <div class="tbl-wrap">
   <table class="tbl">
     <colgroup>
@@ -943,5 +957,23 @@
 </div>
 <script>(function(){var b=document.querySelector('.sn-burger'),r=document.querySelector('.sn-right');if(!b||!r)return;function set(o){r.classList.toggle('sn-open',o);b.setAttribute('aria-expanded',o);b.innerHTML=o?'✕':'☰';}b.addEventListener('click',function(){set(!r.classList.contains('sn-open'));});r.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});})();</script>
 <script>(function(){var d=document.querySelector('.sn-dd');if(!d)return;var t=d.querySelector('.sn-dd-toggle');t.addEventListener('click',function(e){e.stopPropagation();var o=d.classList.toggle('sn-dd-open');t.setAttribute('aria-expanded',o);});document.addEventListener('click',function(e){if(!d.contains(e.target)){d.classList.remove('sn-dd-open');t.setAttribute('aria-expanded','false');}});d.querySelectorAll('.sn-dd-menu a').forEach(function(a){a.addEventListener('click',function(){d.classList.remove('sn-dd-open');});});document.addEventListener('keydown',function(e){if(e.key==='Escape'){d.classList.remove('sn-dd-open');t.setAttribute('aria-expanded','false');}});})();</script>
+<script>
+/* Mobile card view: stamp each cell with its column header so the
+   ::before{content:attr(data-label)} rule in the <768px media query
+   can label it. No-op on desktop; degrades to a plain table if this fails. */
+(function () {
+  document.querySelectorAll('table.tbl').forEach(function (table) {
+    var headers = Array.prototype.map.call(table.querySelectorAll('thead th'), function (th) {
+      return th.textContent.trim();
+    });
+    table.querySelectorAll('tbody tr').forEach(function (tr) {
+      if (tr.classList.contains('secrow')) return;
+      Array.prototype.forEach.call(tr.children, function (td, i) {
+        if (headers[i]) td.setAttribute('data-label', headers[i]);
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
