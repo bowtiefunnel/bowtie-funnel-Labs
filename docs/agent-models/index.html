@@ -225,6 +225,7 @@
   .brand{background:var(--bnavy);padding:9px 16px;border-radius:12px;}
 
   .tbl-wrap{display:block;} /* desktop: table fits the card, no horizontal scroll */
+  .scroll-hint{display:none;}
   /* freeze the header row below the sticky nav on vertical scroll */
   .tbl thead th{position:sticky;top:84px;z-index:3;}
   .tbl tbody td:first-child:not([colspan]),
@@ -277,7 +278,11 @@
     .subhead h2{font-size:18px;}
     .subhead .kicker{font-size:11px;}
     /* each table becomes its own horizontal scroller */
-    .tbl-wrap{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--bline);border-radius:12px;}
+    .scroll-hint{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.04em;color:var(--bgray);margin:0 0 6px;}
+    .scroll-hint .arrow{display:inline-block;animation:hintnudge 1.4s ease-in-out infinite;}
+    @keyframes hintnudge{0%,100%{transform:translateX(0);}50%{transform:translateX(4px);}}
+    .tbl-wrap{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--bline);border-radius:12px;position:relative;}
+    .tbl-wrap::after{content:"";position:absolute;top:0;right:0;bottom:0;width:26px;background:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.95));pointer-events:none;border-radius:0 12px 12px 0;}
     table.tbl{min-width:880px;}
     /* drop the vertical header freeze on mobile; keep the Agent column frozen */
     .tbl thead th{position:static;}
@@ -377,6 +382,7 @@
     </div>
   </div>
 
+  <p class="scroll-hint">Swipe to see the full table <span class="arrow">&rarr;</span></p>
   <div class="tbl-wrap">
   <table class="tbl">
     <colgroup>
@@ -728,6 +734,7 @@
     </div>
   </div>
 
+  <p class="scroll-hint">Swipe to see the full table <span class="arrow">&rarr;</span></p>
   <div class="tbl-wrap">
   <table class="tbl">
     <colgroup>
