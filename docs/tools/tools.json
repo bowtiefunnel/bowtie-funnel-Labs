@@ -3,7 +3,7 @@
  "description": "Every tool named across 48 mapped GTM workflows — what each is, what it does, and its go-to-market impact. Categories reflect each tool's primary job; descriptions are Bowtie Funnel's interpretation, not vendor copy. The Agent Infrastructure category is Bowtie Funnel's own code-first execution layer (the Headless GTM OS) rather than teardown-derived; those entries carry core_stack: true and no workflow usage count. Each tool is tagged with the customer-lifecycle stages it serves: awareness, education, selection, mutual commit, onboarding, retention, expansion.",
  "source": "https://labs.bowtiefunnel.com/tools/",
  "workflows_mapped": 48,
- "tool_count": 89,
+ "tool_count": 90,
  "tools": [
   {
    "name": "Clay",
@@ -1253,6 +1253,24 @@
     "Selection"
    ],
    "website": "https://www.nrev.ai"
+  },
+  {
+   "name": "Monid",
+   "category": "Agent Infrastructure",
+   "workflows_used": 0,
+   "description": "Unified gateway that connects AI agents to 1,800+ third-party tools and APIs (Apollo, ElevenLabs, LinkedIn, and more) through one skill, MCP server, or CLI integration — no per-provider API keys or subscriptions.",
+   "what_it_does": "Lets an agent discover and call third-party tools through a single connection, compares options by fit and price, and pays per call from a shared balance instead of juggling separate provider accounts.",
+   "gtm_impact": "Cuts the integration tax of wiring a GTM agent to every data/outreach provider it might need — one connection instead of a dozen API keys and billing relationships.",
+   "lifecycle": [
+    "Awareness",
+    "Education",
+    "Selection",
+    "Mutual commit",
+    "Onboarding",
+    "Retention",
+    "Expansion"
+   ],
+   "website": "https://monid.ai"
   }
  ],
  "lifecycle_stages": [
