@@ -99,32 +99,7 @@
   .hidden { display:none; }
   @media (max-width:760px){ .wrap{ padding:24px 12px 60px; } }
 
-  /* Bowtie Funnel's own tools */
-  .own { margin-top:44px; }
-  .own-h { font-size:clamp(20px,3vw,28px); margin:6px 0 8px; letter-spacing:-.02em; }
-  .toolcard { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin-top:16px; }
-  .tc-top { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-  .tc-name { font-size:18px; margin:0; letter-spacing:-.01em; }
-  .tc-tag { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px; color:var(--ink-faint);
-    border:1px solid var(--line-strong); border-radius:999px; padding:3px 10px; }
-  .tc-desc { font-size:14px; color:var(--ink-soft); max-width:78ch; margin:12px 0 14px; }
-  .tc-desc a, .lede a { color:var(--accent-ink); }
-  .tc-flow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-    font-size:12px; color:var(--ink-soft); background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:10px 14px; }
-  .tc-flow .arw { color:var(--accent); font-weight:700; }
-  .tc-flow .sb { color:var(--ink); font-weight:600; }
-  .tc-tiers { border-collapse:collapse; width:100%; min-width:520px; margin:16px 0 6px; }
-  .tc-tiers th { text-align:left; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
-    font-weight:700; padding:8px 12px; border-bottom:1px solid var(--line-strong); }
-  .tc-tiers td { padding:9px 12px; border-bottom:1px solid var(--line); font-size:12.5px;
-    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--ink-soft); }
-  .tc-tiers tr:last-child td { border-bottom:none; }
-  .tc-tiers .t-s{color:#1f9d6b} .tc-tiers .t-m{color:#c99a1e} .tc-tiers .t-c{color:#c74b6b} .tc-tiers .t-r{color:#8256c4}
-  .tc-note { font-size:12.5px; color:var(--ink-faint); margin:8px 0 16px; }
-  .tc-note code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px;
-    background:var(--surface-2); border:1px solid var(--line); border-radius:5px; padding:1px 6px; color:var(--ink); }
-  .tc-links { display:flex; gap:10px; flex-wrap:wrap; }
-  .tc-links .dl { text-decoration:none; }
+  .lede a { color:var(--accent-ink); }
   /* Agents dropdown */
   .sn-dd{position:relative;display:inline-flex;}
   .sn-dd-toggle{background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:'Roboto',system-ui,sans-serif;}
@@ -230,36 +205,6 @@
       <tbody id="tbody"></tbody>
     </table>
   </div></div>
-
-  <!-- Bowtie Funnel's own tools -->
-  <section class="own">
-    <div class="eyebrow" style="margin-top:0">Built by Bowtie Funnel</div>
-    <h2 class="own-h">Our own tools</h2>
-    <p class="lede">Reusable code we ship in the open — drop-in building blocks for GTM agents, separate from the vendor stack above.</p>
-
-    <article class="toolcard">
-      <div class="tc-top">
-        <h3 class="tc-name">llm-switchboard</h3>
-        <span class="tc-tag">local · zero-dep · MIT</span>
-      </div>
-      <p class="tc-desc">A ~130-line prompt router that sits <b>before OpenRouter</b>. It classifies a prompt in &lt;1ms, picks the model, and hands the ID to your OpenRouter call — cheap/free models for the workflow miles, frontier for thinking. The tier picks mirror our <a href="https://labs.bowtiefunnel.com/">RevOps &amp; Marketing agent maps</a>.</p>
-      <div class="tc-flow"><span>prompt</span><span class="arw">→</span><span class="sb">switchboard · SIMPLE · MEDIUM · COMPLEX · REASONING</span><span class="arw">→</span><span>OpenRouter</span><span class="arw">→</span><span>model</span></div>
-      <div class="scroll"><table class="tc-tiers">
-        <thead><tr><th>Tier</th><th>Bold pick</th><th>Free option</th></tr></thead>
-        <tbody>
-          <tr><td><b class="t-s">SIMPLE</b></td><td>google/gemini-2.5-flash-lite</td><td>google/gemma-4-31b-it:free</td></tr>
-          <tr><td><b class="t-m">MEDIUM</b></td><td>google/gemini-2.5-flash</td><td>openai/gpt-oss-20b:free</td></tr>
-          <tr><td><b class="t-c">COMPLEX</b></td><td>anthropic/claude-sonnet-5</td><td>nvidia/nemotron-3-ultra-550b:free</td></tr>
-          <tr><td><b class="t-r">REASONING</b></td><td>anthropic/claude-sonnet-5</td><td>nvidia/nemotron-3-…-reasoning:free</td></tr>
-        </tbody>
-      </table></div>
-      <p class="tc-note">Option lists also carry GPT-5 / Gemini 3 Pro / Opus 4.8, plus Kimi K3 in the agentic tiers. <code>route(prompt, {preferFree:true})</code> swaps to the free model.</p>
-      <div class="tc-links">
-        <a class="dl" href="https://github.com/bowtiefunnel/bowtie-funnel-Labs/tree/main/tools/llm-switchboard">View on GitHub →</a>
-        <a class="dl" href="https://github.com/bowtiefunnel/bowtie-funnel-Labs/blob/main/tools/llm-switchboard/btf-switchboard.js">btf-switchboard.js</a>
-      </div>
-    </article>
-  </section>
 
   <footer id="foot"></footer>
 </div>
