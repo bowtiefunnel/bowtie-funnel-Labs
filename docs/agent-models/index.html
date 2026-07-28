@@ -281,12 +281,16 @@
     .scroll-hint{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.04em;color:var(--bgray);margin:0 0 6px;}
     .scroll-hint .arrow{display:inline-block;animation:hintnudge 1.4s ease-in-out infinite;}
     @keyframes hintnudge{0%,100%{transform:translateX(0);}50%{transform:translateX(4px);}}
-    .tbl-wrap{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--bline);border-radius:12px;position:relative;}
+    .tbl-wrap{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x;border:1px solid var(--bline);border-radius:12px;position:relative;}
     .tbl-wrap::after{content:"";position:absolute;top:0;right:0;bottom:0;width:26px;background:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.95));pointer-events:none;border-radius:0 12px 12px 0;}
     table.tbl{min-width:880px;}
-    /* drop the vertical header freeze on mobile; keep the Agent column frozen */
+    /* drop BOTH sticky tricks on mobile: position:sticky on a cell inside an
+       overflow-x:auto ancestor is a known iOS Safari bug that can silently
+       break touch-scroll for the whole container (scrolls fine via mouse/JS,
+       not via a real finger swipe) */
     .tbl thead th{position:static;}
-    .tbl thead th:first-child{position:sticky;left:0;z-index:4;}
+    .tbl thead th:first-child,
+    .tbl tbody td:first-child:not([colspan]){position:static;box-shadow:none;}
     .foot{margin-top:20px;}
     .claim{font-size:14px;}
   }
