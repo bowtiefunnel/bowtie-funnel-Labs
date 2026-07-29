@@ -111,13 +111,14 @@
   }
   .section-intro{ font-size:14.5px; line-height:1.6; color:var(--ink-dim); max-width:76ch; margin:10px 0 22px; }
 
-  .stage-summary{
-    display:flex; flex-wrap:wrap; gap:8px; margin:0 0 24px;
+  .stage-toolbar{
+    display:flex; flex-direction:column; gap:10px; margin:0 0 24px;
     position:sticky; top:84px; z-index:40;
     background:color-mix(in srgb, var(--bg) 92%, transparent);
     backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
     padding:10px 0; border-bottom:1px solid var(--rule);
   }
+  .stage-summary{ display:flex; flex-wrap:wrap; gap:8px; margin:0; }
   .stage-pill{
     display:inline-flex; align-items:baseline; gap:6px; font-family:var(--font-mono); font-size:13px;
     color:var(--ink); text-decoration:none; border:1px solid var(--rule-strong); border-radius:20px;
@@ -125,6 +126,13 @@
   }
   .stage-pill:hover{ border-color:var(--accent); background:color-mix(in srgb, var(--accent) 6%, transparent); }
   .stage-pill b{ color:var(--accent-ink); font-weight:500; font-variant-numeric:tabular-nums; }
+  .skill-search{
+    font-family:var(--font-body); font-size:14px; color:var(--ink);
+    background:var(--bg-panel); border:1px solid var(--rule-strong); border-radius:8px;
+    padding:9px 14px; width:100%; max-width:360px;
+  }
+  .skill-search:focus{ outline:none; border-color:var(--accent); }
+  .search-empty{ display:none; color:var(--ink-dim); font-size:14px; margin:0 0 24px; }
 
   .table-wrap{
     overflow-x:auto; border:1px solid var(--rule); border-radius:14px; background:var(--bg-panel);
@@ -210,16 +218,21 @@
     <p class="dek">Every Agent skill found across the public GTM/marketing skills ecosystem — audited, deduped, and sorted into the stage of the customer lifecycle it serves. Each stage below breaks skills out by source repo, with the skill's description, install count where available, and a link to it on GitHub.</p>
   </header>
 
-  <div class="stage-summary">
-    <a class="stage-pill" href="#stage-awareness">Awareness <b>229</b></a>
-    <a class="stage-pill" href="#stage-education">Education <b>38</b></a>
-    <a class="stage-pill" href="#stage-selection">Selection <b>194</b></a>
-    <a class="stage-pill" href="#stage-mutual-commit">Mutual Commit <b>13</b></a>
-    <a class="stage-pill" href="#stage-onboarding">Onboarding <b>6</b></a>
-    <a class="stage-pill" href="#stage-retention">Retention <b>17</b></a>
-    <a class="stage-pill" href="#stage-expansion">Expansion <b>20</b></a>
-    <a class="stage-pill" href="#stage-cross-cutting">Cross-cutting <b>60</b></a>
+  <div class="stage-toolbar">
+    <input class="skill-search" id="skill-search" type="search" placeholder="Search 577 skills by name, description, category, or source…">
+    <div class="stage-summary">
+      <a class="stage-pill" href="#stage-awareness">Awareness <b>229</b></a>
+      <a class="stage-pill" href="#stage-education">Education <b>38</b></a>
+      <a class="stage-pill" href="#stage-selection">Selection <b>194</b></a>
+      <a class="stage-pill" href="#stage-mutual-commit">Mutual Commit <b>13</b></a>
+      <a class="stage-pill" href="#stage-onboarding">Onboarding <b>6</b></a>
+      <a class="stage-pill" href="#stage-retention">Retention <b>17</b></a>
+      <a class="stage-pill" href="#stage-expansion">Expansion <b>20</b></a>
+      <a class="stage-pill" href="#stage-cross-cutting">Cross-cutting <b>60</b></a>
+    </div>
   </div>
+
+  <p class="search-empty" id="search-empty">No skills match your search.</p>
 
   <section id="stage-awareness">
     <div class="section-head">
@@ -1590,5 +1603,39 @@
 </div>
 
 <script>(function(){var b=document.querySelector('.sn-burger'),r=document.querySelector('.sn-right');if(!b||!r)return;function set(o){r.classList.toggle('sn-open',o);b.setAttribute('aria-expanded',o);b.innerHTML=o?'✕':'☰';}b.addEventListener('click',function(){set(!r.classList.contains('sn-open'));});r.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});})();</script>
+<script>(function(){
+  var input = document.getElementById('skill-search');
+  var emptyMsg = document.getElementById('search-empty');
+  if (!input) return;
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section[id^="stage-"]'));
+
+  input.addEventListener('input', function(){
+    var q = input.value.trim().toLowerCase();
+    var totalVisible = 0;
+
+    sections.forEach(function(section){
+      var sectionHasVisible = false;
+      var wraps = section.querySelectorAll('.table-wrap');
+      wraps.forEach(function(wrap){
+        var rows = wrap.querySelectorAll('tbody tr');
+        var wrapHasVisible = false;
+        rows.forEach(function(row){
+          var match = !q || row.textContent.toLowerCase().indexOf(q) !== -1;
+          row.style.display = match ? '' : 'none';
+          if (match) { wrapHasVisible = true; totalVisible++; }
+        });
+        wrap.style.display = wrapHasVisible ? '' : 'none';
+        var head = wrap.previousElementSibling;
+        if (head && head.classList.contains('section-head')) {
+          head.style.display = wrapHasVisible ? '' : 'none';
+        }
+        if (wrapHasVisible) sectionHasVisible = true;
+      });
+      section.style.display = sectionHasVisible ? '' : 'none';
+    });
+
+    emptyMsg.style.display = (q && totalVisible === 0) ? 'block' : 'none';
+  });
+})();</script>
 </body>
 </html>
