@@ -111,7 +111,13 @@
   }
   .section-intro{ font-size:14.5px; line-height:1.6; color:var(--ink-dim); max-width:76ch; margin:10px 0 22px; }
 
-  .stage-summary{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 24px; }
+  .stage-summary{
+    display:flex; flex-wrap:wrap; gap:8px; margin:0 0 24px;
+    position:sticky; top:84px; z-index:40;
+    background:color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    padding:10px 0; border-bottom:1px solid var(--rule);
+  }
   .stage-pill{
     display:inline-flex; align-items:baseline; gap:6px; font-family:var(--font-mono); font-size:13px;
     color:var(--ink); text-decoration:none; border:1px solid var(--rule-strong); border-radius:20px;
