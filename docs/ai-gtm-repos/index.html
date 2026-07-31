@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI for GTM Systems — GitHub Repo Directory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@0,300;0,400;0,500;0,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-panel:#ffffff;
+    --ink:#0d1430;
+    --ink-dim:#6b6760;
+    --rule:#d0ccc4;
+    --rule-strong:#b8b1a5;
+    --accent:#6B29F7;
+    --accent-ink:#04246b;
+    --font-display: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-mono: 'DM Mono', ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{ max-width:1220px; margin:0 auto; padding:64px 28px 96px; }
+
+  header.hero{ margin-bottom:56px; }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 14px;
+  }
+  h1{
+    font-family:var(--font-display); font-weight:500; font-size:clamp(30px,4vw,42px);
+    line-height:1.1; margin:0 0 18px; text-wrap:balance; letter-spacing:-0.02em;
+  }
+  .dek{
+    font-size:16.5px; line-height:1.6; color:var(--ink-dim); max-width:70ch; margin:0 0 24px;
+  }
+  .meta{
+    display:flex; flex-wrap:wrap; gap:10px 28px; font-family:var(--font-mono); font-size:12.5px;
+    color:var(--ink-dim); border-top:1px solid var(--rule); padding-top:16px;
+  }
+  .meta b{ color:var(--ink); font-weight:500; font-variant-numeric:tabular-nums; }
+
+  section{ margin-bottom:60px; }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:6px; flex-wrap:wrap; }
+  h2{
+    font-family:var(--font-display); font-weight:500; font-size:23px; margin:0;
+    letter-spacing:-0.02em; line-height:1.1;
+  }
+  .count-badge{
+    font-family:var(--font-mono); font-size:12px; color:var(--ink-dim);
+    border:1px solid var(--rule-strong); border-radius:20px; padding:2px 10px;
+    font-variant-numeric:tabular-nums;
+  }
+  .section-intro{ font-size:14.5px; line-height:1.6; color:var(--ink-dim); max-width:74ch; margin:10px 0 22px; }
+
+  .table-wrap{
+    overflow-x:auto; border:1px solid var(--rule); border-radius:10px; background:var(--bg-panel);
+  }
+  table{ border-collapse:collapse; width:100%; min-width:980px; }
+  thead th{
+    position:sticky; top:0; background:var(--bg-panel);
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-dim); text-align:left; padding:12px 16px; border-bottom:1px solid var(--rule-strong);
+    white-space:nowrap;
+  }
+  tbody td{
+    padding:13px 16px; border-bottom:1px solid var(--rule); font-size:14px; line-height:1.5;
+    vertical-align:top;
+  }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:hover td{ background: color-mix(in srgb, var(--accent) 5%, transparent); }
+  td.name{ font-family:var(--font-mono); font-size:13px; font-weight:500; color:var(--ink); max-width:220px; }
+  td.name small{ display:block; font-family:var(--font-body); font-weight:400; color:var(--ink-dim); font-size:12px; margin-top:2px; }
+  td.desc{ color:var(--ink); max-width:340px; }
+  td.benefit{ color:var(--ink-dim); max-width:260px; }
+  td.stars{ font-family:var(--font-mono); font-size:12.5px; color:var(--ink-dim); white-space:nowrap; font-variant-numeric:tabular-nums; }
+  td.link{ font-family:var(--font-mono); font-size:12px; white-space:nowrap; }
+  td.link a{ color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 45%, transparent); }
+  td.link a:hover{ border-bottom-color:var(--accent); }
+
+  .subgroup-row td{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--accent); background:color-mix(in srgb, var(--accent) 7%, transparent);
+    padding:9px 16px; border-bottom:1px solid var(--rule-strong);
+  }
+
+  footer{
+    border-top:1px solid var(--rule); padding-top:22px; margin-top:12px;
+    font-size:13px; color:var(--ink-dim);
+  }
+  footer code{ font-family:var(--font-mono); font-size:12px; background:color-mix(in srgb, var(--accent) 10%, transparent); padding:1px 6px; border-radius:4px; }
+  a{ color:var(--accent); }
+
+  @media (max-width:640px){
+    .page{ padding:40px 16px 64px; }
+    td.desc,td.benefit{ max-width:220px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="hero">
+    <h1>AI for GTM Systems — GitHub Repo Directory</h1>
+    <p class="dek">A curated directory of open-source GitHub repos useful for building AI-powered go-to-market systems — agent frameworks, workflow automation, web/lead data collection, MCP servers into the GTM stack, open-source CRM/support/lifecycle infra, AI outbound tooling, and analytics. Every repo was checked live against the GitHub API (not pulled from memory) so stars and descriptions are current. This is a first-pass overview — categories and picks are a starting point to refine, not a final list.</p>
+  </header>
+
+  <section id="repos">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Repo</th><th>Description</th><th>Why it matters for GTM</th><th>Stars</th><th>Link</th></tr></thead>
+        <tbody>
+
+          <tr class="subgroup-row"><td colspan="5">Agent orchestration &amp; frameworks</td></tr>
+          <tr><td class="name">langchain-ai/langchain</td><td class="desc">The agent engineering platform — chains, tools, memory, retrieval, and the biggest ecosystem of integrations of any agent framework.</td><td class="benefit">Default starting point when a GTM agent needs custom logic beyond what n8n/Trigger.dev cover out of the box.</td><td class="stars">143,011 ★</td><td class="link"><a href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">crewAIInc/crewAI</td><td class="desc">Framework for orchestrating role-playing, collaborative multi-agent crews that hand off work to each other.</td><td class="benefit">Good fit for GTM workflows that naturally split into roles — e.g. researcher agent → writer agent → QA agent.</td><td class="stars">56,395 ★</td><td class="link"><a href="https://github.com/crewAIInc/crewAI" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">microsoft/autogen</td><td class="desc">Microsoft's programming framework for agentic AI, with strong multi-agent conversation patterns.</td><td class="benefit">Enterprise-backed alternative when a client's stack is already Microsoft/Azure-leaning.</td><td class="stars">60,116 ★</td><td class="link"><a href="https://github.com/microsoft/autogen" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">run-llama/llama_index</td><td class="desc">Leading document-agent and retrieval platform — turns messy docs/PDFs/schemas into queryable indexes.</td><td class="benefit">The RAG layer for agents that need to reason over a client's playbooks, call transcripts, or knowledge base.</td><td class="stars">51,244 ★</td><td class="link"><a href="https://github.com/run-llama/llama_index" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">langflow-ai/langflow</td><td class="desc">Visual builder for AI-powered agents and workflows on top of LangChain-style components.</td><td class="benefit">Lets non-engineers on a GTM team prototype an agent flow visually before it gets hardened into code.</td><td class="stars">152,629 ★</td><td class="link"><a href="https://github.com/langflow-ai/langflow" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">pydantic/pydantic-ai</td><td class="desc">Type-safe agent framework from the Pydantic team — structured outputs and validation as first-class citizens.</td><td class="benefit">Best fit when an agent's output feeds directly into a CRM field or a downstream system that needs a strict schema.</td><td class="stars">18,907 ★</td><td class="link"><a href="https://github.com/pydantic/pydantic-ai" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">ComposioHQ/composio</td><td class="desc">1000+ pre-built tool integrations, auth, and a sandboxed workbench for connecting agents to real SaaS actions.</td><td class="benefit">Skips writing yet another Salesforce/HubSpot/Slack API wrapper — plugs an agent straight into the existing GTM stack.</td><td class="stars">29,468 ★</td><td class="link"><a href="https://github.com/ComposioHQ/composio" target="_blank" rel="noopener">repo →</a></td></tr>
+
+          <tr class="subgroup-row"><td colspan="5">Workflow &amp; automation platforms</td></tr>
+          <tr><td class="name">n8n-io/n8n</td><td class="desc">Fair-code workflow automation platform with native AI nodes, 400+ integrations, visual + code editing.</td><td class="benefit">The engine behind the entire template library in the companion doc — self-hostable, so a client can own the pipeline.</td><td class="stars">198,716 ★</td><td class="link"><a href="https://github.com/n8n-io/n8n" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">triggerdotdev/trigger.dev</td><td class="desc">Fully-managed platform for deploying long-running AI agents and background jobs as real TypeScript code.</td><td class="benefit">Where the fleet's own agents (SEO Agent, Competitor Monitor, Trend Video Ideas) actually run in production.</td><td class="stars">15,820 ★</td><td class="link"><a href="https://github.com/triggerdotdev/trigger.dev" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">activepieces/activepieces</td><td class="desc">Open-source automation platform built around AI agents and ~400 MCP servers as first-class pieces.</td><td class="benefit">n8n alternative that leans further into MCP-native tool use — worth a look when a workflow is mostly agent tool-calls.</td><td class="stars">23,503 ★</td><td class="link"><a href="https://github.com/activepieces/activepieces" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">windmill-labs/windmill</td><td class="desc">Open-source developer platform turning scripts into webhooks, workflows, and UIs — an open alternative to Retool/Temporal.</td><td class="benefit">Better fit than n8n when a GTM workflow needs real code (Python/TS) and a generated internal UI, not just node-chaining.</td><td class="stars">17,381 ★</td><td class="link"><a href="https://github.com/windmill-labs/windmill" target="_blank" rel="noopener">repo →</a></td></tr>
+
+          <tr class="subgroup-row"><td colspan="5">Web data collection &amp; research agents</td></tr>
+          <tr><td class="name">firecrawl/firecrawl</td><td class="desc">API to search, scrape, and interact with the web at scale, returning LLM-ready markdown.</td><td class="benefit">Already the agency's own scraping backbone — this is the upstream source repo.</td><td class="stars">158,269 ★</td><td class="link"><a href="https://github.com/firecrawl/firecrawl" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">browser-use/browser-use</td><td class="desc">Makes websites accessible to AI agents — drives a real browser to complete multi-step tasks online.</td><td class="benefit">For research/lead-gen tasks that need clicks and logins, not just a static page fetch (gated directories, login-walled data).</td><td class="stars">107,318 ★</td><td class="link"><a href="https://github.com/browser-use/browser-use" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">browserbase/stagehand</td><td class="desc">SDK for browser agents — natural-language browser actions with code-level fallback control.</td><td class="benefit">Alternative to browser-use with tighter developer control when a scraping flow needs to be production-hardened.</td><td class="stars">23,679 ★</td><td class="link"><a href="https://github.com/browserbase/stagehand" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">unclecode/crawl4ai</td><td class="desc">Open-source LLM-friendly web crawler and scraper, Playwright-based.</td><td class="benefit">Already the agency's own JS-heavy scraper tool (<code>crawl4ai_scraper.py</code>) — this is the upstream project.</td><td class="stars">75,632 ★</td><td class="link"><a href="https://github.com/unclecode/crawl4ai" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">apify/crawlee</td><td class="desc">Web scraping and browser automation library for Node/TS — proxy rotation, headful/headless, multiple engines.</td><td class="benefit">The library behind most Apify actors referenced throughout the n8n template library (Instagram/YouTube scrapers included).</td><td class="stars">25,112 ★</td><td class="link"><a href="https://github.com/apify/crawlee" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">scrapy/scrapy</td><td class="desc">Fast, high-level Python web crawling and scraping framework.</td><td class="benefit">Already the agency's own large/structured-crawl tool (<code>scrapy_scraper.py</code>) — this is the upstream project.</td><td class="stars">63,499 ★</td><td class="link"><a href="https://github.com/scrapy/scrapy" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">assafelovic/gpt-researcher</td><td class="desc">Autonomous agent that conducts deep, cited research on any topic across multiple LLM providers.</td><td class="benefit">Drop-in for account research, competitive intel, or market-sizing tasks that need a sourced report, not just a scrape.</td><td class="stars">28,741 ★</td><td class="link"><a href="https://github.com/assafelovic/gpt-researcher" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">yt-dlp/yt-dlp</td><td class="desc">Feature-rich command-line audio/video downloader supporting YouTube and thousands of other sites.</td><td class="benefit">The download step ahead of faster-whisper-youtube below (or any local transcription/analysis pipeline) — actively maintained, unlike most YouTube-download tools that break under API changes.</td><td class="stars">181,367 ★</td><td class="link"><a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">lewangdev/faster-whisper-youtube<small>inactive since 2023</small></td><td class="desc">Local YouTube video transcription using faster-whisper — pulls the audio and produces a full transcript, no API key needed.</td><td class="benefit">Feeds the YouTube RAG search pattern above, competitor/creator video research, or this workspace's own YouTube-to-Obsidian pipeline — at zero per-call cost since it runs locally.</td><td class="stars">558 ★</td><td class="link"><a href="https://github.com/lewangdev/faster-whisper-youtube" target="_blank" rel="noopener">repo →</a></td></tr>
+
+          <tr class="subgroup-row"><td colspan="5">MCP servers — connecting agents to the GTM stack</td></tr>
+          <tr><td class="name">modelcontextprotocol/servers</td><td class="desc">The official reference collection of Model Context Protocol servers (Slack, GitHub, filesystem, and more).</td><td class="benefit">Starting point before building a custom MCP server — check here first in case the integration already exists.</td><td class="stars">89,056 ★</td><td class="link"><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">HubSpot/mcp-server<small>official</small></td><td class="desc">HubSpot's own MCP server exposing CRM, Marketing, Sales, and Service Hub objects to MCP clients.</td><td class="benefit">Official > community fork when a client is already on HubSpot — least likely to break on API changes.</td><td class="stars">5 ★</td><td class="link"><a href="https://github.com/HubSpot/mcp-server" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">tsmztech/mcp-server-salesforce</td><td class="desc">Community MCP server for Salesforce — SOQL queries, record CRUD, metadata access.</td><td class="benefit">Most-starred Salesforce MCP option; no official one exists yet from Salesforce itself.</td><td class="stars">165 ★</td><td class="link"><a href="https://github.com/tsmztech/mcp-server-salesforce" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">korotovsky/slack-mcp-server</td><td class="desc">Full-featured Slack MCP server — channels, DMs, group DMs, smart history fetch, no special permission setup.</td><td class="benefit">For agents that need to read/post into Slack without going through Slack's app-approval process.</td><td class="stars">1,760 ★</td><td class="link"><a href="https://github.com/korotovsky/slack-mcp-server" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">GongRzhe/Gmail-MCP-Server</td><td class="desc">MCP server for Gmail with auto-authentication — send, read, and manage mail via natural language.</td><td class="benefit">The most-adopted Gmail MCP option for wiring an agent into outbound email or inbox monitoring.</td><td class="stars">1,165 ★</td><td class="link"><a href="https://github.com/GongRzhe/Gmail-MCP-Server" target="_blank" rel="noopener">repo →</a></td></tr>
+
+          <tr class="subgroup-row"><td colspan="5">Open-source CRM, support &amp; lifecycle infra</td></tr>
+          <tr><td class="name">twentyhq/twenty</td><td class="desc">Open-source CRM positioned as "the open alternative to Salesforce, designed for AI."</td><td class="benefit">Self-hostable CRM for a client who wants to own their data instead of paying Salesforce/HubSpot rent.</td><td class="stars">53,903 ★</td><td class="link"><a href="https://github.com/twentyhq/twenty" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">chatwoot/chatwoot</td><td class="desc">Open-source live chat, email support, and omnichannel help desk — alternative to Intercom/Zendesk.</td><td class="benefit">Covers the Retention/support side of the lifecycle when a client doesn't want another SaaS subscription.</td><td class="stars">34,921 ★</td><td class="link"><a href="https://github.com/chatwoot/chatwoot" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">calcom/cal.diy<small>formerly Cal.com</small></td><td class="desc">Open-source scheduling infrastructure for booking meetings/demos.</td><td class="benefit">The self-hosted engine behind "book a call" CTAs across the funnel — no per-seat scheduling SaaS fee.</td><td class="stars">47,071 ★</td><td class="link"><a href="https://github.com/calcom/cal.com" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">gitroomhq/postiz-app</td><td class="desc">Agentic social media scheduling tool — an open alternative to Buffer/Hootsuite.</td><td class="benefit">Self-hosted option for the multi-platform publishing pattern that shows up repeatedly in the n8n template library.</td><td class="stars">33,961 ★</td><td class="link"><a href="https://github.com/gitroomhq/postiz-app" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">formbricks/formbricks</td><td class="desc">Open-source survey and experience-management tool — an alternative to Qualtrics/Typeform.</td><td class="benefit">For NPS, in-app surveys, and feedback loops that feed the Retention/Expansion stages.</td><td class="stars">12,692 ★</td><td class="link"><a href="https://github.com/formbricks/formbricks" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">novuhq/novu</td><td class="desc">Open-source communication infrastructure for agents and products — email, SMS, push, in-app, unified.</td><td class="benefit">The notification layer for lifecycle sequences (onboarding nudges, renewal reminders) without gluing five providers together.</td><td class="stars">39,405 ★</td><td class="link"><a href="https://github.com/novuhq/novu" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">dubinc/dub</td><td class="desc">Modern link-attribution platform used by marketing teams at Framer, Perplexity, Twilio, and others.</td><td class="benefit">Self-hostable link shortener + attribution for tracking which channel/campaign actually drove a conversion.</td><td class="stars">24,196 ★</td><td class="link"><a href="https://github.com/dubinc/dub" target="_blank" rel="noopener">repo →</a></td></tr>
+
+          <tr class="subgroup-row"><td colspan="5">AI SDR &amp; outbound sales agents</td></tr>
+          <tr><td class="name">growthenginenowoslawski/coldoutboundskills</td><td class="desc">Open-source Claude Code skills for cold email and outbound sales — campaign grading, Prospeo export, Google Maps scraping.</td><td class="benefit">Directly usable as Claude Code skills rather than a standalone app — closest fit to how this workspace already operates.</td><td class="stars">581 ★</td><td class="link"><a href="https://github.com/growthenginenowoslawski/coldoutboundskills" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">filip-michalsky/SalesGPT<small>inactive since 2024</small></td><td class="desc">Context-aware AI sales agent framework for automating sales conversations and outreach.</td><td class="benefit">Useful as a reference implementation/pattern even though the repo itself hasn't shipped in ~2 years — check for maintained forks first.</td><td class="stars">2,707 ★</td><td class="link"><a href="https://github.com/filip-michalsky/SalesGPT" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">markster-public/markster-os</td><td class="desc">"B2B sales and marketing OS" that runs entirely inside Claude/GPT/Gemini — cold email to close, no dashboard, no SaaS.</td><td class="benefit">A chat-native alternative philosophy worth studying against this workspace's own agency-OS approach.</td><td class="stars">54 ★</td><td class="link"><a href="https://github.com/markster-public/markster-os" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">codyschneiderx/waterfall-gtm</td><td class="desc">Lead enrichment system with waterfall data providers, AI personalization, and HubSpot sync.</td><td class="benefit">A concrete "waterfall enrichment" pattern (try provider A, fall back to B, then C) worth stealing regardless of the specific providers wired in.</td><td class="stars">34 ★</td><td class="link"><a href="https://github.com/codyschneiderx/waterfall-gtm" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">Lead-Orchestra/awesome-b2b-leads<small>curated list</small></td><td class="desc">Curated collection of tools, frameworks, APIs, proxies, and n8n workflows for B2B scraping, enrichment, and CRM automation.</td><td class="benefit">A second opinion / cross-check source for the n8n template curation already done in the companion doc.</td><td class="stars">17 ★</td><td class="link"><a href="https://github.com/Lead-Orchestra/awesome-b2b-leads" target="_blank" rel="noopener">repo →</a></td></tr>
+
+          <tr class="subgroup-row"><td colspan="5">Product analytics &amp; growth</td></tr>
+          <tr><td class="name">PostHog/posthog</td><td class="desc">All-in-one platform for analytics, session replay, feature flags, experiments, and error tracking, steerable from Slack/MCP.</td><td class="benefit">The product-analytics half of GTM — pairs with the marketing-side tools above to close the loop from click to activation.</td><td class="stars">37,396 ★</td><td class="link"><a href="https://github.com/PostHog/posthog" target="_blank" rel="noopener">repo →</a></td></tr>
+
+          <tr class="subgroup-row"><td colspan="5">Curated meta-lists — further reading</td></tr>
+          <tr><td class="name">marketinguys/awesome-gtm-engineering</td><td class="desc">Curated list of tools/libraries/frameworks for "GTM Engineering" — growth, automation, attribution, analytics, experimentation.</td><td class="benefit">Broadest and most actively maintained GTM-engineering awesome-list found — good place to check before building something from scratch.</td><td class="stars">130 ★</td><td class="link"><a href="https://github.com/marketinguys/awesome-gtm-engineering" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">hculap/awesome-ai-gtm</td><td class="desc">Curated list of AI agents and tools for building autonomous GTM funnels, ideation through customer success.</td><td class="benefit">Small but directly on-topic — worth periodic re-checks as it grows.</td><td class="stars">8 ★</td><td class="link"><a href="https://github.com/hculap/awesome-ai-gtm" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">alternbits/awesome-ai-marketing</td><td class="desc">Curated list of top AI tools for marketing specifically.</td><td class="benefit">Marketing-side complement to the GTM-engineering list above.</td><td class="stars">136 ★</td><td class="link"><a href="https://github.com/alternbits/awesome-ai-marketing" target="_blank" rel="noopener">repo →</a></td></tr>
+          <tr><td class="name">caramaschiHG/awesome-ai-agents-2026</td><td class="desc">300+ resources across 20+ categories covering AI agents, frameworks, and tools broadly (not GTM-specific), updated monthly.</td><td class="benefit">Widest-angle list for scanning what's new in agent tooling generally, beyond the GTM-specific picks above.</td><td class="stars">1,512 ★</td><td class="link"><a href="https://github.com/caramaschiHG/awesome-ai-agents-2026" target="_blank" rel="noopener">repo →</a></td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p>Sourced via <code>gh search repos</code> / <code>gh api</code> against the live GitHub API on 2026-07-30 — every star count and description above was pulled fresh, not recalled from training data. First-pass overview: categories and picks are a starting point for the team to prune, re-group, or expand. Cross-references the same taxonomy and companion doc as <code>gtm-agent-inventory.html</code>.</p>
+  </footer>
+
+</div>
+</body>
+</html>
