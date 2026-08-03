@@ -403,7 +403,7 @@
     <h2>32 RevOps agents — <span>what fires them, and how the work really splits</span></h2>
   </div>
   <div class="subnote" style="text-align:left;margin-left:0;">
-    Not every agent is <b>Reasoning</b> — the split is a <i>dial</i>. Each section carries its tier's real split: <b>Reasoning · 10-80-10</b> when both neural miles earn their keep, <b>Guarded · ~5-90-5</b> when a structured trigger shrinks the first mile to a short closing note, <b>Guarded (drafted) · ≈5-60-35</b> when the deliverable is language, and <b>Deterministic · 0-100-0</b> for pure pipelines. A <i>deterministic trigger is free framing</i> — the more structured the event that wakes an agent, the smaller its neural first mile, the cheaper the model the switchboard picks.
+    Not every agent is 10-80-10 — the split is a <i>dial</i>. Each section carries its tier's real split: <b>10-80-10</b> for reasoning, <b>~5-90-5</b> for guarded judgment, <b>≈5-60-35</b> when the deliverable is language, <b>0-100-0</b> for pipelines. A <i>deterministic trigger is free framing</i> — the more structured the event that wakes an agent, the smaller its neural first mile, the cheaper the model the switchboard picks. Splits are illustrative estimates based on task shape, not measured telemetry.
   </div>
 
   <div class="flip">
@@ -442,7 +442,7 @@
     <tbody>
 
       <!-- NEUROSYMBOLIC -->
-      <tr class="secrow sec-neuro"><td colspan="7"><span class="sectitle">Neurosymbolic — full pattern, both neural miles earn their keep<span class="split">Reasoning · 10 - 80 - 10</span></span></td></tr>
+      <tr class="secrow sec-neuro"><td colspan="7"><span class="sectitle">Neurosymbolic — full pattern, both neural miles earn their keep<span class="split">10 - 80 - 10</span></span></td></tr>
       <tr class="r-neuro">
         <td><span class="agent">Forecast</span><span class="intent">Explain forecast risk before quarter close</span></td>
         <td><span class="trig">3 days pre-close</span><span class="ttype tt-sched">Schedule</span></td>
@@ -481,7 +481,7 @@
       </tr>
 
       <!-- GUARDED JUDGMENT -->
-      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded judgment — structured triggers shrink the edges<span class="split">Guarded · ~5 - 90 - 5</span></span></td></tr>
+      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded judgment — structured triggers shrink the edges<span class="split">~5 - 90 - 5</span></span></td></tr>
       <tr class="r-guard">
         <td><span class="agent">Deal risk</span><span class="intent">Surface slipping deals and why</span></td>
         <td><span class="trig">Deal untouched 14d / stage age</span><span class="ttype tt-thresh">Threshold</span></td>
@@ -592,7 +592,7 @@
       </tr>
 
       <!-- GUARDED DRAFTING -->
-      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded drafting — the deliverable is language, gated per item<span class="split">Guarded (drafted) · ≈5 - 60 - 35 · gated</span></span></td></tr>
+      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded drafting — the deliverable is language, gated per item<span class="split">≈5 - 60 - 35 · gated</span></span></td></tr>
       <tr class="r-guard">
         <td><span class="agent">Outbound</span><span class="intent">Research accounts, draft personalized outbound emails</span></td>
         <td><span class="trig">Inbound lead signal from the CRM</span><span class="ttype tt-event">Event</span></td>
@@ -622,7 +622,7 @@
       </tr>
 
       <!-- DETERMINISTIC PIPELINE -->
-      <tr class="secrow sec-pipe"><td colspan="7"><span class="sectitle">Deterministic pipeline — code computes; a model narrates at most<span class="split">Deterministic · 0 - 100 - 0&ensp;·&ensp;0 - 100 - 5</span></span></td></tr>
+      <tr class="secrow sec-pipe"><td colspan="7"><span class="sectitle">Deterministic pipeline — code computes; a model narrates at most<span class="split">0 - 100 - 0&ensp;·&ensp;0 - 100 - 5</span></span></td></tr>
       <tr class="r-pipe">
         <td><span class="agent">Call debrief</span><span class="intent">Turn calls into summaries and CRM fields</span></td>
         <td><span class="trig">Transcript ready</span><span class="ttype tt-event">Event</span></td>
@@ -755,7 +755,7 @@
     <h2>18 marketing agents — <span>what fires them, and how the work really splits</span></h2>
   </div>
   <div class="subnote" style="text-align:left;margin-left:0;">
-    The split is a <i>dial</i>, and marketing turns it differently: when the deliverable <i>is language</i>, the <b>last mile grows</b> — the draft is the product, and the switchboard routes it up a tier. Only <b>paid ads</b> closes its own loop and earns the neurosymbolic tier; for every other agent <b>a human closes the loop</b>, and every external action — post, publish, PR, send, spend — <b>stops at a human gate</b>.
+    The split is a <i>dial</i>, and marketing turns it differently: when the deliverable <i>is language</i>, the <b>last mile grows</b> — the draft is the product, and the switchboard routes it up a tier. Only <b>paid ads</b> closes its own loop and earns the neurosymbolic tier; for every other agent <b>a human closes the loop</b>, and every external action — post, publish, PR, send, spend — <b>stops at a human gate</b>. Splits are illustrative estimates based on task shape, not measured telemetry.
   </div>
 
   <div class="flip">
@@ -794,7 +794,7 @@
     <tbody>
 
       <!-- NEUROSYMBOLIC -->
-      <tr class="secrow sec-neuro"><td colspan="7"><span class="sectitle">Neurosymbolic — the one loop marketing closes itself<span class="split">Reasoning · 10 - 80 - 10</span></span></td></tr>
+      <tr class="secrow sec-neuro"><td colspan="7"><span class="sectitle">Neurosymbolic — the one loop marketing closes itself<span class="split">10 - 80 - 10</span></span></td></tr>
       <tr class="r-neuro">
         <td><span class="agent">Paid ads</span><span class="intent">Reallocate spend across campaigns against ROAS</span></td>
         <td><span class="trig">Daily pacing / ROAS check</span><span class="ttype tt-sched">Schedule</span></td>
@@ -806,7 +806,7 @@
       </tr>
 
       <!-- GUARDED ANALYSIS -->
-      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded analysis — audits &amp; scores are code, recs are judgment<span class="split">Guarded · ≈5 - 85 - 10 · gated</span></span></td></tr>
+      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded analysis — audits &amp; scores are code, recs are judgment<span class="split">≈5 - 85 - 10 · gated</span></span></td></tr>
       <tr class="r-guard">
         <td><span class="agent">SEO</span><span class="intent">Find, prioritize, and recommend ranking fixes</span></td>
         <td><span class="trig">Daily / weekly audit run</span><span class="ttype tt-sched">Schedule</span></td>
@@ -836,7 +836,7 @@
       </tr>
 
       <!-- GUARDED DRAFTING -->
-      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded drafting — the deliverable is language, the last mile grows<span class="split">Guarded (drafted) · ≈5 - 45 - 50 · gated</span></span></td></tr>
+      <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded drafting — the deliverable is language, the last mile grows<span class="split">≈5 - 45 - 50 · gated</span></span></td></tr>
       <tr class="r-guard">
         <td><span class="agent">Battlecard builder</span><span class="intent">Generate 9-section competitive battlecards + cited Slack Q&amp;A (Klue / Crayon alternative)</span></td>
         <td><span class="trig">@bot competitor mention in Slack</span><span class="ttype tt-event">Event</span></td>
@@ -938,7 +938,7 @@
       </tr>
 
       <!-- DETERMINISTIC PIPELINE -->
-      <tr class="secrow sec-pipe"><td colspan="7"><span class="sectitle">Deterministic pipeline — code or a generation API does the work<span class="split">Deterministic · 0 - 100 - 0&ensp;·&ensp;0 - 100 - 5</span></span></td></tr>
+      <tr class="secrow sec-pipe"><td colspan="7"><span class="sectitle">Deterministic pipeline — code or a generation API does the work<span class="split">0 - 100 - 0&ensp;·&ensp;0 - 100 - 5</span></span></td></tr>
       <tr class="r-pipe">
         <td><span class="agent">UGC video</span><span class="intent">Turn briefs into short video ads</span></td>
         <td><span class="trig">You request a video</span><span class="ttype tt-chat">On-demand</span></td>
