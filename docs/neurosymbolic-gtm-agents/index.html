@@ -546,15 +546,6 @@
         <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
       </tr>
       <tr class="r-guard">
-        <td><span class="agent">Lead routing</span><span class="intent">Route inbound leads instantly</span></td>
-        <td><span class="trig">New-lead webhook</span><span class="ttype tt-event">Event</span></td>
-        <td class="m-neural">Near-zero — the payload <em>is</em> the spec</td>
-        <td class="m-det">Routing rules assign 95% deterministically (territory/owner); model handles only the residue</td>
-        <td class="m-neural">Route reason on edge cases only</td>
-        <td class="tools">Routing rules, territory &amp; owner data, Clay, Slack</td>
-        <td class="models"><span class="mr">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">GPT-5 nano</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
-      </tr>
-      <tr class="r-guard">
         <td><span class="agent">GTM Assistant</span><span class="intent">Triage the inbox, run the calendar, deliver the daily brief</span></td>
         <td><span class="trig">Incoming email / daily brief cron</span><span class="ttype tt-event">Event</span></td>
         <td class="m-neural">Minimal — triage against a learned rubric (VIP senders, ignore rules) decides what matters</td>
@@ -657,6 +648,15 @@
         <td class="m-det">Classify mentions at volume across transcripts, news feeds, review sites</td>
         <td class="m-neural">Digest narration</td>
         <td class="tools">Call transcripts, news feeds, review sites</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">GPT-5 nano</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
+      <tr class="r-pipe">
+        <td><span class="agent">Lead routing</span><span class="intent">Route inbound leads instantly</span></td>
+        <td><span class="trig">New-lead webhook</span><span class="ttype tt-event">Event</span></td>
+        <td class="m-neural"><span class="none">None — the payload <em>is</em> the spec</span></td>
+        <td class="m-det">Routing rules assign 95% deterministically (territory/owner); model handles only the residue</td>
+        <td class="m-neural">Route reason on edge cases only</td>
+        <td class="tools">Routing rules, territory &amp; owner data, Clay, Slack</td>
         <td class="models"><span class="mr">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">GPT-5 nano</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
       </tr>
       <tr class="r-pipe">
