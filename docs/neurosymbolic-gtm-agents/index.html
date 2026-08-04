@@ -479,6 +479,15 @@
         <td class="tools">CRM stage history, rep commit log, close actuals</td>
         <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Grok 4</span><span class="sep">·</span><span class="mb">DeepSeek R1</span></td>
       </tr>
+      <tr class="r-neuro">
+        <td><span class="agent">Board reporting</span><span class="intent">Compile board reports on schedule</span></td>
+        <td><span class="trig">Monthly / quarterly</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame the period + metric set</td>
+        <td class="m-det">Pull metrics warehouse → compute → assemble deck deterministically</td>
+        <td class="m-neural">Exec-facing written commentary</td>
+        <td class="tools">Metrics warehouse, slides/docs API</td>
+        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Claude Opus 4.8</span></td>
+      </tr>
 
       <!-- GUARDED JUDGMENT -->
       <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded judgment — structured triggers shrink the edges<span class="split">~5 - 90 - 5</span></span></td></tr>
@@ -590,6 +599,15 @@
         <td class="tools">Bitscale (LinkedIn + review-site signals), Clay, RB2B, Warmly, Amplitude, Crossbeam, Instantly/HeyReach</td>
         <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
       </tr>
+      <tr class="r-guard">
+        <td><span class="agent">Meeting prep</span><span class="intent">Build a brief before every meeting</span></td>
+        <td><span class="trig">Meeting T − 1h</span><span class="ttype tt-sched">Schedule</span></td>
+        <td class="m-neural">Frame attendees + account</td>
+        <td class="m-det">Retrieval from calendar + CRM + web → assemble the brief</td>
+        <td class="m-neural">One-page brief</td>
+        <td class="tools">Calendar, CRM, web search</td>
+        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
+      </tr>
 
       <!-- GUARDED DRAFTING -->
       <tr class="secrow sec-guard"><td colspan="7"><span class="sectitle">Guarded drafting — the deliverable is language, gated per item<span class="split">≈5 - 60 - 35 · gated</span></span></td></tr>
@@ -633,27 +651,9 @@
         <td class="models"><span class="mr">Gemini 2.5 Flash-Lite</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 nano</span><span class="sep">·</span><span class="mb">Gemma 3</span><span class="sep">·</span><span class="mb">Mistral Small 3</span></td>
       </tr>
       <tr class="r-pipe">
-        <td><span class="agent">Meeting prep</span><span class="intent">Build a brief before every meeting</span></td>
-        <td><span class="trig">Meeting T − 1h</span><span class="ttype tt-sched">Schedule</span></td>
-        <td class="m-neural">Frame attendees + account</td>
-        <td class="m-det">Retrieval from calendar + CRM + web → assemble the brief</td>
-        <td class="m-neural">One-page brief</td>
-        <td class="tools">Calendar, CRM, web search</td>
-        <td class="models"><span class="mr">Gemini 2.5 Flash</span><span class="sep">·</span><span class="mb">Claude Haiku 4.5</span><span class="sep">·</span><span class="mb">GPT-5 mini</span><span class="sep">·</span><span class="mb">Qwen 3</span></td>
-      </tr>
-      <tr class="r-pipe">
-        <td><span class="agent">Board reporting</span><span class="intent">Compile board reports on schedule</span></td>
-        <td><span class="trig">Monthly / quarterly</span><span class="ttype tt-sched">Schedule</span></td>
-        <td class="m-neural">Frame the period + metric set</td>
-        <td class="m-det">Pull metrics warehouse → compute → assemble deck deterministically</td>
-        <td class="m-neural">Exec-facing written commentary</td>
-        <td class="tools">Metrics warehouse, slides/docs API</td>
-        <td class="models"><span class="mr">Claude Sonnet 5</span><span class="sep">·</span><span class="mb">Gemini 3 Pro</span><span class="sep">·</span><span class="mb">GPT-5</span><span class="sep">·</span><span class="mb">Claude Opus 4.8</span></td>
-      </tr>
-      <tr class="r-pipe">
         <td><span class="agent">Competitive intel</span><span class="intent">Aggregate competitor mentions</span></td>
         <td><span class="trig">New transcript/news / weekly</span><span class="ttype tt-event">Event</span></td>
-        <td class="m-neural">Frame the competitor set</td>
+        <td class="m-neural"><span class="none">None — the competitor roster is standing config</span></td>
         <td class="m-det">Classify mentions at volume across transcripts, news feeds, review sites</td>
         <td class="m-neural">Digest narration</td>
         <td class="tools">Call transcripts, news feeds, review sites</td>
