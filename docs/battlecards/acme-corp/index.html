@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Battlecard — Acme Corp</title>
+<style>
+  :root { --teal: #5eead4; --black: #0a0a0a; --gray: #6b7280; --border: #d1d5db; --danger: #dc2626; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "Segoe UI", Arial, sans-serif; background: #fff; color: #111; }
+  header.hero { background: var(--black); padding: 28px 40px; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  header.hero h1 { color: var(--teal); margin: 0; font-size: 28px; }
+  header.hero .badge { color: #fca5a5; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .meta { color: #6b7280; font-size: 13px; padding: 8px 40px 0; }
+  main { display: grid; grid-template-columns: 320px 1fr; gap: 24px; padding: 24px 40px 48px; align-items: start; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  .left-col, .right-col { display: flex; flex-direction: column; gap: 20px; }
+  .box, .panel { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .box-header, .panel-header { padding: 10px 16px; font-weight: 700; font-size: 13px; letter-spacing: .02em; text-transform: uppercase; }
+  .box-header.teal { background: var(--teal); color: #063a35; }
+  .panel-header.gray { background: var(--gray); color: #fff; }
+  .box-body, .panel-body { padding: 14px 16px; font-size: 14px; line-height: 1.6; }
+  ul { margin: 0; padding-left: 18px; }
+  p { margin: 0 0 10px; }
+  p:last-child { margin-bottom: 0; }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 14px; }
+  .kv dt { color: #6b7280; }
+  .kv dd { margin: 0; font-weight: 600; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .action-pill { border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; font-size: 13px; font-weight: 600; }
+  .action-pill.primary { background: var(--teal); border-color: var(--teal); color: #063a35; }
+  .action-pill.danger { background: #fee2e2; border-color: var(--danger); color: var(--danger); }
+  footer { padding: 16px 40px; font-size: 12px; color: #9ca3af; }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <h1>🔥 Acme Corp</h1>
+    <span class="badge">Live webinar signal</span>
+  </header>
+  <div class="meta">Battlecard generated 2026-09-29T14:44:35.513Z · acmecorp.com</div>
+  <main>
+    <div class="left-col">
+      <div class="box">
+        <div class="box-header teal">Account Snapshot</div>
+        <div class="box-body">
+          <dl class="kv">
+            <dt>Pipeline</dt><dd>evaluation</dd>
+            <dt>Owner (AE)</dt><dd>Dana AE</dd>
+            <dt>Owner (SDR)</dt><dd>Sam SDR</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header teal">Live Signal</div>
+        <div class="box-body">
+          <p><strong>Q&amp;A:</strong> "How does this compare to Clari and Gong for forecasting?"</p>
+          <p><strong>Poll:</strong> Evaluating vendors now</p>
+          <p><strong>Dwell time:</strong> 30 min</p>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header teal">Suggested Actions</div>
+        <div class="box-body actions">
+          <span class="action-pill primary">Claim Lead</span>
+          <span class="action-pill">Review Talking Points</span>
+          <span class="action-pill danger">Launch Sequence</span>
+        </div>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="panel">
+        <div class="panel-header gray">Account Summary</div>
+        <div class="panel-body"><p>Acme Corp is actively evaluating forecasting tools during this webinar, with a direct question comparing us to Clari and Gong — a strong buying-committee signal given their current evaluation-stage pipeline status.</p></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header gray">Competitors Flagged</div>
+        <div class="panel-body">
+          <ul><li>Clari</li><li>Gong</li></ul>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header gray">Objection Talking Points</div>
+        <div class="panel-body">
+          <ul><li>Clari's forecasting requires a heavier CRM data-hygiene lift before it's accurate — ours works with messier pipeline data out of the box.</li><li>Gong's pricing scales steeply per seat at Acme's headcount; our pricing model doesn't penalize team growth.</li><li>Neither competitor ships the live-intent-to-Slack loop this webinar signal itself demonstrates.</li></ul>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>Bowtie Funnel — Account Intelligence &amp; Dynamic Battlecard Agent (demo)</footer>
+</body>
+</html>
